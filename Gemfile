@@ -72,3 +72,10 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "devise"
+gem "pg_search"
+gem "cloudinary"
+gem "stripe"
+gem "geocoder"
+gem "pundit"
