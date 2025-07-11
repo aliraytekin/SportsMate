@@ -9,7 +9,7 @@ class CreateEvents < ActiveRecord::Migration[7.1]
       t.datetime :end_time
       t.string :address
       t.string :venue
-      t.integer :max_participant
+      t.integer :max_participants
       t.integer :status, null: false, default: 1
       t.float :price_per_participant
 

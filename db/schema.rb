@@ -23,7 +23,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_09_183333) do
     t.datetime "end_time"
     t.string "address"
     t.string "venue"
-    t.integer "max_participant"
+    t.integer "max_participants"
     t.integer "status", default: 1, null: false
     t.float "price_per_participant"
     t.datetime "created_at", null: false
@@ -32,15 +32,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_09_183333) do
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
-  create_table "participants", force: :cascade do |t|
+  create_table "participations", force: :cascade do |t|
     t.bigint "event_id", null: false
     t.bigint "user_id", null: false
     t.integer "status", default: 1, null: false
     t.integer "payment_status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["event_id"], name: "index_participants_on_event_id"
-    t.index ["user_id"], name: "index_participants_on_user_id"
+    t.index ["event_id"], name: "index_participations_on_event_id"
+    t.index ["user_id"], name: "index_participations_on_user_id"
   end
 
   create_table "sports", force: :cascade do |t|
@@ -73,8 +73,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_09_183333) do
 
   add_foreign_key "events", "sports"
   add_foreign_key "events", "users"
-  add_foreign_key "participants", "events"
-  add_foreign_key "participants", "users"
+  add_foreign_key "participations", "events"
+  add_foreign_key "participations", "users"
   add_foreign_key "user_sport_interests", "sports"
   add_foreign_key "user_sport_interests", "users"
 end
