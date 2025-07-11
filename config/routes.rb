@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  get 'participation/index'
+  get 'participation/new'
+  get 'participation/create'
+  get 'participation/edit'
+  get 'participation/update'
   devise_for :users
   root to: "pages#home"
 
@@ -19,7 +24,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :participants, only: %i[index new create edit update] do
+  resources :participations, only: %i[index new create edit update] do
     member do
       patch :cancel_participation
       patch :refund
