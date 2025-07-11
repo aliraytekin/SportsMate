@@ -6,5 +6,6 @@ class User < ApplicationRecord
 
   has_many :participants, dependent: :destroy
   has_many :events, through: :participants
-  has_many :sports, through: :user_sports_interests
+  has_many :user_sports_interests, dependent: :destroy
+  has_many :sports, through: :user_sports_interests, dependent: :destroy
 end
