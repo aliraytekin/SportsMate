@@ -1,4 +1,4 @@
-class Participant < ApplicationRecord
+class Participation < ApplicationRecord
   enum status: { cancelled: -1, attending: 1 }
   enum payment_status: { refunded: -1, pending: 0, paid: 1 }
 
