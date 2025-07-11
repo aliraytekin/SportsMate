@@ -5,8 +5,9 @@ class Event < ApplicationRecord
 
   belongs_to :user
   belongs_to :sport
-  has_many :participants, dependent: :destroy
-  has_many :users, through: :participants
+  has_many :participations, dependent: :destroy
+  has_many :users, through: :participations
+  # has_many_attached :photos
 
   validates :title, presence: true, length: { maximum: 100 }
   validates :description, presence: true, length: { minimum: 20 }
