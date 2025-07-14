@@ -7,6 +7,8 @@ class Event < ApplicationRecord
   belongs_to :sport
   has_many :participations, dependent: :destroy
   has_many :users, through: :participations
+  geocoded_by :address
+  after_validation :geocode, if: :will_save_change_to_address?
   # has_many_attached :photos
 
   validates :title, presence: true, length: { maximum: 100 }
