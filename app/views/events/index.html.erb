@@ -1,17 +1,67 @@
-<h1>Events#index</h1>
-<p>Find me in app/views/events/index.html.erb</p>
-
 <div class="container">
-  <% @events.each do |event| %>
-  <%= event.title %>
-  <%= event.venue %>
+  <div class="row justify-content-center">
+    <div class="col-sm-10 my-3">
+      <%= form_with url: events_path, method: :get, local: true do |f| %>
+        <div class="row g-2 align-items-end">
+
+          <div class="col-md-4">
+            <%= f.text_field :query,
+              value: params[:query],
+              class: "form-control me-2",
+              placeholder: "Search events, sports, users, etc..." %>
+          </div>
+
+          <div class="col-md-3">
+            <%= f.date_field :date,
+              value: params[:date],
+              placeholder: "Select date",
+              class: "form-control",
+              data: { controller: "flatpickr" } %>
+          </div>
+
+          <% if user_signed_in? && current_user.sports.present? %>
+            <div class="col-md-4">
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Choose your favorite sports
+                </button>
+                <ul class="dropdown-menu p-3" style="min-width: 250px;">
+                  <% current_user.sports.each do |sport| %>
+                    <li>
+                      <div class="form-check">
+                        <%= check_box_tag "favorite_sports[]", sport.id,
+                              params[:favorite_sports]&.include?(sport.id.to_s),
+                              class: "form-check-input",
+                              id: "sport_#{sport.id}" %>
+                        <%= label_tag "sport_#{sport.id}", sport.name, class: "form-check-label" %>
+                      </div>
+                    </li>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          <% end %>
+
+          <div class="col-md-auto">
+              <%= f.submit "Search", class: "btn btn-primary" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <% if @events.any? %>
+    <% @events.each do |event| %>
+      <p><%= event.title %></p>
+      <p><%= event.start_time %></p>
+      <p><%= event.description %></p>
+    <% end %>
   <% end %>
 </div>
 
-<div class="container">
-<div data-controller="map"
+<div class="container mb-4">
+  <div style="width: 100%; height: 400px;"
+    data-controller="map"
     data-map-markers-value="<%= @markers.to_json %>"
-    data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
-    style='width: 100%; height: 300px;'>
-  </div>
+    data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>
 </div>
