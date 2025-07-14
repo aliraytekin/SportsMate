@@ -1,1 +1,21 @@
-// Specific CSS for your home-page
+.hero {
+  background-color: #fff4e6;
+}
+
+.card img {
+  display: block;
+  margin: 0 auto 1rem;
+}
+
+.cta-section {
+  border-top: 1px solid #ddd;
+}
+
+.cta-section h2 {
+  color: #222;
+}
+
+.cta-section .btn-primary {
+  font-weight: 600;
+  font-size: 1.125rem;
+}
