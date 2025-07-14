@@ -1,0 +1,17 @@
+
+<div class="events-wrap">
+      <div class="container mt-2">
+        <%= simple_form_for @event, html: { multipart: true } do |f| %>
+          <%= f.input :title %>
+          <%= f.input :description, as: :text, input_html: { rows: 5 } %>
+          <%= f.input :address %>
+
+          <%# <%= f.input :photos, as: :file, input_html: { multiple: true } %>
+
+          <div class="form-actions mb-2">
+            <%= f.button :submit, class: "btn btn-primary me-1" %>
+            <%# <%= link_to "Cancel request", root_path, class: "btn btn-danger" %>
+          </div>
+        <% end %>
+      </div>
+</div>
