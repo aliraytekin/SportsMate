@@ -1,11 +1,86 @@
-<div class="row justify-content-center">
-  <div class="col-sm-8 my-3">
-    <%= form_tag events_path, method: :get, local: true, class: "d-flex" do %>
-      <%= text_field_tag :query,
-            params[:query],
-            class: "form-control me-2",
-            placeholder: "Search events, sports, users, etc..." %>
-      <%= submit_tag "Search", class: "btn btn-primary" %>
-    <% end %>
+<div class="hero text-center py-5">
+  <div class="container">
+    <h1 class="display-4 fw-bold mb-3">Train together.<br>Stay motivated.</h1>
+    <p class="lead text-muted mb-4">
+      Find your workout buddy or join a nearby event — it’s simple and fun!
+    </p>
+    <div class="d-flex justify-content-center gap-3 mb-5 flex-wrap">
+      <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary px-4 py-2" %>
+      <%= link_to "Learn More", "#features", class: "btn btn-outline-primary px-4 py-2" %>
+    </div>
+  </div>
+</div>
+
+
+<div id="features" class="container py-5">
+  <div class="row text-center">
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" class="mb-3" width="48" alt="Map">
+          <h5 class="card-title fw-semibold">Find Nearby Events</h5>
+          <p class="card-text text-muted">Use the map to explore local sports activities around you.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <img src="https://cdn-icons-png.flaticon.com/512/1077/1077012.png" class="mb-3" width="48" alt="Group">
+          <h5 class="card-title fw-semibold">Join or Create Groups</h5>
+          <p class="card-text text-muted">Train with people who share your goals and energy.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <img src="https://cdn-icons-png.flaticon.com/512/747/747310.png" class="mb-3" width="48" alt="Calendar">
+          <h5 class="card-title fw-semibold">Plan & Track Activities</h5>
+          <p class="card-text text-muted">Register for events and stay consistent with your schedule.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="py-5">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-5">How it works</h2>
+    <div class="row justify-content-center gx-4 gy-4">
+      <div class="col-sm-6 col-md-3">
+        <div class="p-4 h-100 border rounded shadow-sm bg-white">
+          <div class="text-primary fs-3 mb-2">①</div>
+          <p class="mb-0">Create your free SportsMate account</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3">
+        <div class="p-4 h-100 border rounded shadow-sm bg-white">
+          <div class="text-primary fs-3 mb-2">②</div>
+          <p class="mb-0">Select your sport and location</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3">
+        <div class="p-4 h-100 border rounded shadow-sm bg-white">
+          <div class="text-primary fs-3 mb-2">③</div>
+          <p class="mb-0">Discover local events or groups</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3">
+        <div class="p-4 h-100 border rounded shadow-sm bg-white">
+          <div class="text-primary fs-3 mb-2">④</div>
+          <p class="mb-0">Join and train together 💪</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="cta-section py-5 bg-light">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-4 fs-2">Ready to join the community?</h2>
+    <%= link_to "Sign Up Now", new_user_registration_path, class: "btn btn-primary btn-lg px-5 py-3 rounded-pill shadow-sm" %>
   </div>
 </div>
