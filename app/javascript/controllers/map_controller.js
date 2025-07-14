@@ -1,5 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import mapboxgl from "mapbox-gl"
+import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder"
 
 export default class extends Controller {
   static values = {
@@ -8,7 +9,7 @@ export default class extends Controller {
   }
 
   connect() {
-    // mapboxgl.accessToken = this.apiKeyValue; // This synthax not working, the api key is empoty when console.log ?!
+    // mapboxgl.accessToken = this.apiKeyValue; // This synthax not working, the api key is empty when console.log ?!
     mapboxgl.accessToken = 'pk.eyJ1IjoiYXJlZmxhbSIsImEiOiJjbWQxamlhbTAwejB0Mmtxd2dobHpkanc2In0.bzG-eH-Zw-oFRTFHAiA5fQ';
     this.map = new mapboxgl.Map({
     container: this.element, // container ID
@@ -18,6 +19,10 @@ export default class extends Controller {
     })
      this.#addMarkersToMap();
      this.#fitMapToMarkers();
+     this.map.addControl(new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      mapboxgl: mapboxgl })
+     )
   }
 #addMarkersToMap() {
   this.markersValue.forEach((marker) => {
