@@ -224,6 +224,8 @@ GEM
       racc (~> 1.4)
     orm_adapter (0.5.0)
     ostruct (0.6.2)
+    pexels (0.5.0)
+      requests (~> 1.0.2)
     pg (1.5.9)
     pg_search (2.3.7)
       activerecord (>= 6.1)
@@ -285,6 +287,7 @@ GEM
     regexp_parser (2.10.0)
     reline (0.6.1)
       io-console (~> 0.5)
+    requests (1.0.2)
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
@@ -367,6 +370,7 @@ DEPENDENCIES
   geocoder
   importmap-rails
   jbuilder
+  pexels
   pg (~> 1.1)
   pg_search
   puma (>= 5.0)
