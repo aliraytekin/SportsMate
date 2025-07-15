@@ -1,11 +1,11 @@
 <div class="form-wrapper">
-  <div class="form8">
-    <h2 class="form8-heading">🎖️ Build your sports profile</h2>
+  <div class="form">
+    <h2 class="form-heading">🎖️ Build your sports profile</h2>
 
     <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= f.error_notification %>
 
-      <div class="form-inputs">
+      <div class="form-inputs row justify-content-center">
         <%= f.input :first_name,
                     required: true,
                     autofocus: true,
