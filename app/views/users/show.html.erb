@@ -1,0 +1,14 @@
+<div class="container mt-4">
+  <% if @user == current_user %>
+    <h1><%= "Welcome #{@user.first_name}"%></h1>
+    <p><%= @user.bio %></p>
+  <% else %>
+    <h1><%= "#{@user.first_name} #{@user.last_name}" %></h1>
+    <p><%= @user.bio %></p>
+    <% unless current_user.following.include?(@user) %>
+      <%= button_to "Follow him", user_follows_path(@user) , method: :post, class: "simple-primary-button" %>
+    <% else %>
+      <%= button_to "Unfollow him", follow_path(current_user.active_follows.find_by(followed_id: @user.id)), method: :delete, class: "simple-primary-button" %>
+    <% end %>
+  <% end %>
+</div>
