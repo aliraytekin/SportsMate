@@ -1,0 +1,101 @@
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 600px;
+  height: max-content;
+  padding: 25px;
+  border-radius: 25px;
+  background-color: #e5e7eb;
+  box-shadow: #3b82f6 0px 30px 30px -20px;
+}
+
+.form-heading {
+  font-weight: 800;
+  font-size: 26px;
+  color: #3b82f6;
+}
+
+.form form {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form-text {
+  margin-top: 12px;
+}
+
+.form form input, .form form textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 15px;
+  border-radius: 18px;
+  margin-top: 15px;
+  background-color: #fff;
+  box-shadow: #3b82f6 0px 10px 10px -5px;
+}
+
+.form form input[type="file"] {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 14px;
+  border-radius: 18px;
+  background-color: #fff;
+  box-shadow: #3b82f6 0px 10px 10px -5px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.form form input::placeholder {
+  color: #4e4e4e;
+}
+
+//
+
+.form-login form input::placeholder {
+  color: #4e4e4e;
+}
+
+.form-login input[type="email"],
+.form-login input[type="password"],
+.form-login input[type="text"] {
+  width: 100%;
+  padding: 16px 20px;       /* more height */
+  font-size: 16px;          /* slightly bigger font */
+  border-radius: 18px;
+  background-color: #fff;
+  box-shadow: #c6aeff 0px 10px 10px -5px;
+  border: none;
+  outline: none;
+  margin-top: 15px;
+  font-family: "Inter", sans-serif;
+}
+
+.form-login {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 600px;
+  height: max-content;
+  padding: 25px;
+  border-radius: 25px;
+  background-color: #e5e7eb;
+  box-shadow: #3b82f6 0px 30px 30px -20px;
+}
+
+.form-heading {
+  font-weight: 800;
+  font-size: 26px;
+  color: #3b82f6;
+}

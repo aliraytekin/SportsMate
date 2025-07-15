@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
+  get 'users/show'
   devise_for :users
   root to: "pages#home"
 
   resources :users do
     resources :user_sports_interests, only: %i[index new create edit update destroy]
+    resources :follows, only: %i[create]
   end
+
+  resources :follows, only: %i[destroy]
 
   resources :events, only: %i[index show new create edit update] do
     member do
