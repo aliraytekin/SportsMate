@@ -1,0 +1,25 @@
+
+<div class="events-wrap">
+      <div class="container mt-2">
+        <%= simple_form_for @event, html: { multipart: true } do |f| %>
+          <%= f.input :title %>
+          <%= f.input :description, as: :text, input_html: { rows: 5 } %>
+          <%= f.input :country %>
+          <%= f.input :street %>
+          <%= f.input :city %>
+          <%= f.input :max_participants %>
+          <%= f.input :free %>
+          <%= f.input :start_time, as: :string, placeholder: "Start date",label: false, input_html: { data: { controller: "flatpickr", action: "input->price#update" } } %>
+          <%= f.input :end_time, as: :string, placeholder: "End date",label: false, input_html: { data: { controller: "flatpickr", action: "input->price#update" } } %>
+          <%= f.input :venue, collection: Event::VENUES, prompt: "Select a type of venue" %>
+
+
+          <%# <%= f.input :photos, as: :file, input_html: { multiple: true } %>
+
+          <div class="form-actions mb-2">
+            <%= f.button :submit, class: "btn btn-primary me-1" %>
+            <%# <%= link_to "Cancel request", root_path, class: "btn btn-danger" %>
+          </div>
+        <% end %>
+      </div>
+</div>
