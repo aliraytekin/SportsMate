@@ -2,8 +2,11 @@ class EventsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
   before_action :set_events, only: %i[show edit update]
 
+  after_action :verify_authorized, except: :index
+  after_action :verify_policy_scoped, only: :index
+
   def index
-    @events = Event.all
+    @events = policy_scope(Event)
 
     @markers = @events.geocoded.map do |event|
       {
@@ -40,11 +43,15 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
+    authorize @event
   end
 
   def create
     @event = Event.new(event_params)
     @event.user = current_user
+
+    authorize @event
+
     if @event.save
       redirect_to @event, notice: "The event was created successfully."
     else
@@ -70,6 +77,7 @@ class EventsController < ApplicationController
 
   def set_events
     @event = Event.find(params[:id])
+    authorize @event
   end
 
   def event_params
