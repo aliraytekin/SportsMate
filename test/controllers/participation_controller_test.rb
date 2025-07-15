@@ -26,3 +26,13 @@ class ParticipationControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 end
+
+test "index should respond successfully" do
+  get participation_index_url
+  assert_response :success
+end
+
+test "index should render the index template" do
+  get participation_index_url
+  assert_template :index
+end
