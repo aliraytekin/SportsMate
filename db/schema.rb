@@ -57,11 +57,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_15_102019) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "free", default: true
-    t.float "latitude"
-    t.float "longitude"
     t.string "street"
     t.string "city"
     t.string "country"
+    t.float "latitude"
+    t.float "longitude"
     t.index ["sport_id"], name: "index_events_on_sport_id"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
