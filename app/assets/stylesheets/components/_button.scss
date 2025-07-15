@@ -1,0 +1,74 @@
+.shining-button {
+  background: linear-gradient(to right, #3B82F6, #6a00ff);
+  color: white;
+  font-weight: 300;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 25px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  text-decoration: none;
+}
+
+.shining-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: skewX(-20deg);
+  transition: left 0.5s ease;
+}
+
+.shining-button:hover::before {
+  left: 80%;
+}
+
+.shining-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+//
+
+.simple-primary-button {
+  background-color: #3B82F6;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.15s ease;
+  text-decoration: none;
+}
+
+.simple-primary-button:hover {
+  background-color: #2563eb; /* darker blue on hover */
+  transform: translateY(-2px);
+}
+
+.simple-primary-button:active {
+  transform: translateY(0);
+  background-color: #1d4ed8; /* even darker blue on click */
+}
+
+//
+
+.simple-primary-button.outline {
+  background-color: white;
+  color: #3B82F6;
+  border: 2px solid #3B82F6;
+}
+
+.simple-primary-button.outline:hover {
+  background-color: #3B82F6;
+  color: white;
+}
+
+//
