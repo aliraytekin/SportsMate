@@ -14,6 +14,7 @@
             <%= form_with(model: [@event, @participation], local: true) do |form| %>
               <%= form.hidden_field :user_id, value: current_user.id %>
               <%= form.submit "Join Event", class: "simple-primary-button me-2" %>
+             <%= link_to "Back", event_path(@event), class: "simple-primary-button me-2" %>
             <% end %>
           <% else %>
             <button class="simple-primary-button me-2" disabled>Joined Event</button>
