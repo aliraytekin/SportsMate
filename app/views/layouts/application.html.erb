@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    
+
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.13.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.13.0/mapbox-gl.js"></script>
 
@@ -16,6 +16,11 @@
 
   <body>
     <%= render "shared/navbar", event: @event %>
+    <% if notice %>
+      <div class="alert alert-success"><%= notice %></div>
+    <% elsif alert %>
+      <div class="alert alert-danger"><%= alert %></div>
+    <% end %>
     <%= yield %>
   </body>
 </html>

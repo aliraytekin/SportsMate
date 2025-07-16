@@ -1,4 +1,4 @@
-class ParticipantPolicy < ApplicationPolicy
+class ParticipationPolicy < ApplicationPolicy
   class Scope < ApplicationPolicy::Scope
     def resolve
       scope.all
@@ -20,4 +20,5 @@ class ParticipantPolicy < ApplicationPolicy
   def update?
     record.user == user
   end
+
 end
