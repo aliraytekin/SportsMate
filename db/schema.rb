@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_17_083935) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_17_203944) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -85,6 +85,19 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_17_083935) do
     t.index ["follower_id"], name: "index_follows_on_follower_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "recipient_id", null: false
+    t.bigint "actor_id", null: false
+    t.bigint "event_id", null: false
+    t.string "action"
+    t.boolean "read", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["actor_id"], name: "index_notifications_on_actor_id"
+    t.index ["event_id"], name: "index_notifications_on_event_id"
+    t.index ["recipient_id"], name: "index_notifications_on_recipient_id"
+  end
+
   create_table "participations", force: :cascade do |t|
     t.bigint "event_id", null: false
     t.bigint "user_id", null: false
@@ -123,6 +136,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_17_083935) do
     t.string "first_name"
     t.string "last_name"
     t.text "bio"
+    t.string "provider"
+    t.string "uid"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -135,6 +150,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_17_083935) do
   add_foreign_key "events", "users"
   add_foreign_key "follows", "users", column: "followed_id"
   add_foreign_key "follows", "users", column: "follower_id"
+  add_foreign_key "notifications", "events"
+  add_foreign_key "notifications", "users", column: "actor_id"
+  add_foreign_key "notifications", "users", column: "recipient_id"
   add_foreign_key "participations", "events"
   add_foreign_key "participations", "users"
   add_foreign_key "user_sport_interests", "sports"

@@ -73,6 +73,11 @@ class EventsController < ApplicationController
   end
 
   def cancel_event
+    @event = Event.find(params[:id])
+    authorize @event, :cancel?
+
+    @event.cancelled!
+    redirect_to @event, notice: "Event cancelled."
   end
 
   private
