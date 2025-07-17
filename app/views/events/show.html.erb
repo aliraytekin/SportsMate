@@ -1,3 +1,11 @@
-<div>
- <%= link_to "Participate", new_event_participation_path(@event), class: "simple-primary-button me-2" %>
+<div class="mt-3">
+  <% if current_user && @event.participations.exists?(user_id: current_user.id) %>
+    <button class="simple-primary-button me-2" disabled>Joined</button>
+  <% else %>
+    <%= link_to "Participate", new_event_participation_path(@event), class: "simple-primary-button me-2" %>
+  <% end %>
+
+  <% if policy(@event).edit? %>
+    <%= link_to "Edit", edit_event_path(@event), class: "simple-primary-button me-2" %>
+  <% end %>
 </div>
