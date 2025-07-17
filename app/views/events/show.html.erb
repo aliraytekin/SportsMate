@@ -1,9 +1,11 @@
-<%= turbo_stream_from "event_#{@event.id}_comments" %>
+<div class="container">
+  <%= turbo_stream_from "event_#{@event.id}_comments" %>
 
-<%= turbo_frame_tag "comments" do %>
-  <%= render @event.comments %>
-<% end %>
+  <%= turbo_frame_tag "comments" do %>
+    <%= render @event.comments %>
+  <% end %>
 
-<%= turbo_frame_tag "new_comment" do %>
-  <%= render "comments/form", comment: Comment.new, event: @event %>
-<% end %>
+  <%= turbo_frame_tag "new_comment" do %>
+    <%= render "comments/form", comment: Comment.new, event: @event %>
+  <% end %>
+</div>
