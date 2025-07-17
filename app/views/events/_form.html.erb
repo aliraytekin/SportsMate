@@ -1,6 +1,7 @@
 <div class="form-wrapper">
   <div class="form">
-    <div class="container mt-2">
+    <h2 class="form-heading text-center">Game Time 🎉</h2>
+    <div class="container mt-2" data-controller="toggle-price">
       <%= simple_form_for @event, html: { multipart: true } do |f| %>
         <div class="form-inputs row justify-content-center">
           <%= f.input :title %>
@@ -12,19 +13,25 @@
           <%= f.input :max_participants %>
         </div>
         <div class="form-checkbox-wrapper">
-          <input type="checkbox" name="event[free]" id="event_free" class="form-checkbox" <%= @event.free? ? "checked" : "" %>>
-  <label for="event_free" class="form-checkbox-label">Free</label>
+          <label for="event_free" class="form-checkbox-label">Free event?</label>
+          <input type="checkbox"
+          name="event[free]"
+          id="event_free"
+          class="form-checkbox"
+          data-toggle-price-target="checkbox"
+          data-action="change->toggle-price#toggle"
+          <%= @event.free? ? "checked" : "" %>
+          >
         </div>
-
         <div class="form-inputs row justify-content-center">
-          <%# <%= f.input :price_per_participant %>
+          <div id="price-field" data-toggle-price-target="priceField" style="<%= @event.free ? 'display: none;' : '' %>">
+            <%= f.input :price_per_participant, label: "Price per participant" %>
+          </div>
+
           <%= f.input :start_time, as: :string, label: "Starting time", input_html: { data: { controller: "flattime" } } %>
           <%= f.input :end_time, as: :string, label: "Ending time", input_html: { data: { controller: "flattime" } } %>
           <%= f.input :venue, collection: Event::VENUES, prompt: "Select a type of venue" %>
-
-
           <%= f.input :photos, as: :file, input_html: { multiple: true } %>
-
         </div>
 
         <div class="form-actions mb-2">

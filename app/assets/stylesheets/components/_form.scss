@@ -19,7 +19,7 @@
 
 .form-heading {
   font-weight: 800;
-  font-size: 26px;
+  font-size: 30px;
   color: #3b82f6;
 }
 
@@ -63,10 +63,9 @@
   color: #4e4e4e;
 }
 
+//
 
 .form-checkbox-wrapper {
-  display: flex;
-  align-items: center;
   gap: 10px;
   margin-top: 15px;
   margin-bottom: 10px;
@@ -74,23 +73,23 @@
 
 .form-checkbox {
   appearance: none;
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   background-color: #fff;
-  border-radius: 6px;
-  box-shadow: #3b82f6 0px 4px 8px -2px;
+  border: 2px solid #3b82f6;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: background-color 0.2s ease, box-shadow 0.2s ease;
-  padding: 0px;
+  padding: 0;
 }
 
 .form-checkbox:checked::after {
   content: '✔';
   color: black;
-  font-size: 12px;
+  font-size: 20px;
   font-weight: bold;
 }
 
@@ -104,8 +103,8 @@
 .form-login input[type="password"],
 .form-login input[type="text"] {
   width: 100%;
-  padding: 16px 20px;       /* more height */
-  font-size: 16px;          /* slightly bigger font */
+  padding: 16px 20px;
+  font-size: 16px;
   border-radius: 18px;
   background-color: #fff;
   box-shadow: #3b82f6 0px 10px 10px -5px;
@@ -125,10 +124,4 @@
   border-radius: 25px;
   background-color: #e5e7eb;
   box-shadow: #3b82f6 0px 30px 30px -20px;
-}
-
-.form-heading {
-  font-weight: 800;
-  font-size: 26px;
-  color: #3b82f6;
 }
