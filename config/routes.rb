@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'users/show'
   devise_for :users
   root to: "pages#home"
 
@@ -15,13 +14,16 @@ Rails.application.routes.draw do
       patch :cancel_event
     end
 
-    resources :participations, only: %i[new create]
-  end
+    resources :comments, only: %i[create]
 
-  resources :payments, only: %i[new create] do
-    collection do
-      post :success
-      get :confirmation
+    resources :participations, only: %i[new create]
+
+    resources :payments, only: [] do
+      collection do
+        get :payment
+        post :success
+        get :confirmation
+      end
     end
   end
 

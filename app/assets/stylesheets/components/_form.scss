@@ -34,7 +34,9 @@
   margin-top: 12px;
 }
 
-.form form input, .form form textarea {
+.form form input,
+.form form textarea,
+.form form select {
   width: 100%;
   border: none;
   outline: none;
@@ -61,6 +63,37 @@
   color: #4e4e4e;
 }
 
+
+.form-checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.form-checkbox {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: #3b82f6 0px 4px 8px -2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  padding: 0px;
+}
+
+.form-checkbox:checked::after {
+  content: '✔';
+  color: black;
+  font-size: 12px;
+  font-weight: bold;
+}
+
 //
 
 .form-login form input::placeholder {
@@ -75,7 +108,7 @@
   font-size: 16px;          /* slightly bigger font */
   border-radius: 18px;
   background-color: #fff;
-  box-shadow: #c6aeff 0px 10px 10px -5px;
+  box-shadow: #3b82f6 0px 10px 10px -5px;
   border: none;
   outline: none;
   margin-top: 15px;
