@@ -43,6 +43,7 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
+    @sports = Sport.all
     authorize @event
   end
 
@@ -60,6 +61,7 @@ class EventsController < ApplicationController
   end
 
   def edit
+    @sports = Sport.all
   end
 
   def update
@@ -82,6 +84,6 @@ class EventsController < ApplicationController
 
   def event_params
     params.require(:event).permit(:title, :description, :start_time, :end_time, :country, :city, :street, :venue, :max_participants,
-      :price_per_participant, :free, :photos)
+      :price_per_participant, :free, :sport_id, photos: [])
   end
 end

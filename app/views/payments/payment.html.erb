@@ -1,0 +1,16 @@
+<div class="container mt-4">
+
+  <%= form_with url: success_event_path(@event), method: :post,
+      html: { data: {
+        controller: "stripe",
+        stripe_api_key_value: ENV['STRIPE_PUBLISHABLE_KEY'],
+        stripe_target: "form",
+        stripe_secret_client_value: @payment_intent.client_secret,
+        action: "submit->stripe#submit"
+      } } do |f| %>
+
+  <div data-stripe-target="card"></div>
+
+  <%= f.submit "Pay now", data: { stripe_target: "submit" } %>
+  <% end %>
+</div>
