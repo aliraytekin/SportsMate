@@ -7,6 +7,7 @@ class ParticipationsController < ApplicationController
   end
 
   def new
+    @event = Event.find(params[:event_id])
     @participation = Participation.new
     authorize @participation
   end
@@ -15,12 +16,12 @@ class ParticipationsController < ApplicationController
     @participation = Participation.new(participation_params)
     @event = Event.find(params[:event_id])
     @participation.event = @event
-    @partipation.user = current_user
+    @participation.user = current_user
 
     authorize @participation
 
     if @participation.save
-      redirect_to event_participations_path(@participation)
+      redirect_to event_participations_path(@participation), notice: "You have successfully joined the event."
     else
       render :new, status: :unprocessable_entity
     end
