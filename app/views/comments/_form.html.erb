@@ -1,0 +1,4 @@
+<%= form_with model: [event, comment], data: { turbo_frame: "new_comment" } do |f| %>
+  <%= f.text_area :content, rows: 2, class: "form-control", placeholder: "Write any questions you might have..." %>
+  <%= f.submit "Post", class: "simple-primary-button" %>
+<% end %>
