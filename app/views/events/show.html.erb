@@ -26,6 +26,20 @@
 
       <hr class="my-4">
 
+      <%= turbo_stream_from "event_#{@event.id}_comments" %>
+    
+      <%= turbo_frame_tag "comments" do %>
+        <%= render @event.comments.last(5) %>
+      <% end %>
+    
+      <% if user_signed_in? %>
+        <%= turbo_frame_tag "new_comment" do %>
+          <%= render "comments/form", comment: Comment.new, event: @event %>
+        <% end %>
+      <% else %>
+        <h5 class="text-muted">You must be signed in to write a comment</h4>
+      <% end %>
+
       <h3 class="fw-semibold mb-3">Participants (<%= @participants.count %>)</h3>
 
       <% if @participants.any? %>
