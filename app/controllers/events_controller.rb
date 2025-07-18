@@ -39,7 +39,10 @@ class EventsController < ApplicationController
   end
 
   def show
+    @event = Event.find(params[:id])
+    @participants = @event.participations.includes(:user)
   end
+
 
   def new
     @event = Event.new

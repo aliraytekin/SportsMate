@@ -7,24 +7,37 @@ class ParticipationsController < ApplicationController
   end
 
   def new
+    @event = Event.find(params[:event_id])
     @participation = Participation.new
     authorize @participation
   end
 
   def create
-    @participation = Participation.new(participation_params)
     @event = Event.find(params[:event_id])
-    @participation.event = @event
-    @partipation.user = current_user
+    authorize @event, :show?
 
+    if @event.participations.exists?(user_id: current_user.id)
+      redirect_to @event, alert: "You're already in this event." and return
+    end
+
+    if @event.participations.count >= @event.max_participants
+      redirect_to @event, alert: "This event is full." and return
+    end
+
+    if @event.user == current_user
+      redirect_to @event, alert: "You cannot join your own event." and return
+    end
+
+    @participation = Participation.new(event: @event, user: current_user)
     authorize @participation
 
     if @participation.save
-      redirect_to event_participations_path(@participation)
+      redirect_to @event, notice: "You have successfully joined the event."
     else
-      render :new, status: :unprocessable_entity
+      redirect_to @event, alert: "Failed to join the event."
     end
   end
+
 
   def edit
     @participation = Participation.find(params[:id])

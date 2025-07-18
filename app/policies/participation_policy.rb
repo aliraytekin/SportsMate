@@ -13,7 +13,7 @@ class ParticipationPolicy < ApplicationPolicy
     true
   end
 
-  def edit?
+  def edit
     update?
   end
 
