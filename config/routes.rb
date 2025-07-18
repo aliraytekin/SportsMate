@@ -3,9 +3,13 @@ Rails.application.routes.draw do
   root to: "pages#home"
 
   resources :users do
-    resources :user_sports_interests, only: %i[index new create edit update destroy]
     resources :follows, only: %i[create]
   end
+
+  resources :users do
+    resources :user_sport_interests, only: %i[index new create edit update destroy]
+    end
+
 
   resources :follows, only: %i[destroy]
 

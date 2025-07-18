@@ -2,6 +2,13 @@
   <% if @user == current_user %>
     <h1><%= "Welcome #{@user.first_name}"%></h1>
     <p><%= @user.bio %></p>
+    <div class="user_sport_interests-form">
+      <div class="mt-2">
+        <%= render "user_sport_interests/form", user: @user, sport: @sport, user_sport_interest: @user_sport_interest %>
+      </div>
+    </div>
+  </div>
+</div>
   <% else %>
     <h1><%= "#{@user.first_name} #{@user.last_name}" %></h1>
     <p><%= @user.bio %></p>
