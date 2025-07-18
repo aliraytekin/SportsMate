@@ -1,0 +1,33 @@
+=> 
+[[32m#<ActiveRecord::Validations::PresenceValidator:0x00007b8b7eb62878[0m @attributes[32m=[0m[[33m:[0m[33mvenue[0m], @options[32m=[0m{}[32m>[0m,
+ [32m#<ActiveModel::Validations::InclusionValidator:0x00007b8b7eb8f288[0m
+  @attributes[32m=[0m[[33m:[0m[33mvenue[0m],
+  @delimiter[32m=[0m
+   [[31m[1m"[0m[31mPark[0m[31m[1m"[0m,
+    [31m[1m"[0m[31mGym[0m[31m[1m"[0m,
+    [31m[1m"[0m[31mSports Hall / Indoor Court[0m[31m[1m"[0m,
+    [31m[1m"[0m[31mFootball Field[0m[31m[1m"[0m,
+    [31m[1m"[0m[31mTennis Court[0m[31m[1m"[0m,
+    [31m[1m"[0m[31mSwimming Pool[0m[31m[1m"[0m,
+    [31m[1m"[0m[31mClimbing Gym[0m[31m[1m"[0m,
+    [31m[1m"[0m[31mMartial Art Studio[0m[31m[1m"[0m,
+    [31m[1m"[0m[31mBeach[0m[31m[1m"[0m,
+    [31m[1m"[0m[31mDance Studio[0m[31m[1m"[0m,
+    [31m[1m"[0m[31mYoga Studio[0m[31m[1m"[0m,
+    [31m[1m"[0m[31mNature[0m[31m[1m"[0m,
+    [31m[1m"[0m[31mGolf Course[0m[31m[1m"[0m],
+  @options[32m=[0m
+   {[33m:[0m[33min[0m=>
+     [[31m[1m"[0m[31mPark[0m[31m[1m"[0m,
+      [31m[1m"[0m[31mGym[0m[31m[1m"[0m,
+      [31m[1m"[0m[31mSports Hall / Indoor Court[0m[31m[1m"[0m,
+      [31m[1m"[0m[31mFootball Field[0m[31m[1m"[0m,
+      [31m[1m"[0m[31mTennis Court[0m[31m[1m"[0m,
+      [31m[1m"[0m[31mSwimming Pool[0m[31m[1m"[0m,
+      [31m[1m"[0m[31mClimbing Gym[0m[31m[1m"[0m,
+      [31m[1m"[0m[31mMartial Art Studio[0m[31m[1m"[0m,
+      [31m[1m"[0m[31mBeach[0m[31m[1m"[0m,
+      [31m[1m"[0m[31mDance Studio[0m[31m[1m"[0m,
+      [31m[1m"[0m[31mYoga Studio[0m[31m[1m"[0m,
+      [31m[1m"[0m[31mNature[0m[31m[1m"[0m,
+      [31m[1m"[0m[31mGolf Course[0m[31m[1m"[0m]}[32m>[0m]
