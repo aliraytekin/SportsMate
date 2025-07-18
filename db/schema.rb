@@ -87,8 +87,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_18_100207) do
 
   create_table "notifications", force: :cascade do |t|
     t.bigint "recipient_id", null: false
-    t.bigint "actor_id", null: false
-    t.bigint "event_id", null: false
+    t.bigint "actor_id"
+    t.bigint "event_id"
     t.string "action"
     t.boolean "read", default: false
     t.datetime "created_at", null: false

@@ -3,11 +3,19 @@
     <h1><%= "Welcome #{@user.first_name}"%></h1>
     <p><%= @user.bio %></p>
 
-    <% current_user.received_notifications.order(created_at: :desc).limit(10).each do |notification| %>
-      <div class="notification <%= unread unless notification.read %>">
-        <%= render "notifications/notification", locals: { notification: notification } %>
-      </div>
-    <% end %>
+    <%= turbo_stream_from "notifications_user_#{current_user.id}" %>
+
+    <div id="notifications">
+      <% if current_user.received_notifications.any? %>
+        <% current_user.received_notifications.order(created_at: :desc).limit(10).each do |notification| %>
+          <div class="notification <%= "unread" unless notification.read %>">
+            <%= render "notifications/notification", notification: notification %>
+          </div>
+        <% end %>
+      <% else %>
+        <p>No notifications yet.</p>
+      <% end %>
+    </div>
   <% else %>
     <h1><%= "#{@user.first_name} #{@user.last_name}" %></h1>
     <p><%= @user.bio %></p>

@@ -1,0 +1,14 @@
+<turbo-frame id="notification_<%= notification.id %>">
+  <div class="notification <%= "unread" unless notification.read %>">
+    <% case notification.action %>
+    <% when "created_event" %>
+      <%= link_to "#{notification.actor.first_name} created a new event: #{notification.event.title}", event_path(notification.event), data: { turbo: false } %>
+    <% when "joined_event" %>
+      <%= link_to "#{notification.actor.first_name} joined the event: #{notification.event.title}", event_path(notification.event), data: { turbo: false } %>
+    <% when "cancelled_event" %>
+      <%= "#{notification.actor.first_name} cancelled their event: #{notification.event.title}" %>
+    <% when "followed_you" %>
+      <%= link_to "#{notification.actor.first_name} just followed you", user_path(notification.actor), data: { turbo: false } %>
+    <% end %>
+  </div>
+</turbo-frame>

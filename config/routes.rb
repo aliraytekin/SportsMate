@@ -30,6 +30,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :notifications, only: [] do
+    collection do
+      patch :mark_as_read
+    end
+  end
+
   resources :participations, only: %i[index edit update] do
     member do
       patch :cancel_participation
