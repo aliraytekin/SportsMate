@@ -77,7 +77,19 @@ class EventsController < ApplicationController
     authorize @event, :cancel?
 
     @event.cancelled!
+    notify_cancel_event
     redirect_to @event, notice: "Event cancelled."
+  end
+
+  def notify_cancel_event
+    user.followers.each do |follower|
+      Notification.create!(
+        recipient: follower,
+        actor: user,
+        event: self,
+        action: "cancelled_event"
+      )
+    end
   end
 
   private

@@ -347,6 +347,8 @@ GEM
     snaky_hash (2.0.3)
       hashie (>= 0.1.0, < 6)
       version_gem (>= 1.1.8, < 3)
+    solid_cable (1.0.3)
+      rails (< 9)
     sprockets (4.2.2)
       concurrent-ruby (~> 1.0)
       logger
@@ -423,6 +425,7 @@ DEPENDENCIES
   sassc-rails
   selenium-webdriver
   simple_form!
+  solid_cable
   sprockets-rails
   stimulus-rails
   stripe

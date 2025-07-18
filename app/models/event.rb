@@ -38,6 +38,19 @@ class Event < ApplicationRecord
                     tsearch: { prefix: true }
                   }
 
+  after_create_commit :notify_event_creation
+
+  def notify_event_creation
+    user.followers.each do |follower|
+      Notification.create!(
+        recipient: follower,
+        actor: user,
+        event: self,
+        action: "joined_event"
+      )
+    end
+  end
+
   private
 
   def capitalize_title

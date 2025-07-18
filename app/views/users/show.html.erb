@@ -2,6 +2,12 @@
   <% if @user == current_user %>
     <h1><%= "Welcome #{@user.first_name}"%></h1>
     <p><%= @user.bio %></p>
+
+    <% current_user.received_notifications.order(created_at: :desc).limit(10).each do |notification| %>
+      <div class="notification <%= unread unless notification.read %>">
+        <%= render "notifications/notification", locals: { notification: notification } %>
+      </div>
+    <% end %>
   <% else %>
     <h1><%= "#{@user.first_name} #{@user.last_name}" %></h1>
     <p><%= @user.bio %></p>

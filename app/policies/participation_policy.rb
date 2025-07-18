@@ -1,4 +1,4 @@
-class ParticipantPolicy < ApplicationPolicy
+class ParticipationPolicy < ApplicationPolicy
   class Scope < ApplicationPolicy::Scope
     def resolve
       scope.all
@@ -13,7 +13,7 @@ class ParticipantPolicy < ApplicationPolicy
     true
   end
 
-  def edit
+  def edit?
     update?
   end
 
