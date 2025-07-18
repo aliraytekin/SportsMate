@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users,
+      controllers: {
+        omniauth_callbacks: 'users/omniauth_callbacks'
+      }
   root to: "pages#home"
 
   resources :users do
@@ -24,6 +27,12 @@ Rails.application.routes.draw do
         post :success
         get :confirmation
       end
+    end
+  end
+
+  resources :notifications, only: [] do
+    collection do
+      patch :mark_as_read
     end
   end
 

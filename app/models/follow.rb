@@ -5,6 +5,16 @@ class Follow < ApplicationRecord
   validates :followed_id, uniqueness: { scope: :follower_id }
   validate :cannot_follow_self
 
+  after_create_commit :notify_follow
+
+  def notify_follow
+    Notification.create!(
+      recipient: followed,
+      actor: follower,
+      action: "followed_you"
+    )
+  end
+
   private
 
   def cannot_follow_self

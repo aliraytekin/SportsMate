@@ -11,6 +11,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
+
           <% if controller_name == "events" && action_name == "show" %>
             <li class="nav-item m-top-2">
               <%= link_to "Participate", new_event_participation_path(event), class: "simple-primary-button me-2" %>
@@ -19,10 +20,31 @@
           <li class="nav-item m-top-2">
             <%= link_to "New event", new_event_path, class: "simple-primary-button me-2" %>
           </li>
-
           <% end %>
 
+          <div data-controller="notifications"
+            data-notifications-url-value="<%= mark_as_read_notifications_path %>">
 
+            <button class="notification-bell mx-3 mt-1"
+              data-action="click->notifications#markAsRead"
+              data-bs-toggle="dropdown"
+              aria-expanded="false">
+              🛎️
+              <%= turbo_frame_tag "notifications_badge" do %>
+                <% unread_count = current_user.received_notifications.where(read: false).count %>
+                <%= render "notifications/badge", unread_count: unread_count %>
+              <% end %>
+            </button>
+
+              <div class="dropdown-menu dropdown-menu-end p-2" style="min-width: 300px;">
+                <%= turbo_stream_from "notifications_user_#{current_user.id}" %>
+
+                <% current_user.received_notifications.order(created_at: :desc).limit(10).each do |notification| %>
+                  <%= render "notifications/notification", notification: notification %>
+                <% end %>
+
+              </div>
+            </div>
 
           <li class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
