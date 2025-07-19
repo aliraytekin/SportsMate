@@ -1,9 +1,10 @@
 class UserSportInterestsController < ApplicationController
-before_action :set_user, only: %i[new create edit update destroy]
+before_action :set_user, only: %i[new edit]
+before_action :set_user_sport_interest, only: %i[edit update destroy]
+
 
   def new
     @user_sport_interest = UserSportInterest.new
-    @user_sport_interest.sport = @sport
   end
 
   def create
@@ -12,27 +13,27 @@ before_action :set_user, only: %i[new create edit update destroy]
 
 
     if @user_sport_interest.save
-      redirect_to @user, notice: "Thanks for updating your interests!"
+      redirect_to user_path(current_user), notice: "Thanks for updating your interests!"
     else
       render "users/show", status: :unprocessable_entity
     end
   end
 
   def edit
-    authorize @user_sport_interest
+    authorize current_user
   end
 
   def update
-    authorize @user_sport_interest
-
     if @user_sport_interest.update(user_sport_interests_params)
-      redirect_to @user, notice: "Your interests have been updated."
+      redirect_to user_path(current_user), notice: "Your interests have been updated."
     else
      render "users/show", status: :unprocessable_entity
     end
   end
 
   def destroy
+    @user_sport_interest.destroy
+    redirect_to user_path(current_user), notice: 'Sport interest was successfully deleted.'
   end
 
   private
@@ -45,7 +46,8 @@ before_action :set_user, only: %i[new create edit update destroy]
     @user = User.find(params[:user_id])
   end
 
-  def set_sport
-    @sport = Sport.find(params[:sport_id])
+  def set_user_sport_interest
+    @user_sport_interest = UserSportInterest.find(params[:id])
   end
+
 end

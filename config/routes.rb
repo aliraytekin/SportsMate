@@ -9,10 +9,7 @@ Rails.application.routes.draw do
     resources :follows, only: %i[create]
   end
 
-  resources :users do
-    resources :user_sport_interests, only: %i[index new create edit update destroy]
-    end
-
+  resources :user_sport_interests, only: %i[index new create edit update destroy]
 
   resources :follows, only: %i[destroy]
 
