@@ -1,9 +1,57 @@
 <div class="container mt-4">
-  <% if @user == current_user %>
-    <h1><%= "Welcome #{@user.first_name}"%></h1>
+    <h1><%= "#{@user.first_name} #{@user.last_name}" %></h1>
     <p><%= @user.bio %></p>
 
-    <%= turbo_stream_from "notifications_user_#{current_user.id}" %>
+
+  <% if @user.user_sport_interests.any? %>
+  <h5 class="mt-4">Sport Interests Are:</h5>
+  <% @user.user_sport_interests.each do |interest| %>
+    <div class="card p-3 mb-3">
+      <div class="d-flex justify-content-between align-items-center mb-1">
+        <strong><%= interest.skill_level.capitalize %></strong>
+      </div>
+      <div>
+        <%= interest.sport.name %>
+      </div>
+      <div class="d-flex gap-2">
+          <%# <%= button_to "Edit", "#", class: "btn btn-outline-primary btn-sm", data: { bs_toggle: "collapse", bs_target: "#edit-user_sport_interest-#{user_sport_interests.id}" } %>
+          <%= link_to "Delete", user_sport_interest_path(interest), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"},
+                  class: "btn btn-outline-danger btn-sm" %>
+        </div>
+
+
+          <%= simple_form_for interest do |f| %>
+            <%= f.input :skill_level, collection: UserSportInterest::SKILL_LEVELS, prompt: "Select your skill level" %>
+            <%= f.submit "Save changes", class: "btn btn-sm btn-success" %>
+          <% end %>
+    </div>
+    <% end %>
+<% else %>
+  <h5 class="mt-4">There are no interests yet.</h5>
+<% end %>
+
+
+  <div class="container">
+    <% if @user == current_user %>
+      <div class="user_sport_interests-form">
+        <div class="mt-2">
+          <%= render "user_sport_interests/form", user_sport_interest: @user_sport_interest %>
+        </div>
+      </div>
+    </div>
+
+
+    <% else %>
+      <p><%= @user.bio %>
+      <% unless current_user.following.include?(@user) %>
+        <%= button_to "Follow him", user_follows_path(@user) , method: :post, class: "simple-primary-button" %>
+      <% else %>
+        <%= button_to "Unfollow him", follow_path(current_user.active_follows.find_by(followed_id: @user.id)), method: :delete, class: "simple-primary-button" %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <%= turbo_stream_from "notifications_user_#{current_user.id}" %>
 
     <div id="notifications">
       <% if current_user.received_notifications.any? %>
@@ -16,14 +64,3 @@
         <p>No notifications yet.</p>
       <% end %>
     </div>
-
-  <% else %>
-    <h1><%= "#{@user.first_name} #{@user.last_name}" %></h1>
-    <p><%= @user.bio %></p>
-    <% unless current_user.following.include?(@user) %>
-      <%= button_to "Follow him", user_follows_path(@user) , method: :post, class: "simple-primary-button" %>
-    <% else %>
-      <%= button_to "Unfollow him", follow_path(current_user.active_follows.find_by(followed_id: @user.id)), method: :delete, class: "simple-primary-button" %>
-    <% end %>
-  <% end %>
-</div>
