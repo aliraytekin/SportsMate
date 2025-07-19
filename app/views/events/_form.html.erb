@@ -31,7 +31,9 @@
           <%= f.input :start_time, as: :string, label: "Starting time", input_html: { data: { controller: "flattime" } } %>
           <%= f.input :end_time, as: :string, label: "Ending time", input_html: { data: { controller: "flattime" } } %>
           <%= f.input :venue, collection: Event::VENUES, prompt: "Select a type of venue" %>
-          <%= f.input :photos, as: :file, input_html: { multiple: true } %>
+          <%= f.input :photos, as: :file, input_html: { multiple: true }, input_html: { class: 'd-none' },
+          label_html: { class: 'upload-photo'},
+          label: '📷 Upload photos' %>
         </div>
 
         <div class="form-actions mb-2">

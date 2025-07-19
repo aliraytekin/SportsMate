@@ -82,3 +82,6 @@ gem "pundit"
 gem "faker"
 gem "pexels"
 gem "country_select"
+gem 'omniauth-google-oauth2'
+gem "omniauth-rails_csrf_protection"
+gem "solid_cable"

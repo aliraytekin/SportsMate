@@ -2,6 +2,7 @@
   <% if @user == current_user %>
     <h1><%= "Welcome #{@user.first_name}"%></h1>
     <p><%= @user.bio %></p>
+<<<<<<< HEAD
     <div class="user_sport_interests-form">
       <div class="mt-2">
         <%= render "user_sport_interests/form", user: @user, sport: @sport, user_sport_interest: @user_sport_interest %>
@@ -9,6 +10,23 @@
     </div>
   </div>
 </div>
+=======
+
+    <%= turbo_stream_from "notifications_user_#{current_user.id}" %>
+
+    <div id="notifications">
+      <% if current_user.received_notifications.any? %>
+        <% current_user.received_notifications.order(created_at: :desc).limit(10).each do |notification| %>
+          <div class="notification <%= "unread" unless notification.read %>">
+            <%= render "notifications/notification", notification: notification %>
+          </div>
+        <% end %>
+      <% else %>
+        <p>No notifications yet.</p>
+      <% end %>
+    </div>
+
+>>>>>>> 4606f824fea0eac74243cef93123c9f31e673f59
   <% else %>
     <h1><%= "#{@user.first_name} #{@user.last_name}" %></h1>
     <p><%= @user.bio %></p>
