@@ -19,9 +19,17 @@ before_action :set_user, only: %i[new create edit update destroy]
   end
 
   def edit
+    authorize @user_sport_interest
   end
 
   def update
+    authorize @user_sport_interest
+
+    if @user_sport_interest.update(user_sport_interests_params)
+      redirect_to @user, notice: "Your interests have been updated."
+    else
+     render "users/show", status: :unprocessable_entity
+    end
   end
 
   def destroy
