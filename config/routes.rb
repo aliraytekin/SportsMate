@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :users do
     resources :user_sports_interests, only: %i[index new create edit update destroy]
     resources :follows, only: %i[create]
+    resources :messages, only: %i[create]
   end
 
   resources :follows, only: %i[destroy]

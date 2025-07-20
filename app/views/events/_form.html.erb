@@ -11,19 +11,12 @@
           <%= f.input :city %>
           <%= f.input :country %>
           <%= f.input :max_participants %>
-        </div>
-        <div class="form-checkbox-wrapper">
-          <label for="event_free" class="form-checkbox-label">Free event?</label>
-          <input type="checkbox"
-          name="event[free]"
-          id="event_free"
-          class="form-checkbox"
-          data-toggle-price-target="checkbox"
-          data-action="change->toggle-price#toggle"
-          <%= @event.free? ? "checked" : "" %>
-          >
-        </div>
-        <div class="form-inputs row justify-content-center">
+          <div class="mt-3 mb-3">
+            <%= f.input :free, as: :boolean,
+              input_html: { class: "toggle", data: { "toggle-price-target": "checkbox", action: "change->toggle-price#toggle" } },
+              label: "Free event?",
+              label_html: { class: "toggle-label" }  %>
+          </div>
           <div id="price-field" data-toggle-price-target="priceField" style="<%= @event.free ? 'display: none;' : '' %>">
             <%= f.input :price_per_participant, label: "Price per participant" %>
           </div>
