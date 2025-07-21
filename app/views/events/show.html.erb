@@ -1,1 +1,74 @@
+<div class="container py-5">
+  <div class="row">
+    <div class="col-lg-8 mx-auto text-center">
 
+      <h1 class="display-5 fw-bold mb-4"><%= @event.title %></h1>
+
+      <% if @event.photos.attached? %>
+        <div class="row mb-4">
+          <% @event.photos.each do |photo| %>
+            <div class="col-md-6 mb-3">
+              <%= image_tag photo.variant(resize_to_limit: [800, 500]), class: "img-fluid rounded shadow-sm" %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+
+      <p class="lead text-muted"><%= @event.description %></p>
+
+      <div class="text-start mt-4">
+        <p><strong>Date & Time:</strong> <%= @event.start_time.strftime("%B %d, %Y at %H:%M") %> – <%= @event.end_time.strftime("%H:%M") %></p>
+        <p><strong>Venue:</strong> <%= @event.venue %></p>
+        <p><strong>Location:</strong> <%= @event.address.presence || [@event.street, @event.city, @event.country].compact.join(', ') %></p>
+        <p><strong>Participants limit:</strong> <%= @event.max_participants %></p>
+        <p><strong>Organized by:</strong> <%= @event.user.first_name %> <%= @event.user.last_name %> (<%= @event.user.email %>)</p>
+      </div>
+
+      <hr class="my-4">
+
+      <div class="mb-4">
+        <%= turbo_stream_from "event_#{@event.id}_comments" %>
+
+        <%= turbo_frame_tag "comments" do %>
+          <%= render @event.comments.last(5) %>
+        <% end %>
+
+        <% if user_signed_in? %>
+          <%= turbo_frame_tag "new_comment" do %>
+            <%= render "comments/form", comment: Comment.new, event: @event %>
+          <% end %>
+        <% else %>
+          <h5 class="text-muted">You must be signed in to write a comment</h4>
+        <% end %>
+      </div>
+
+      <h3 class="fw-semibold mb-3">Participants (<%= @participants.count %>)</h3>
+
+      <% if @participants.any? %>
+        <ul class="list-group mb-4">
+          <% @participants.each do |p| %>
+            <li class="list-group-item">
+              <%= p.user.first_name.presence || p.user.email %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="text-muted">No participants yet.</p>
+      <% end %>
+
+      <% if user_signed_in? %>
+        <% if @participants.any? { |p| p.user_id == current_user.id } %>
+          <p class="text-success mt-3">You're already participating in this event.</p>
+        <% elsif @participants.count >= @event.max_participants %>
+          <p class="text-danger mt-3">This event is full. No more spots available.</p>
+        <% else %>
+          <%= button_to "Join Event", event_participations_path(@event), method: :post, class: "btn btn-success btn-lg px-5 shadow-sm mt-3" %>
+        <% end %>
+      <% else %>
+        <%= link_to "Log in to join", new_user_session_path, class: "btn btn-warning btn-lg px-5 shadow-sm mt-3" %>
+      <% end %>
+
+      <%= link_to "← Back to Events", events_path, class: "btn btn-outline-secondary mt-4" %>
+    </div>
+  </div>
+</div>

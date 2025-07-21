@@ -1,24 +1,45 @@
-
-<div class="events-wrap">
-      <div class="container mt-2">
-        <%= simple_form_for @event, html: { multipart: true } do |f| %>
+<div class="form-wrapper">
+  <div class="form">
+    <h2 class="form-heading text-center">Game Time 🎉</h2>
+    <div class="container mt-2" data-controller="toggle-price">
+      <%= simple_form_for @event, html: { multipart: true } do |f| %>
+        <div class="form-inputs row justify-content-center">
           <%= f.input :title %>
           <%= f.input :description, as: :text, input_html: { rows: 5 } %>
+          <%= f.input :sport_id, collection: @sports, prompt: "Select a sport", label_method: :name, value_method: :id %>
+          <%= f.input :street %>
           <%= f.input :city %>
           <%= f.input :country %>
           <%= f.input :max_participants %>
-          <%= f.input :free %>
-          <%= f.input :start_time, as: :string, placeholder: "Start date",label: false, input_html: { data: { controller: "flatpickr", action: "input->price#update" } } %>
-          <%= f.input :end_time, as: :string, placeholder: "End date",label: false, input_html: { data: { controller: "flatpickr", action: "input->price#update" } } %>
-          <%= f.input :venue, collection: Event::VENUES, prompt: "Select a type of venue" %>
-
-
-          <%# <%= f.input :photos, as: :file, input_html: { multiple: true } %>
-
-          <div class="form-actions mb-2">
-            <%= f.button :submit, class: "btn btn-primary me-1" %>
-            <%# <%= link_to "Cancel request", root_path, class: "btn btn-danger" %>
+        </div>
+        <div class="form-checkbox-wrapper">
+          <label for="event_free" class="form-checkbox-label">Free event?</label>
+          <input type="checkbox"
+          name="event[free]"
+          id="event_free"
+          class="form-checkbox"
+          data-toggle-price-target="checkbox"
+          data-action="change->toggle-price#toggle"
+          <%= @event.free? ? "checked" : "" %>
+          >
+        </div>
+        <div class="form-inputs row justify-content-center">
+          <div id="price-field" data-toggle-price-target="priceField" style="<%= @event.free ? 'display: none;' : '' %>">
+            <%= f.input :price_per_participant, label: "Price per participant" %>
           </div>
-        <% end %>
-      </div>
+
+          <%= f.input :start_time, as: :string, label: "Starting time", input_html: { data: { controller: "flattime" } } %>
+          <%= f.input :end_time, as: :string, label: "Ending time", input_html: { data: { controller: "flattime" } } %>
+          <%= f.input :venue, collection: Event::VENUES, prompt: "Select a type of venue" %>
+          <%= f.input :photos, as: :file, input_html: { multiple: true }, input_html: { class: 'd-none' },
+          label_html: { class: 'upload-photo'},
+          label: '📷 Upload photos' %>
+        </div>
+
+        <div class="form-actions mb-2">
+          <%= f.button :submit, class: "shining-button me-1" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

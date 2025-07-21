@@ -25,7 +25,7 @@ class EventPolicy < ApplicationPolicy
     record.user == user
   end
 
-  def destroy?
+  def cancel?
     record.user == user
   end
 end

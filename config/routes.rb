@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
-  get 'users/show'
-  devise_for :users
+  devise_for :users,
+      controllers: {
+        omniauth_callbacks: 'users/omniauth_callbacks'
+      }
   root to: "pages#home"
 
   resources :users do
-    resources :user_sports_interests, only: %i[index new create edit update destroy]
     resources :follows, only: %i[create]
   end
+
+  resources :user_sport_interests, only: %i[index new create edit update destroy]
 
   resources :follows, only: %i[destroy]
 
@@ -15,13 +18,22 @@ Rails.application.routes.draw do
       patch :cancel_event
     end
 
+    resources :comments, only: %i[create]
+
     resources :participations, only: %i[new create]
+
+    resources :payments, only: [] do
+      collection do
+        get :payment
+        post :success
+        get :confirmation
+      end
+    end
   end
 
-  resources :payments, only: %i[new create] do
+  resources :notifications, only: [] do
     collection do
-      post :success
-      get :confirmation
+      patch :mark_as_read
     end
   end
 

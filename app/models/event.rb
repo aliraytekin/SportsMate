@@ -7,6 +7,7 @@ class Event < ApplicationRecord
   belongs_to :sport
   has_many :participations, dependent: :destroy
   has_many :users, through: :participations
+  has_many :comments, dependent: :destroy
   has_many_attached :photos
 
   before_validation :full_address
@@ -19,9 +20,12 @@ class Event < ApplicationRecord
   validates :address, presence: true
   validates :max_participants, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :venue, presence: true, inclusion: { in: VENUES }
+  validates :price_per_participant, numericality: { greater_than_or_equal_to: 0 }
 
   validate :capitalize_title
   validate :end_time_after_start_time
+  before_validation :free_then_price_is_zero
+  validate :free_and_price_consistency
 
   include PgSearch::Model
   pg_search_scope :search_by_title_and_description,
@@ -33,6 +37,19 @@ class Event < ApplicationRecord
                   using: {
                     tsearch: { prefix: true }
                   }
+
+  after_create_commit :notify_event_creation
+
+  def notify_event_creation
+    user.followers.each do |follower|
+      Notification.create!(
+        recipient: follower,
+        actor: user,
+        event: self,
+        action: "joined_event"
+      )
+    end
+  end
 
   private
 
@@ -52,5 +69,17 @@ class Event < ApplicationRecord
 
   def location_changed?
     will_save_change_to_street? || will_save_change_to_city? || will_save_change_to_country?
+  end
+
+  def free_and_price_consistency
+    if free && price_per_participant.to_i > 0
+      errors.add(:base, "Price cannot be higher than 0 if event is free")
+    elsif !free && price_per_participant.to_i <= 0
+      errors.add(:base, "Price must be higher than 0 unless event is free")
+    end
+  end
+
+  def free_then_price_is_zero
+      self.price_per_participant = 0 if free
   end
 end

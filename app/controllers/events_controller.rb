@@ -39,10 +39,14 @@ class EventsController < ApplicationController
   end
 
   def show
+    @event = Event.find(params[:id])
+    @participants = @event.participations.includes(:user)
   end
+
 
   def new
     @event = Event.new
+    @sports = Sport.all
     authorize @event
   end
 
@@ -60,6 +64,7 @@ class EventsController < ApplicationController
   end
 
   def edit
+    @sports = Sport.all
   end
 
   def update
@@ -71,6 +76,23 @@ class EventsController < ApplicationController
   end
 
   def cancel_event
+    @event = Event.find(params[:id])
+    authorize @event, :cancel?
+
+    @event.cancelled!
+    notify_cancel_event
+    redirect_to @event, notice: "Event cancelled."
+  end
+
+  def notify_cancel_event
+    user.followers.each do |follower|
+      Notification.create!(
+        recipient: follower,
+        actor: user,
+        event: self,
+        action: "cancelled_event"
+      )
+    end
   end
 
   private
@@ -81,7 +103,7 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:title, :description, :start_time, :end_time, :country, :city, :street, :venue, :max_participants, 
-      :price_per_participant, :free, :photos)
+    params.require(:event).permit(:title, :description, :start_time, :end_time, :country, :city, :street, :venue, :max_participants,
+      :price_per_participant, :free, :sport_id, photos: [])
   end
 end
