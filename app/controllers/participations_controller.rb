@@ -3,7 +3,7 @@ class ParticipationsController < ApplicationController
   after_action :verify_policy_scoped, only: :index
 
   def index
-    @participations = policy_scope(Participation)
+    @participations =(Participation)
   end
 
   def new
