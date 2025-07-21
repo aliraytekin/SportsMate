@@ -2,6 +2,7 @@ class Event < ApplicationRecord
   VENUES = ["Park", "Gym", "Sports Hall / Indoor Court", "Football Field", "Tennis Court", "Swimming Pool",
             "Climbing Gym", "Martial Art Studio", "Beach", "Dance Studio", "Yoga Studio", "Nature", "Golf Course"]
   enum status: { draft: 0, confirmed: 1, cancelled: -1 }
+  DIFFICULTY = ["Beginner", "Intermediate", "Advanced"]
 
   belongs_to :user
   belongs_to :sport
@@ -21,6 +22,7 @@ class Event < ApplicationRecord
   validates :max_participants, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :venue, presence: true, inclusion: { in: VENUES }
   validates :price_per_participant, numericality: { greater_than_or_equal_to: 0 }
+  validates :difficulty, presence: true, inclusion: { in: DIFFICULTY }
 
   validate :capitalize_title
   validate :end_time_after_start_time

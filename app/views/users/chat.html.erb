@@ -1,0 +1,13 @@
+<%= turbo_stream_from "chat_#{[current_user.id, @user.id].sort.join("_")}" %>
+
+<div id="messages">
+  <%= render @messages, current_user_id: current_user.id %>
+</div>
+
+<%= form_with model: @new_message, url: messages_path,
+  data: { controller: "reset-form",
+  action: "turbo:submit-end->reset-form#reset" } do |f| %>
+  <%= f.hidden_field :recipient_id, value: @user.id %>
+  <%= f.text_area :content, placeholder: "Write a message..." %>
+  <%= f.submit "Send" %>
+<% end %>

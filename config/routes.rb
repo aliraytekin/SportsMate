@@ -7,8 +7,13 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :follows, only: %i[create]
+
+    member do
+      get :chat
+    end
   end
 
+  resources :messages, only: %i[create]
   resources :user_sport_interests, only: %i[index new create edit update destroy]
 
   resources :follows, only: %i[destroy]

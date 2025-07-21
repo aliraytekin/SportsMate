@@ -8,25 +8,28 @@ class EventsController < ApplicationController
   def index
     @events = policy_scope(Event)
 
-    @markers = @events.geocoded.map do |event|
-      {
-        lat: event.latitude,
-        lng: event.longitude,
-        info_window_html: render_to_string(partial: "info_window", locals: { event: event }),
-        marker_html: render_to_string(partial: "marker")
-      }
-    end
-
     if params[:query].present?
       @events = @events.search_by_title_and_description(params[:query])
     end
 
-    # if params[:difficulty].present?
-    #   @events = @events.where(difficulty: )
-    # end
+    if params[:location].present?
+      @events = @events.where(
+        "city ILIKE :location OR street ILIKE :location OR country ILIKE :location",
+        location: "%#{params[:location]}%"
+      )
+    end
 
-    if params[:date].present?
-      @events = @events.where(start_time: Date.parse(params[:date]).all_day)
+    if params[:difficulty].present?
+      @events = @events.where(difficulty: params[:difficulty])
+    end
+
+    if params[:date_range].present? && params[:date_range].include?(" to ")
+      start_str, end_str = params[:date_range].split(" to ")
+
+      start_date = Date.parse(start_str).beginning_of_day
+      end_date = Date.parse(end_str).end_of_day
+
+      @events = @events.where(start_time: start_date..end_date)
     end
 
     if params[:favorite_sports].present? && user_signed_in?
@@ -36,13 +39,27 @@ class EventsController < ApplicationController
 
       @events = @events.where(sport_id: sport_ids)
     end
+
+    if params[:latitude].present? && params[:longitude].present? && params[:radius].present?
+      @events = @events.near(
+        [params[:latitude], params[:longitude]], params[:radius].to_i
+      )
+    end
+
+    @markers = @events.geocoded.map do |event|
+      {
+        lat: event.latitude,
+        lng: event.longitude,
+        info_window_html: render_to_string(partial: "info_window", locals: { event: event }),
+        marker_html: render_to_string(partial: "marker")
+      }
+    end
   end
 
   def show
     @event = Event.find(params[:id])
     @participants = @event.participations.includes(:user).where(status: :attending)
   end
-
 
   def new
     @event = Event.new
@@ -105,7 +122,7 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:title, :description, :start_time, :end_time, :country, :city, :street, :venue, :max_participants,
+    params.require(:event).permit(:title, :description, :difficulty, :start_time, :end_time, :country, :city, :street, :venue, :max_participants,
       :price_per_participant, :free, :sport_id, photos: [])
   end
 end

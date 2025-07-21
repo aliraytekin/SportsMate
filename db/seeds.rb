@@ -2,6 +2,7 @@ require 'pexels'
 
 puts "Starting seeding ..."
 
+Notification.destroy_all
 User.destroy_all
 Event.destroy_all
 Sport.destroy_all
@@ -232,7 +233,8 @@ end
     venue: details[:venues].sample,
     max_participants: rand(1..30),
     price_per_participant: 0,
-    free: true
+    free: true,
+    difficulty: Event::DIFFICULTY.sample
   )
 
   2.times do
