@@ -56,6 +56,15 @@ class ParticipationsController < ApplicationController
     end
   end
 
+  def cancel_participation
+    @participation = Participation.find(params[:id])
+    authorize @participation
+    @participation.update(status: :cancelled)
+    redirect_to participations_path, notice: "You have left the event."
+  end
+
+
+
   private
 
   def participation_params
