@@ -36,16 +36,18 @@
               <% end %>
             </div>
 
-            <a href="<%= event_path(event) %>" class="btn btn-outline-primary mt-3">View Event</a>
+            <div class="d-flex flex-wrap align-items-center gap-3 mt-3">
+              <%= link_to "View Event", event_path(event), class: "simple-primary-button outline" %>
 
-            <% if participation.status == "attending" && event.user != current_user %>
-              <%= button_to "Leave Event",
-                    cancel_participation_participation_path(participation),
-                    method: :patch,
-                    form: { data: { turbo: false } },
-                    data: { confirm: "Are you sure you want to leave this event?" },
-                    class: "btn btn-outline-danger btn-sm mt-2 ms-2" %>
-            <% end %>
+              <% if participation.status == "attending" && event.user != current_user %>
+                <%= link_to "Leave Event",
+                      cancel_participation_participation_path(participation),
+                      method: :patch,
+                      data: { turbo: false, confirm: "Are you sure you want to leave this event?" },
+                      class: "simple-primary-button outline" %>
+              <% end %>
+            </div>
+
           </div>
         </div>
       </div>

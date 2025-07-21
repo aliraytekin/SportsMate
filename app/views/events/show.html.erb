@@ -66,7 +66,7 @@
           <% if @participants.count < @event.max_participants %>
             <%= form_with url: participation_path(user_participation), method: :patch, class: "d-inline" do %>
               <%= hidden_field_tag "participation[status]", "attending" %>
-              <%= submit_tag "Re-join Event", class: "btn btn-success btn-lg px-5 shadow-sm mt-3" %>
+              <%= submit_tag "Re-join Event", class: "shining-button mt-3" %>
             <% end %>
           <% else %>
             <p class="text-danger mt-3">This event is full. No more spots available.</p>
@@ -76,7 +76,7 @@
           <p class="text-danger mt-3">This event is full. No more spots available.</p>
 
         <% else %>
-          <%= button_to "Join Event", event_participations_path(@event), method: :post, class: "btn btn-success btn-lg px-5 shadow-sm mt-3" %>
+          <%= button_to "Join Event", event_participations_path(@event), method: :post, class: "shining-button mt-3" %>
         <% end %>
 
       <% else %>
@@ -84,7 +84,9 @@
       <% end %>
 
 
-      <%= link_to "← Back to Events", events_path, class: "simple-primary-button outline mt-4" %>
+      <div class="text-center mt-4">
+       <%= link_to "← Back to Events", events_path, class: "simple-primary-button outline" %>
+      </div>
 
     </div>
   </div>
