@@ -1,67 +1,84 @@
 <div class="container">
-  <div class="row justify-content-center">
-    <div class="col-sm-10 my-3">
-      <%= form_with url: events_path, method: :get, local: true do |f| %>
-        <div class="row g-2 align-items-end">
+  <div class="row">
+    <div class="col-md-2">
+      <%= turbo_frame_tag "event_results" do %>
 
-          <div class="col-md-4">
-            <%= f.text_field :query,
-              value: params[:query],
-              class: "form-control me-2",
-              placeholder: "Search events, sports, users, etc..." %>
+        <%= form_with url: events_path, method: :get, data: { turbo: false } do |f| %>
+
+          <div>
+            <%= f.hidden_field :query,
+            value: params[:query],
+            class: "form-control" %>
           </div>
 
-          <div class="col-md-3">
-            <%= f.date_field :date,
-              value: params[:date],
-              placeholder: "Select date",
-              class: "form-control",
-              data: { controller: "flatpickr" } %>
+          <div>
+            <%= f.hidden_field :location,
+            value: params[:location],
+            class: "form-control" %>
+          </div>
+
+          <div class="mb-2">
+            <%= f.label :date_range, "Select a date range", class: "mb-1" %>
+            <%= f.text_field :date_range,
+                value: params[:date_range],
+                class: "form-control",
+                data: { controller: "flatpickr" } %>
+          </div>
+
+          <div class="difficulty-filter mb-4">
+            <%= f.label :difficulty, "Filter by difficulty:" %><br>
+            <%= f.radio_button :difficulty, "Beginner", checked: params[:difficulty] == "Beginner" %> Beginner<br>
+            <%= f.radio_button :difficulty, "Intermediate", checked: params[:difficulty] == "Intermediate" %> Intermediate<br>
+            <%= f.radio_button :difficulty, "Advanced", checked: params[:difficulty] == "Advanced" %> Advanced<br>
+          </div>
+
+          <div class="radius-filter mb-2">
+            <%= f.label :radius, "Filter by distance:" %><br>
+            <%= f.radio_button :radius, 10, checked: params[:radius] == "10" %> 10 km<br>
+            <%= f.radio_button :radius, 20, checked: params[:radius] == "20" %> 20 km<br>
+            <%= f.radio_button :radius, 100, checked: params[:radius] == "100" %> 100 km<br>
           </div>
 
           <% if user_signed_in? && current_user.sports.present? %>
-            <div class="col-md-4">
-              <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Choose your favorite sports
-                </button>
-                <ul class="dropdown-menu p-3" style="min-width: 250px;">
-                  <% current_user.sports.each do |sport| %>
-                    <li>
-                      <div class="form-check">
-                        <%= check_box_tag "favorite_sports[]", sport.id,
-                              params[:favorite_sports]&.include?(sport.id.to_s),
-                              class: "form-check-input",
-                              id: "sport_#{sport.id}" %>
-                        <%= label_tag "sport_#{sport.id}", sport.name, class: "form-check-label" %>
-                      </div>
-                    </li>
-                  <% end %>
-                </ul>
-              </div>
+            <div class="dropdown mb-2">
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                Choose your favorite sports
+              </button>
+              <ul class="dropdown-menu p-3" style="min-width: 250px;">
+                <% current_user.sports.each do |sport| %>
+                  <li>
+                    <div class="form-check">
+                      <%= check_box_tag "favorite_sports[]", sport.id,
+                            params[:favorite_sports]&.include?(sport.id.to_s),
+                            class: "form-check-input",
+                            id: "sport_#{sport.id}" %>
+                      <%= label_tag "sport_#{sport.id}", sport.name, class: "form-check-label" %>
+                    </div>
+                  </li>
+                <% end %>
+              </ul>
             </div>
           <% end %>
-
-          <div class="col-md-auto">
-              <%= f.submit "Search", class: "simple-primary-button search" %>
+          <div class="d-flex justify-content-center">
+            <%= f.submit "Apply filters", class: "simple-primary-button search mt-2 me-2" %>
           </div>
+        <% end %>
+      </div>
+
+      <div class="col-md-5">
+        <%= render "event", events: @events %>
+      </div>
+
+      <div class="col-md-5">
+        <div id="map"
+          style="width: 42%; height: 600px; position: fixed; top: 75px; z-index: 1000;"
+          data-controller="map"
+          data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
+          data-map-markers-value="<%= @markers.to_json %>"
+          data-map-latitude-value="<%= params[:latitude] %>"
+          data-map-longitude-value="<%= params[:longitude] %>">
         </div>
-      <% end %>
-    </div>
-  </div>
-
-  <% if @events.any? %>
-    <% @events.each do |event| %>
-      <p><%= event.title %></p>
-      <p><%= event.start_time %></p>
-      <p><%= event.description %></p>
+      </div>
     <% end %>
-  <% end %>
-</div>
-
-<div class="container mb-4">
-  <div style="width: 100%; height: 400px;"
-    data-controller="map"
-    data-map-markers-value="<%= @markers.to_json %>"
-    data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+  </div>
 </div>

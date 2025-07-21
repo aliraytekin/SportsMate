@@ -1,0 +1,4 @@
+<div id="message_<%= message.id %>">
+  <strong><%= message.sender_id == current_user_id ? "You" : message.sender.first_name %>:</strong>
+  <p><%= message.content %></p>
+</div>
