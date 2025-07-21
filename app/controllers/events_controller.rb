@@ -40,7 +40,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
-    @participants = @event.participations.includes(:user)
+    @participants = @event.participations.includes(:user).where(status: :attending)
   end
 
 
@@ -57,11 +57,13 @@ class EventsController < ApplicationController
     authorize @event
 
     if @event.save
+      Participation.create!(event: @event, user: current_user, status: :attending)
       redirect_to @event, notice: "The event was created successfully."
     else
       render :new, status: :unprocessable_entity
     end
   end
+
 
   def edit
     @sports = Sport.all

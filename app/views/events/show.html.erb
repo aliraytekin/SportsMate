@@ -57,18 +57,35 @@
       <% end %>
 
       <% if user_signed_in? %>
-        <% if @participants.any? { |p| p.user_id == current_user.id } %>
+        <% user_participation = @event.participations.find_by(user_id: current_user.id) %>
+
+        <% if user_participation&.attending? %>
           <p class="text-success mt-3">You're already participating in this event.</p>
+
+        <% elsif user_participation&.cancelled? %>
+          <% if @participants.count < @event.max_participants %>
+            <%= form_with url: participation_path(user_participation), method: :patch, class: "d-inline" do %>
+              <%= hidden_field_tag "participation[status]", "attending" %>
+              <%= submit_tag "Re-join Event", class: "btn btn-success btn-lg px-5 shadow-sm mt-3" %>
+            <% end %>
+          <% else %>
+            <p class="text-danger mt-3">This event is full. No more spots available.</p>
+          <% end %>
+
         <% elsif @participants.count >= @event.max_participants %>
           <p class="text-danger mt-3">This event is full. No more spots available.</p>
+
         <% else %>
           <%= button_to "Join Event", event_participations_path(@event), method: :post, class: "btn btn-success btn-lg px-5 shadow-sm mt-3" %>
         <% end %>
+
       <% else %>
         <%= link_to "Log in to join", new_user_session_path, class: "btn btn-warning btn-lg px-5 shadow-sm mt-3" %>
       <% end %>
 
-      <%= link_to "← Back to Events", events_path, class: "btn btn-outline-secondary mt-4" %>
+
+      <%= link_to "← Back to Events", events_path, class: "simple-primary-button outline mt-4" %>
+
     </div>
   </div>
 </div>

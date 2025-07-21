@@ -37,7 +37,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :participations, only: %i[index edit update] do
+  resources :participations, only: %i[index show edit update] do
     member do
       patch :cancel_participation
       patch :refund
