@@ -1,7 +1,7 @@
 class ParticipationPolicy < ApplicationPolicy
   class Scope < ApplicationPolicy::Scope
     def resolve
-      scope.all
+      scope.where(user_id: user.id)
     end
   end
 
@@ -20,4 +20,9 @@ class ParticipationPolicy < ApplicationPolicy
   def update?
     record.user == user
   end
+
+  def cancel_participation?
+    record.user == user
+  end
+
 end

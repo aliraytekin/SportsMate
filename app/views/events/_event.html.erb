@@ -1,0 +1,12 @@
+<% if events.any? %>
+  <% events.each do |event| %>
+    <div class="mb-4" data-event-latitude="<%= event.latitude %>" data-event-longitude="<%= event.longitude %>">
+      <p><strong><%= event.title %></strong></p>
+      <p><%= event.start_time.strftime("%B %d, %Y %H:%M") %></p>
+      <p><%= event.description %></p>
+      <%= link_to "View", event_path(event), class: "simple-primary-button" %>
+    </div>
+  <% end %>
+<% else %>
+  <p>No events found.</p>
+<% end %>

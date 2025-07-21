@@ -9,6 +9,8 @@
       <%= "#{notification.actor.first_name} cancelled their event: #{notification.event.title}" %>
     <% when "followed_you" %>
       <%= link_to "#{notification.actor.first_name} just followed you", user_path(notification.actor), data: { turbo: false } %>
+    <% when "message_sent" %>
+      <%= link_to "#{notification.actor.first_name} #{notification.actor.last_name} just sent you a message.", chat_user_path(notification.actor), data: { turbo: false } %>
     <% end %>
   </div>
 </turbo-frame>

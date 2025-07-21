@@ -1,23 +1,46 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon bg-light mb-3">
-  <div class="container-fluid">
-    <%= link_to root_path, class: "navbar-brand" do %>
+  <div class="container-fluid d-flex align-items-center justify-content-between">
+
+    <%= link_to root_path, class: "navbar-brand me-3" do %>
       <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png" />
     <% end %>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <% unless controller_name == "sessions" || controller_name == "registrations" || action_name == "new" || action_name == "create" || action_name == "edit" || action_name == "update" %>
+      <%= form_with url: events_path, method: :get, local: true, class: "search-form rounded-pill d-flex align-items-center shadow-sm px-5 py-1 bg-light me-auto w-auto", style: "" do |f| %>
+        <div class="d-flex align-items-center me-3">
+          <%= f.text_field :query,
+                value: params[:query],
+                placeholder: "Search for events",
+                class: "form-control border-0 bg-transparent shadow-none",
+                style: "width: auto;" %>
+        </div>
+
+        <div class="vr mx-2"></div>
+
+        <div class="d-flex align-items-center me-3">
+          <i class="fa-solid fa-location-dot"></i>
+          <%= f.text_field :location,
+                value: params[:location],
+                placeholder: "Location",
+                class: "form-control border-0 bg-transparent shadow-none",
+                style: "width: auto;" %>
+        </div>
+
+        <%= button_tag type: "submit", class: "btn simple-primary-button rounded-circle d-flex align-items-center justify-content-center", style: "width: 40px; height: 40px;" do %>
+          <i class="fa-solid fa-magnifying-glass"></i>
+        <% end %>
+      <% end %>
+    <% end %>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
-
           <% if controller_name == "events" && action_name == "show" %>
             <li class="nav-item m-top-2">
               <%= link_to "Participate", new_event_participation_path(event), class: "simple-primary-button me-2" %>
             </li>
           <% else %>
-          <li class="nav-item m-top-2">
+            <li class="nav-item m-top-2">
             <%= link_to "New event", new_event_path, class: "simple-primary-button me-2" %>
           </li>
           <% end %>
