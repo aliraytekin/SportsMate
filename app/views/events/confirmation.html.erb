@@ -1,2 +1,12 @@
-<h1>Events#confirmation</h1>
-<p>Find me in app/views/events/confirmation.html.erb</p>
+<%
+  google_url = "https://www.google.com/calendar/render?action=TEMPLATE" +
+    "&text=#{CGI.escape(@event.title)}" +
+    "&dates=#{@event.start_time.utc.strftime('%Y%m%dT%H%M%SZ')}/#{@event.end_time.utc.strftime('%Y%m%dT%H%M%SZ')}" +
+    "&details=#{CGI.escape(@event.description)}" +
+    "&location=#{CGI.escape(@event.address)}"
+%>
+
+<div class="d-flex justify-content-center gap-2">
+  <%= link_to "Add to Google Calendar", google_url, target: "_blank", class: "simple-primary-button" %>
+  <%= link_to "Add to Calendar", calendar_event_path(@event), class: "simple-primary-button outline" %>
+</div>

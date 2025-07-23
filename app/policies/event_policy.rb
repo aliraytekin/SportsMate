@@ -28,4 +28,16 @@ class EventPolicy < ApplicationPolicy
   def cancel?
     record.user == user
   end
+
+  def payment?
+    user != record.user || record.participations.exists?(user: user, payment_status: :pending)
+  end
+
+  def confirmation?
+    user != record.user && !record.participations.exists?(user: user, payment_status: :pending)
+  end
+
+  def calendar?
+    user != record.user && record.participations.exists?(user: user)
+  end
 end

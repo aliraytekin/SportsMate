@@ -1,0 +1,22 @@
+<h2>Hi, <%= @user.first_name %></h2>
+
+<p>Get ready for <%= @event.title %></p>
+
+<ul>
+  <li>
+    Date: <%= @event.start_time.strftime('%A, %d %B %Y') %>
+  </li>
+  <li>
+    Location: <%= @event.address %>
+  </li>
+</ul>
+
+<p>The game starts at: <%= @event.start_time.strftime('%H:%M') %> and finishes at: <%= @event.end_time.strftime('%H:%M') %>. Don't forget to give your best:</p>
+
+<p>
+  📅 Add this event to your calendar by opening the attached file or
+  <a href="<%= "https://www.google.com/calendar/render?action=TEMPLATE&text=#{CGI.escape(@event.title)}&dates=#{@event.start_time.utc.strftime('%Y%m%dT%H%M%SZ')}/#{@event.end_time.utc.strftime('%Y%m%dT%H%M%SZ')}&details=#{CGI.escape(@event.description)}&location=#{CGI.escape(@event.address)}" %>" target="_blank">clicking here to add to Google Calendar</a>.
+</p>
+
+<p>See you soon!</p>
+<p><strong>SportsMate Team</strong></p>

@@ -76,7 +76,11 @@
           <p class="text-danger mt-3">This event is full. No more spots available.</p>
 
         <% else %>
-          <%= button_to "Join Event", event_participations_path(@event), method: :post, class: "shining-button mt-3" %>
+          <% if @event.free? %>
+            <%= button_to "Join Event", event_participations_path(@event), method: :post, class: "shining-button mt-3" %>
+          <% else %>
+            <%= button_to "Pay to join event", event_participations_path(@event), method: :post, class: "shining-button mt-3" %>
+          <% end %>
         <% end %>
 
       <% else %>
@@ -85,7 +89,7 @@
 
 
       <div class="text-center mt-4">
-       <%= link_to "← Back to Events", events_path, class: "simple-primary-button outline" %>
+        <%= link_to "← Back to Events", events_path, class: "simple-primary-button outline" %>
       </div>
 
     </div>
