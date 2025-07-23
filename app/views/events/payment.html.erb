@@ -1,16 +1,18 @@
 <div class="container mt-4">
 
   <%= form_with url: success_event_path(@event), method: :post,
-      html: { data: {
+      data: {
         controller: "stripe",
         stripe_api_key_value: ENV['STRIPE_PUBLISHABLE_KEY'],
         stripe_target: "form",
         stripe_secret_client_value: @payment_intent.client_secret,
-        action: "submit->stripe#submit"
-      } } do |f| %>
+        stripe_event_id_value: @event.id,
+        action: "submit->stripe#submit",
+        turbo: false
+      } do |f| %>
 
-  <div data-stripe-target="card"></div>
+    <div data-stripe-target="card"></div>
 
-  <%= f.submit "Pay now", data: { stripe_target: "submit" } %>
+    <%= f.submit "Pay now", data: { stripe_target: "submit", turbo: false }, class: "shining-button mt-4" %>
   <% end %>
 </div>

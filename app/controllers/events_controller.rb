@@ -74,13 +74,11 @@ class EventsController < ApplicationController
     authorize @event
 
     if @event.save
-      Participation.create!(event: @event, user: current_user, status: :attending)
       redirect_to @event, notice: "The event was created successfully."
     else
       render :new, status: :unprocessable_entity
     end
   end
-
 
   def edit
     @sports = Sport.all
@@ -112,6 +110,53 @@ class EventsController < ApplicationController
         action: "cancelled_event"
       )
     end
+  end
+
+  def payment
+    @event = Event.find(params[:id])
+    authorize @event, :payment?
+
+    @payment_intent = Stripe::PaymentIntent.create(
+      amount: (@event.price_per_participant.to_i * 100).to_i,
+      currency: 'eur',
+      metadata: { event_id: @event.id, user_id: current_user.id }
+    )
+  end
+
+  def success
+    @event = Event.find(params[:id])
+    authorize @event, :payment?
+
+    @participation = Participation.find_by(user_id: current_user, event: @event)
+    @participation.update(payment_status: :paid)
+
+    EventMailer.confirmation_email(@participation).deliver_now
+    redirect_to confirmation_event_path(@event), notice: "You have successfully joined this event!"
+  end
+
+  def confirmation
+    @event = Event.find(params[:id])
+    authorize @event, :confirmation?
+  end
+
+  def calendar
+    @event = Event.find(params[:id])
+    authorize @event
+
+    calendar = Icalendar::Calendar.new
+    calendar.event do |e|
+      e.dtstart     = @event.start_time
+      e.dtend       = @event.end_time
+      e.summary     = @event.title
+      e.description = @event.description
+      e.location    = @event.address
+    end
+    calendar.publish
+
+    send_data calendar.to_ical,
+              type: 'text/calendar; charset=UTF-8',
+              disposition: 'attachment',
+              filename: "#{@event.title.parameterize}.ics"
   end
 
   private

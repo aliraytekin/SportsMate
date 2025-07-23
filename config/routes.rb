@@ -21,19 +21,15 @@ Rails.application.routes.draw do
   resources :events, only: %i[index show new create edit update] do
     member do
       patch :cancel_event
+      get :payment
+      post :success
+      get :confirmation
+      get :calendar
     end
 
     resources :comments, only: %i[create]
 
     resources :participations, only: %i[new create]
-
-    resources :payments, only: [] do
-      collection do
-        get :payment
-        post :success
-        get :confirmation
-      end
-    end
   end
 
   resources :notifications, only: [] do
