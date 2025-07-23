@@ -40,6 +40,8 @@ class ParticipationsController < ApplicationController
     if @participation.save
       if @event.free?
         EventMailer.confirmation_email(@participation).deliver_now
+        reminder_time = @event.start_time - 1.day
+        EventMailer.reminder_email(@participation).deliver_later(wait_until: reminder_time)
         redirect_to @event, notice: "You have successfully joined the event."
       else
         redirect_to payment_event_path(@event)

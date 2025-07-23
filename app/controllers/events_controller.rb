@@ -131,6 +131,9 @@ class EventsController < ApplicationController
     @participation.update(payment_status: :paid)
 
     EventMailer.confirmation_email(@participation).deliver_now
+
+    reminder_time = @event.start_time - 1.day
+    EventMailer.reminder_email(@participation).deliver_later(wait_until: reminder_time)
     redirect_to confirmation_event_path(@event), notice: "You have successfully joined this event!"
   end
 
