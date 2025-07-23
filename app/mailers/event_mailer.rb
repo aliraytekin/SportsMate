@@ -24,4 +24,12 @@ class EventMailer < ApplicationMailer
 
     mail(to: @user.email, subject: "You're confirmed for #{@event.title}!")
   end
+
+  def reminder_email(participation)
+    @participation = participation
+    @event = participation.event
+    @user = participation.user
+
+    mail(to: @user.email, subject: "Reminder for #{@event.title}")
+  end
 end
