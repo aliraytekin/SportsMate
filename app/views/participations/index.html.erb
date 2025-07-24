@@ -40,7 +40,7 @@
               <%= link_to "View Event", event_path(event), class: "simple-primary-button outline" %>
 
               <% if participation.status == "attending" && event.user != current_user %>
-                <%= link_to "Leave Event",
+                <%= button_to "Leave Event",
                       cancel_participation_participation_path(participation),
                       method: :patch,
                       data: { turbo: false, confirm: "Are you sure you want to leave this event?" },
