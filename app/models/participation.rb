@@ -4,7 +4,7 @@ class Participation < ApplicationRecord
 
   belongs_to :event
   belongs_to :user
-  
+
   after_create_commit :notify_event_joined
 
   def notify_event_joined

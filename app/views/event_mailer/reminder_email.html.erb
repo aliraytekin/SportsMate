@@ -1,0 +1,12 @@
+<h1>Hello <%= @user.first_name %></h1>
+
+<p>Just a little reminder that <%= @event.title %> will happen in  24 hours.</p>
+
+<ul>
+  <li><strong>Date:</strong> <%= @event.start_time.strftime('%A, %d %B %Y') %></li>
+  <li><strong>Time:</strong> <%= @event.start_time.strftime('%H:%M') %></li>
+  <li><strong>Location:</strong> <%= @event.location %></li>
+</ul>
+
+<p>See you there!</p>
+<p><strong>The SportsMate Team</strong></p>

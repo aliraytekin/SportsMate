@@ -31,13 +31,25 @@ class ParticipationsController < ApplicationController
     @participation = Participation.new(event: @event, user: current_user)
     authorize @participation
 
+    if @event.free?
+      @participation.status = :attending
+    else
+      @participation.payment_status = :pending
+    end
+
     if @participation.save
-      redirect_to @event, notice: "You have successfully joined the event."
+      if @event.free?
+        EventMailer.confirmation_email(@participation).deliver_now
+        reminder_time = @event.start_time - 1.day
+        EventMailer.reminder_email(@participation).deliver_later(wait_until: reminder_time)
+        redirect_to @event, notice: "You have successfully joined the event."
+      else
+        redirect_to payment_event_path(@event)
+      end
     else
       redirect_to @event, alert: "Failed to join the event."
     end
   end
-
 
   def edit
     @participation = Participation.find(params[:id])
@@ -62,8 +74,6 @@ class ParticipationsController < ApplicationController
     @participation.update(status: :cancelled)
     redirect_to participations_path, notice: "You have left the event."
   end
-
-
 
   private
 
