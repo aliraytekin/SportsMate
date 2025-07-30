@@ -74,11 +74,19 @@ class EventsController < ApplicationController
     authorize @event
 
     if @event.save
+      Participation.create!(
+        user: current_user,
+        event: @event,
+        status: :attending,
+        payment_status: @event.free? ? :paid : :pending
+      )
+
       redirect_to @event, notice: "The event was created successfully."
     else
       render :new, status: :unprocessable_entity
     end
   end
+
 
   def edit
     @sports = Sport.all
@@ -128,14 +136,28 @@ class EventsController < ApplicationController
     authorize @event, :payment?
 
     @participation = Participation.find_by(user_id: current_user, event: @event)
-    @participation.update(payment_status: :paid)
+
+    if @participation
+      @participation.update!(
+        status: :attending,
+        payment_status: :paid
+      )
+    else
+      @participation = Participation.create!(
+        user: current_user,
+        event: @event,
+        status: :attending,
+        payment_status: :paid
+      )
+    end
 
     EventMailer.confirmation_email(@participation).deliver_now
-
     reminder_time = @event.start_time - 1.day
     EventMailer.reminder_email(@participation).deliver_later(wait_until: reminder_time)
+
     redirect_to confirmation_event_path(@event), notice: "You have successfully joined this event!"
   end
+
 
   def confirmation
     @event = Event.find(params[:id])

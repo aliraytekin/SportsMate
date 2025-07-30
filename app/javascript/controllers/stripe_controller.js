@@ -6,7 +6,7 @@ export default class extends Controller {
   static values = {
     apiKey: String,
     secretClient: String,
-    EventId: Number
+    eventId: Number
   }
   static targets = ["card", "form", "submit"]
 
@@ -28,14 +28,20 @@ export default class extends Controller {
     })
 
     if (error) {
-      console.log("stripe", error)
-      alert(error.message)
-      this.submitTarget.disabled = false
+      alert(error.message);
+      this.submitTarget.disabled = false;
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
-      this.formTarget.submit();
+
+      const popup = document.getElementById("payment-success-popup");
+      popup.classList.remove("d-none");
+
+      setTimeout(() => {
+        this.formTarget.submit();
+      }, 2000);
+
     } else {
-      alert("Payment not completed.")
-      this.submitTarget.disabled = false
+      alert("Payment not completed.");
+      this.submitTarget.disabled = false;
     }
   }
 }

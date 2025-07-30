@@ -1,18 +1,33 @@
-<div class="container mt-4">
+<div class="container mt-5 mb-5 text-center">
+
+  <h2 class="mb-4">Join "<%= @event.title %>"</h2>
+  <p class="lead mb-5">
+    You're about to pay <strong><%= number_to_currency(@event.price_per_participant, unit: "€") %></strong> to join this event.
+  </p>
 
   <%= form_with url: success_event_path(@event), method: :post,
       data: {
         controller: "stripe",
         stripe_api_key_value: ENV['STRIPE_PUBLISHABLE_KEY'],
-        stripe_target: "form",
         stripe_secret_client_value: @payment_intent.client_secret,
         stripe_event_id_value: @event.id,
+        stripe_target: "form",
         action: "submit->stripe#submit",
         turbo: false
-      } do |f| %>
+      }, html: { class: "card-payment-box p-4 shadow-sm rounded mx-auto", style: "max-width: 400px;" } do %>
 
-    <div data-stripe-target="card"></div>
+    <div data-stripe-target="card" class="mb-3 stripe-card-element"></div>
 
-    <%= f.submit "Pay now", data: { stripe_target: "submit", turbo: false }, class: "shining-button mt-4" %>
+    <button
+      class="shining-button w-100"
+      type="submit"
+      data-stripe-target="submit">
+      💸 Pay now
+    </button>
+
   <% end %>
+
+  <div id="payment-success-popup" class="payment-popup d-none mt-4">
+    🎉 Payment successful! Welcome to the event!
+  </div>
 </div>
