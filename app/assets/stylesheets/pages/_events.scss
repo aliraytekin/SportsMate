@@ -1,0 +1,19 @@
+.event-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+    background-color: #f8f9fa;
+  }
+}
+
+.sticky-map {
+  position: sticky;
+  top: 75px;
+  height: calc(100vh - 75px);
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

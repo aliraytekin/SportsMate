@@ -37,10 +37,6 @@
         <% if user_signed_in? %>
           <% if controller_name == "events" && action_name == "show" %>
             <li class="nav-item m-top-2">
-              <%= link_to "Participate", new_event_participation_path(event), class: "simple-primary-button me-2" %>
-            </li>
-          <% else %>
-            <li class="nav-item m-top-2">
             <%= link_to "New event", new_event_path, class: "simple-primary-button me-2" %>
           </li>
           <% end %>
