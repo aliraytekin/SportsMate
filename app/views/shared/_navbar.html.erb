@@ -35,11 +35,9 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
-          <% if controller_name == "events" && action_name == "show" %>
             <li class="nav-item m-top-2">
             <%= link_to "New event", new_event_path, class: "simple-primary-button me-2" %>
           </li>
-          <% end %>
 
           <div data-controller="notifications"
             data-notifications-url-value="<%= mark_as_read_notifications_path %>">
