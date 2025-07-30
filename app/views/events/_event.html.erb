@@ -1,11 +1,24 @@
 <% if events.any? %>
   <% events.each do |event| %>
-    <div class="mb-4" data-event-latitude="<%= event.latitude %>" data-event-longitude="<%= event.longitude %>">
-      <p><strong><%= event.title %></strong></p>
-      <p><%= event.start_time.strftime("%B %d, %Y %H:%M") %></p>
-      <p><%= event.description %></p>
-      <%= link_to "View", event_path(event), class: "simple-primary-button" %>
-    </div>
+    <%= link_to event_path(event), class: "event-card card mb-3 shadow-sm border-0 text-decoration-none text-dark", data: { event_latitude: event.latitude, event_longitude: event.longitude } do %>
+      <div class="card-body">
+        <h5 class="card-title mb-2"><%= event.title %></h5>
+
+        <p class="card-text mb-2">
+          <%= truncate(event.description, length: 100, separator: ' ', omission: '...') %>
+        </p>
+
+        <p class="card-text text-muted small mb-0">
+          <i class="fa-regular fa-calendar"></i>
+          <%= event.start_time.strftime('%B %d, %Y %H:%M') %>
+          &nbsp;&nbsp;
+          <% if event.venue.present? || event.city.present? %>
+            <i class="fa-solid fa-location-dot"></i>
+            <%= [event.venue, event.city].compact.join(', ') %>
+          <% end %>
+        </p>
+      </div>
+    <% end %>
   <% end %>
 <% else %>
   <p>No events found.</p>
