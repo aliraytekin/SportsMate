@@ -24,5 +24,6 @@
       <div class="alert alert-danger"><%= alert %></div>
     <% end %>
     <%= yield %>
+    <%= render "shared/footer", event: @event %>
   </body>
 </html>
