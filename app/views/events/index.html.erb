@@ -71,7 +71,7 @@
 
       <div class="col-md-5">
         <div id="map"
-          style="width: 42%; height: 600px; position: fixed; top: 75px; z-index: 1000;"
+          class="sticky-map col-md-5 d-none d-md-block"
           data-controller="map"
           data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
           data-map-markers-value="<%= @markers.to_json %>"

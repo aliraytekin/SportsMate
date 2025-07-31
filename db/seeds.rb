@@ -125,6 +125,32 @@ SPORTS.map do |sport|
   )
 end
 
+SPORT_WITH_ICONS = {
+  "Football" => "football.png",
+  "Basketball" => "basketball.png",
+  "Volleyball" => "volleyball.png",
+  "Rugby" => "rugby.png",
+  "Baseball" => "baseball.png",
+  "Tennis" => "tennis.png",
+  "Table Tennis" => "table-tennis.png",
+  "Swimming" => "swimming.png",
+  "Rock climbing" => "rock_climbing.png",
+  "Boxing" => "boxing.png",
+  "Kickboxing" => "kickboxing.png",
+  "Judo" => "judo.png",
+  "Cycling" => "cycling.png",
+  "Running" => "running.png",
+  "Yoga" => "yoga.png",
+  "Golf" => "golf.png",
+  "Surfing" => "surfing.png"
+}
+
+SPORT_WITH_ICONS.each do |name, icon|
+  sport = Sport.find_by(name: name)
+  sport.icon = icon
+  sport.save!
+end
+
 SPORT_DETAILS = {
   "Football" => {
     venues: ["Football Field", "Park"],
@@ -237,7 +263,7 @@ end
     difficulty: Event::DIFFICULTY.sample
   )
 
-  2.times do
+  1.times do
     event_image = sport_images[random_sport_name].sample
     puts "Downloading image #{event_image}"
     file = URI.open(event_image)
