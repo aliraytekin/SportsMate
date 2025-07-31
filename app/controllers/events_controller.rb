@@ -54,6 +54,7 @@ class EventsController < ApplicationController
         marker_html: render_to_string(partial: "marker")
       }
     end
+
   end
 
   def show
@@ -70,7 +71,6 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.user = current_user
-
     authorize @event
 
     if @event.save
@@ -81,7 +81,11 @@ class EventsController < ApplicationController
   end
 
   def edit
+    @event = Event.find(params[:id])
     @sports = Sport.all
+    respond_to do |format|
+      format.html { render partial: "events/modal_form", locals: { event: @event } }
+    end
   end
 
   def update
@@ -102,7 +106,7 @@ class EventsController < ApplicationController
   end
 
   def notify_cancel_event
-    user.followers.each do |follower|
+    @event.user.followers.each do |follower|
       Notification.create!(
         recipient: follower,
         actor: user,

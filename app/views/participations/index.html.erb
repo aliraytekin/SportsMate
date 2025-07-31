@@ -1,58 +1,38 @@
-<h2 class="mb-4">Your participation(s)</h2>
+<%# ---- 1. Participating in Other Users' Events ---- %>
 
-<% if @participations.any? %>
+<% if @other_participations.any? %>
+<h3 class="shift-div mt-5 mb-3" >LATEST EVENTS &raquo;</h3>
   <div class="row">
-    <% @participations.each do |participation| %>
-      <% event = participation.event %>
-      <div class="col-md-6">
-        <div class="card mb-4 shadow-sm">
-          <% if event.photos.attached? %>
-            <%= cl_image_tag event.photos.first.key, transformation: [{ width: 800, height: 200, crop: "fill" }], class: "card-img-top", style: "object-fit: cover;" %>
-          <% end %>
-
-          <div class="card-body">
-            <h5 class="card-title"><%= event.title %></h5>
-            <p class="card-text"><%= truncate(event.description, length: 100) %></p>
-
-            <ul class="list-unstyled mb-3">
-              <li><strong>Date:</strong> <%= event.start_time.strftime("%B %d, %Y at %H:%M") %></li>
-              <li><strong>Venue:</strong> <%= event.venue %></li>
-              <li><strong>Location:</strong> <%= event.address %></li>
-            </ul>
-
-            <div class="mb-2">
-              <% if participation.status == "attending" %>
-                <span class="badge bg-success">Attending</span>
-              <% elsif participation.status == "cancelled" %>
-                <span class="badge bg-secondary">Left the event</span>
-              <% end %>
-
-              <% if event.user == current_user %>
-                <span class="badge bg-primary">You organize this event</span>
-                <p class="mt-2 mb-0">
-                  <strong>Participants:</strong>
-                  <%= event.participations.where(status: :attending).count %> / <%= event.max_participants %>
-                </p>
-              <% end %>
-            </div>
-
-            <div class="d-flex flex-wrap align-items-center gap-3 mt-3">
-              <%= link_to "View Event", event_path(event), class: "simple-primary-button outline" %>
-
-              <% if participation.status == "attending" && event.user != current_user %>
-                <%= button_to "Leave Event",
-                      cancel_participation_participation_path(participation),
-                      method: :patch,
-                      data: { turbo: false, confirm: "Are you sure you want to leave this event?" },
-                      class: "simple-primary-button outline" %>
-              <% end %>
-            </div>
-
-          </div>
-        </div>
-      </div>
+    <% @other_participations.each do |participation| %>
+      <%= render partial: "participation_card", locals: { participation: participation } %>
     <% end %>
   </div>
 <% else %>
-  <p class="text-muted mt-4">You haven't joined any events yet.</p>
+  <p class="text-muted">You're not currently participating in any events hosted by others.</p>
+<% end %>
+
+<%# ---- 2. Events You Organize ---- %>
+
+<% if @owned_events.any? %>
+<h3 class="shift-div mt-5 mb-3">MY EVENTS &raquo;</h3>
+  <div class="row">
+    <% @owned_events.each do |event| %>
+      <%= render partial: "event_card", locals: { event: event } %>
+    <% end %>
+  </div>
+<% else %>
+  <p class="text-muted">You haven't organized any events yet.</p>
+<% end %>
+
+<%# ---- 3. Cancelled Participations ---- %>
+
+<% if @cancelled_participations.any? %>
+<h3 class="shift-div mt-5 mb-3">Cancelled Events </h3>
+  <div class="row">
+    <% @cancelled_participations.each do |participation| %>
+      <%= render partial: "participation_card", locals: { participation: participation } %>
+    <% end %>
+  </div>
+<% else %>
+  <p class="text-muted">You haven't cancelled any events.</p>
 <% end %>

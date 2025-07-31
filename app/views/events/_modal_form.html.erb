@@ -1,0 +1,22 @@
+<turbo-frame id="modal">
+  <div class="modal fade show"
+       tabindex="-1"
+       style="display: block;"
+       data-controller="modal"
+       data-action="turbo:frame-load->modal#show">
+
+    <div class="modal-dialog" style="max-width: 800px; height: auto;">
+      <div class="modal-content" style="height: 800px; overflow-y: auto;">
+        <div class="modal-header">
+          <h5 class="modal-title">Here edits can be made on <%= event.title %></h5>
+          <button type="button" class="btn-close" data-action="modal#close" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <%= render 'form', event: event %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-backdrop fade show"></div>
+</turbo-frame>

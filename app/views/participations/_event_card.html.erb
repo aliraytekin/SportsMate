@@ -1,0 +1,50 @@
+<div class="shift-div col-md-3">
+  <div class="card-event mb-4 shadow-sm">
+    <% if event.photos.attached? %>
+      <%= cl_image_tag event.photos.first.key, transformation: [{ width: 800, height: 300, crop: "fill" }], class: "card-img-top", style: "object-fit: contain;" %>
+    <% else %>
+      <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 150px;" >
+        <span class="text-white-50">No Image Available</span>
+      </div>
+    <% end %>
+
+    <div class="card-body-event">
+      <h5 class="card-title-event"><%= event.title %></h5>
+      <p class="card-text-event"><strong>Description: </strong> <%= truncate(event.description, length: 100) %></p>
+      <div class="list-event">
+        <ul class="list-unstyled mb-3">
+          <li><strong>Date:</strong> <%= event.start_time.strftime("%B %d, %Y at %H:%M") %></li>
+          <li><strong>Venue:</strong> <%= event.venue %></li>
+          <li><strong>Location:</strong> <%= event.address %></li>
+        </ul>
+      </div>
+
+      <div class="mb-2 d-flex align-items-center gap-2">
+          <span><strong>Status:</strong></span>
+          <% if event.status == "cancelled" %>
+            <span class="badge bg-danger">Event Cancelled</span>
+          <% else %>
+            <span class="badge bg-primary">You organize this event</span>
+          <% end %>
+      </div>
+
+      <div>
+        <p class="mt-2 mb-0">
+          <strong>Participants:</strong>
+          <%= event.participations.where(status: :attending).count %> / <%= event.max_participants %>
+        </p>
+      </div>
+
+      <div class="d-flex flex-wrap align-items-center gap-3 mt-3">
+        <%= link_to "View", event_path(event), class: "simple-primary-button outline" %>
+        <%= link_to "Update", edit_event_path(event), data: { turbo_frame: "modal", action: "click->modal#open" }, class: "simple-primary-button outline" %>
+        <% unless event.cancelled? %>
+          <%= button_to "Cancel", cancel_event_event_path(event),
+            method: :patch,
+            data: { turbo: false, confirm: "Are you sure you want to cancel this event?" },
+            class: "simple-primary-button outline" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
