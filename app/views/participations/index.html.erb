@@ -1,3 +1,23 @@
+<div class="container d-flex justify-content-center align-items-center">
+  <div class="banner-event">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center">
+        <% if current_user.avatar.attached? %>
+          <%= image_tag current_user.avatar, class: "rounded-circle me-4", style: "width: 60px; height: 60px;" %>
+        <% else %>
+          <%= image_tag "default_avatar.png", class: "rounded-circle me-4", style: "width: 60px; height: 60px;" %>
+        <% end %>
+        <h5 class="mb-0 align-self-center">
+          Hello <%= current_user.first_name %>, welcome to your Events Dashboard.<br>
+          Here you can view and manage your event participations.
+        </h5>
+      </div>
+      <%= link_to raw('<i class="fas fa-comment-dots me-2"></i>Chat Us'), "#", class: "btn btn-outline-light" %>
+    </div>
+  </div>
+</div>
+
+
 <%# ---- 1. Participating in Other Users' Events ---- %>
 
 <% if @other_participations.any? %>
