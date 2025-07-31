@@ -2,36 +2,35 @@
     <h1><%= "#{@user.first_name} #{@user.last_name}" %></h1>
     <p><%= @user.bio %></p>
 
-
+  <div class="row">
+    <div class="col-8">
   <% if @user.user_sport_interests.any? %>
-    <h5 class="mt-4">Sport Interests Are:</h5>
     <% @user.user_sport_interests.each do |interest| %>
-      <div class="card p-3 mb-3">
+      <div class="p-3 mb-3">
         <div class="d-flex justify-content-between align-items-center mb-1">
-          <strong><%= interest.skill_level.capitalize %></strong>
         </div>
-        <div>
-          <%= interest.sport.name %>
-        </div>
-        <div class="d-flex gap-2">
-            <%# <%= button_to "Edit", "#", class: "btn btn-outline-primary btn-sm", data: { bs_toggle: "collapse", bs_target: "#edit-user_sport_interest-#{user_sport_interests.id}" } %>
-            <%= link_to "Delete", user_sport_interest_path(interest), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"},
-                    class: "btn btn-outline-danger btn-sm" %>
-          </div>
-
-
-            <%= simple_form_for interest do |f| %>
+        <%# <%= image_tag  %>
+        <% sport = interest.sport %>
+        <div class="form">
+          <%= image_tag "#{sport.icon}" , style: "width: 50px; height: 50px;" %>
+          <%= simple_form_for interest do |f| %>
+            <div class="form-inputs row justify-content-center">
               <%= f.input :skill_level, collection: UserSportInterest::SKILL_LEVELS, prompt: "Select your skill level" %>
-              <%= f.submit "Save changes", class: "btn btn-sm btn-success" %>
-            <% end %>
+            </div>
+            <%= f.submit "Save changes", class: "shining-button px-4 py-2 mb-3" %>
+            <%= link_to "Delete", user_sport_interest_path(interest), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"},
+                class: "shining-button alert-color-background px-4 py-2" %>
+          <% end %>
+        </div>
       </div>
-      <% end %>
+    <% end %>
   <% else %>
     <h5 class="mt-4">There are no interests yet.</h5>
   <% end %>
+    </div>
+    <div class="col-4">
 
-
-  <div class="container">
+    <div class="container">
     <% if @user == current_user %>
       <div class="user_sport_interests-form">
         <div class="mt-2">
@@ -39,6 +38,12 @@
         </div>
       </div>
     </div>
+
+    </div>
+    </div>
+
+  </div>
+
 
 
     <% else %>
