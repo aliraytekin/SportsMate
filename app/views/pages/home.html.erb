@@ -1,11 +1,12 @@
-<div class="hero text-center py-5">
-  <div class="container">
-    <h1 class="display-4 fw-bold mb-3">Train together.<br>Stay motivated.</h1>
-    <p class="lead text-muted mb-4">
-      Find your workout buddy or join a nearby event — it’s simple and fun!
-    </p>
-    <div class="d-flex justify-content-center gap-3 mb-5 flex-wrap">
-      <%= link_to "Discover events", events_path, class: "shining-button px-4 py-2" %>
+<div class="banner">
+    <video autoplay muted loop playsinline class="banner-video">
+      <source src="/videos/banner.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <div class="banner-content">
+      <h1 data-controller="typed" class="mb-3">
+        <span data-typed-target="output"></span></h1>
+      <%= link_to "Discover events", events_path, class: "shining-button" %>
     </div>
   </div>
 </div>
