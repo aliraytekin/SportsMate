@@ -50,9 +50,9 @@
 
       <div class="d-flex justify-content-start align-items-center gap-2">
         <% unless current_user.following.include?(@user) %>
-          <%= link_to "Follow him", user_follows_path(@user) , method: :post, class: "simple-primary-button" %>
+          <%= button_to "Follow him", user_follows_path(@user) , method: :post, class: "simple-primary-button" %>
         <% else %>
-          <%= link_to "Unfollow him", follow_path(current_user.active_follows.find_by(followed_id: @user.id)), method: :delete, class: "simple-primary-button" %>
+          <%= button_to "Unfollow him", follow_path(current_user.active_follows.find_by(followed_id: @user.id)), method: :delete, class: "simple-primary-button" %>
         <% end %>
         <%= link_to "Chat with #{@user.first_name} #{@user.last_name}", chat_user_path(@user), class: "simple-primary-button" %>
       </div>
