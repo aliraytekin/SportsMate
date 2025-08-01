@@ -20,29 +20,47 @@
   margin-bottom: 65px;
 }
 
-
-
-
-.shift-div{
+.shift-div {
   margin-left: 100px;
+  margin-bottom: 25px;
 }
-.card-title-event{
 
- text-align: center;
+.shift-div1 {
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.3;
+    margin-left: 100px;
+    margin-bottom: 25px;
+  }
+
+.card-title-event{
+ text-align: left;
+}
+
+.card-text-event {
+
+  text-align: left;
 }
 
 .card-event {
   position:relative;
   width: 110%;
   height: auto;
-  background-color:rgba(128, 128, 128, 0.537);
+  background-color:white;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
   justify-content: space-between;
   border-radius:8px;
   border: 2px solid black;
   overflow-wrap: break-word;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  backface-visibility: hidden;
 }
 
+.card-event:hover {
+  transform: scale(1.05); /* Grows by 5% */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
 .card-body-event{
   padding: 7px;
   margin: 7px;
@@ -50,10 +68,10 @@
 
 
 .list-event {
-  background-color: rgb(255, 255, 255);
+  background-color:#fff4e6;;
   border-radius:5px;
   height:auto;
-  font-size:14px;
+  font-size:16px;
 }
 
 .list-unstyled{

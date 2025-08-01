@@ -11,12 +11,13 @@
 
     <div class="card-body-event">
       <h5 class="card-title-event"><%= event.title %></h5>
-      <p class="card-text-event"><strong>Description: </strong><%= truncate(event.description, length: 100) %></p>
+      <p class="card-text-event"><i class="fa-solid fa-note-sticky me-1"></i><%= truncate(event.description, length: 100, separator: ' ', omission: '...') %></p>
       <div class="list-event">
         <ul class="list-unstyled mb-3">
-          <li><strong>Date:</strong> <%= event.start_time.strftime("%B %d, %Y at %H:%M") %></li>
-          <li><strong>Venue:</strong> <%= event.venue %></li>
-          <li><strong>Location:</strong> <%= event.address %></li>
+          <li><i class="fa-regular fa-calendar me-1"></i> <%= event.start_time.strftime("%B %d, %Y") %> <i class="fa-solid fa-clock ms-3 me-1"></i> <%= event.start_time.strftime("%H:%M") %></li>
+          <% if event.venue.present? || event.city.present? %>
+            <li><i class="fa-solid fa-location-dot me-2"></i><%= [event.venue, event.city].compact.join(', ') %></li>
+          <% end %>
         </ul>
       </div>
       <div class="mb-2 d-flex align-items-center gap-2">
