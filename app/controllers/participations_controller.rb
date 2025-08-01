@@ -3,7 +3,15 @@ class ParticipationsController < ApplicationController
   after_action :verify_policy_scoped, only: :index
 
   def index
-    @participations = policy_scope(Participation)
+    @participations = policy_scope(Participation).includes(:event)
+    @owned_events = Event.where(user_id: current_user.id).includes(:participations)
+    @other_participations = @participations.select do |p|
+      p.event.user != current_user && p.status == "attending"
+    end
+
+    @cancelled_participations = @participations.select do |p|
+      p.status == "cancelled"
+    end
   end
 
   def new

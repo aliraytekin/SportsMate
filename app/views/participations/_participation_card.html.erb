@@ -1,0 +1,44 @@
+<% event = participation.event %>
+<div class="shift-div col-md-3">
+  <div class="card-event mb-4 shadow-sm">
+    <% if event.photos.attached? %>
+      <%= cl_image_tag event.photos.first.key, transformation: [{ width: 800, height: 300, crop: "fill" }], class: "card-img-top", style: "object-fit: contain;" %>
+    <% else %>
+      <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 150px;" >
+        <span class="text-white-50">No Image Available</span>
+      </div>
+    <% end %>
+
+    <div class="card-body-event">
+      <h5 class="card-title-event"><%= event.title %></h5>
+      <p class="card-text-event"><strong>Description: </strong><%= truncate(event.description, length: 100) %></p>
+      <div class="list-event">
+        <ul class="list-unstyled mb-3">
+          <li><strong>Date:</strong> <%= event.start_time.strftime("%B %d, %Y at %H:%M") %></li>
+          <li><strong>Venue:</strong> <%= event.venue %></li>
+          <li><strong>Location:</strong> <%= event.address %></li>
+        </ul>
+      </div>
+      <div class="mb-2 d-flex align-items-center gap-2">
+        <% if participation.status == "attending" %>
+          <span><strong>Status:</strong></span>
+          <span class="badge bg-success">Attending</span>
+        <% elsif participation.status == "cancelled" %>
+          <span><strong>Status:</strong></span>
+          <span class="badge bg-secondary">Left the event</span>
+        <% end %>
+      </div>
+
+      <div class="d-flex flex-wrap align-items-center gap-3 mt-3">
+        <%= link_to "Show More", event_path(event), class: "simple-primary-button outline" %>
+        <% if participation.status == "attending" && event.user != current_user %>
+          <%= button_to "Leave",
+                cancel_participation_participation_path(participation),
+                method: :patch,
+                data: { turbo: false, confirm: "Are you sure you want to leave this event?" },
+                class: "simple-primary-button outline" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
