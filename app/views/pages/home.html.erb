@@ -11,6 +11,32 @@
   </div>
 </div>
 
+<div class="container">
+  <section class="milestone-timeline" id="timeline">
+    <div class="milestone-card">
+      <div class="milestone-icon">📍</div>
+      <h3>Find Nearby Events</h3>
+      <p>Use the map to explore local sports activities around you.</p>
+    </div>
+    <div class="milestone-card">
+      <div class="milestone-icon">🤝</div>
+      <h3>Follow and Share Events</h3>
+      <p>Train with people who share your goals and energy.</p>
+    </div>
+    <div class="milestone-card">
+      <div class="milestone-icon">📅</div>
+      <h3>Plan & Track Activities</h3>
+      <p>Register for events and stay consistent with your schedule.</p>
+    </div>
+  </section>
+</div>
+
+
+<canvas id="world" data-controller="matter" data-matter-target="world"></canvas>
+
+<div id="">
+
+
 
 <div id="features" class="container py-5">
   <div class="row text-center">
@@ -84,3 +110,21 @@
     <%= link_to "Sign Up Now", new_user_registration_path, class: "simple-primary-button btn-lg px-5 py-3 rounded-pill shadow-sm" %>
   </div>
 </div>
+
+<script>
+  const cards = document.querySelectorAll('.milestone-card');
+
+  function revealCardsOnScroll() {
+    const triggerBottom = window.innerHeight * 0.85;
+
+    cards.forEach(card => {
+      const cardTop = card.getBoundingClientRect().top;
+      if (cardTop < triggerBottom) {
+        card.classList.add('show');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', revealCardsOnScroll);
+  window.addEventListener('load', revealCardsOnScroll);
+</script>
