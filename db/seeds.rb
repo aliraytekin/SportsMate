@@ -263,12 +263,10 @@ end
     difficulty: Event::DIFFICULTY.sample
   )
 
-  1.times do
-    event_image = sport_images[random_sport_name].sample
-    puts "Downloading image #{event_image}"
-    file = URI.open(event_image)
-    event.photos.attach(io: file, filename: "event_#{rand(1000)}.jpg", content_type: "image/jpg")
-  end
+  event_image = sport_images[random_sport_name].sample
+  puts "Downloading image #{event_image}"
+  file = URI.open(event_image)
+  event.photos.attach(io: file, filename: "event_#{rand(1000)}.jpg", content_type: "image/jpg")
 
   event.save!
 end

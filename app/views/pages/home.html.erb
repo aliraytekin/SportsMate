@@ -1,14 +1,41 @@
-<div class="hero text-center py-5">
-  <div class="container">
-    <h1 class="display-4 fw-bold mb-3">Train together.<br>Stay motivated.</h1>
-    <p class="lead text-muted mb-4">
-      Find your workout buddy or join a nearby event — it’s simple and fun!
-    </p>
-    <div class="d-flex justify-content-center gap-3 mb-5 flex-wrap">
-      <%= link_to "Discover events", events_path, class: "shining-button px-4 py-2" %>
+<div class="banner">
+    <video autoplay muted loop playsinline class="banner-video">
+      <source src="/videos/banner.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <div class="banner-content">
+      <h1 data-controller="typed" class="mb-3">
+        <span data-typed-target="output"></span></h1>
+      <%= link_to "Discover events", events_path, class: "shining-button" %>
     </div>
   </div>
 </div>
+
+<%# <div class="container">
+  <section class="milestone-timeline" id="timeline">
+    <div class="milestone-card">
+      <div class="milestone-icon">📍</div>
+      <h3>Find Nearby Events</h3>
+      <p>Use the map to explore local sports activities around you.</p>
+    </div>
+    <div class="milestone-card">
+      <div class="milestone-icon">🤝</div>
+      <h3>Follow and Share Events</h3>
+      <p>Train with people who share your goals and energy.</p>
+    </div>
+    <div class="milestone-card">
+      <div class="milestone-icon">📅</div>
+      <h3>Plan & Track Activities</h3>
+      <p>Register for events and stay consistent with your schedule.</p>
+    </div>
+  </section>
+</div> %>
+
+
+<%# <canvas id="world" data-controller="matter" data-matter-target="world"></canvas>
+
+<div id=""> %>
+
 
 
 <div id="features" class="container py-5">
@@ -83,3 +110,21 @@
     <%= link_to "Sign Up Now", new_user_registration_path, class: "simple-primary-button btn-lg px-5 py-3 rounded-pill shadow-sm" %>
   </div>
 </div>
+
+<script>
+  const cards = document.querySelectorAll('.milestone-card');
+
+  function revealCardsOnScroll() {
+    const triggerBottom = window.innerHeight * 0.85;
+
+    cards.forEach(card => {
+      const cardTop = card.getBoundingClientRect().top;
+      if (cardTop < triggerBottom) {
+        card.classList.add('show');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', revealCardsOnScroll);
+  window.addEventListener('load', revealCardsOnScroll);
+</script>

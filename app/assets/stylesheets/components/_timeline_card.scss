@@ -1,0 +1,60 @@
+.race-track {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 100px auto;
+  max-width: 1000px;
+  padding: 80px 20px;
+}
+
+.race-track::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  width: 90%;
+  height: 4px;
+  background-color: #000;
+  z-index: 0;
+}
+
+.flag {
+  font-size: 28px;
+  z-index: 2;
+}
+
+.checkpoint {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+}
+
+.pin {
+  font-size: 24px;
+  background: white;
+  padding: 4px;
+  border-radius: 50%;
+  margin-top: -4px;
+}
+
+.card {
+  background: white;
+  border: 2px solid #000;
+  border-radius: 12px;
+  padding: 20px;
+  width: 220px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 2;
+}
+
+.card.top {
+  margin-bottom: 60px;
+}
+
+.card.bottom {
+  margin-top: 60px;
+}
