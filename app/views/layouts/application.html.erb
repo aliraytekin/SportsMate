@@ -23,6 +23,8 @@
     <% elsif alert %>
       <div class="alert alert-danger"><%= alert %></div>
     <% end %>
+    <turbo-frame id="modal"></turbo-frame>
     <%= yield %>
+    <%= render "shared/footer", event: @event %>
   </body>
 </html>

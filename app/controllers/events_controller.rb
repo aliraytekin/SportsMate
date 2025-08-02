@@ -54,6 +54,7 @@ class EventsController < ApplicationController
         marker_html: render_to_string(partial: "marker")
       }
     end
+
   end
 
   def show
@@ -70,18 +71,29 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.user = current_user
-
     authorize @event
 
     if @event.save
+      Participation.create!(
+        user: current_user,
+        event: @event,
+        status: :attending,
+        payment_status: @event.free? ? :paid : :pending
+      )
+
       redirect_to @event, notice: "The event was created successfully."
     else
       render :new, status: :unprocessable_entity
     end
   end
 
+
   def edit
+    @event = Event.find(params[:id])
     @sports = Sport.all
+    respond_to do |format|
+      format.html { render partial: "events/modal_form", locals: { event: @event } }
+    end
   end
 
   def update
@@ -102,7 +114,7 @@ class EventsController < ApplicationController
   end
 
   def notify_cancel_event
-    user.followers.each do |follower|
+    @event.user.followers.each do |follower|
       Notification.create!(
         recipient: follower,
         actor: user,
@@ -128,14 +140,28 @@ class EventsController < ApplicationController
     authorize @event, :payment?
 
     @participation = Participation.find_by(user_id: current_user, event: @event)
-    @participation.update(payment_status: :paid)
+
+    if @participation
+      @participation.update!(
+        status: :attending,
+        payment_status: :paid
+      )
+    else
+      @participation = Participation.create!(
+        user: current_user,
+        event: @event,
+        status: :attending,
+        payment_status: :paid
+      )
+    end
 
     EventMailer.confirmation_email(@participation).deliver_now
-
     reminder_time = @event.start_time - 1.day
     EventMailer.reminder_email(@participation).deliver_later(wait_until: reminder_time)
+
     redirect_to confirmation_event_path(@event), notice: "You have successfully joined this event!"
   end
+
 
   def confirmation
     @event = Event.find(params[:id])
