@@ -1,0 +1,132 @@
+$orbitItemSize: 1.8em;
+$map: (ring-0: 4, ring-1: 3, ring-2: 8, ring-3: 3);
+$lastRing: 3;
+
+.orbit {
+  position: relative;
+}
+
+.orbit-icon {
+  width: $orbitItemSize;
+  height: $orbitItemSize;
+  line-height: $orbitItemSize;
+  font-size: 1.6em;
+  background: #E5E7EB;
+  text-align: center;
+  display: block;
+  border-color: #3b82f6;
+  border-radius: 50%;
+  border-width: 1px;
+  border-style: solid;
+  padding: 3px;
+}
+
+.orbit-wrap {
+  height: 36em;
+  list-style: none;
+
+  > li {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    &:hover {
+      ul {
+        border-width: 2px;
+        border-color: #fff;
+      }
+      ~ li ul {
+        border-color: rgba(255, 255, 255, 0.2);
+        li {
+          opacity: 0.4;
+        }
+      }
+    }
+
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+ul[class^=ring] {
+  transition: all 300ms ease-in-out;
+  li {
+    @extend %orbiting-object;
+    transition: all 300ms ease-in-out;
+  }
+}
+
+@mixin orbit-item($numItems, $numRing) {
+  @for $s from 1 through $numItems {
+    $deg: 380deg / $numItems;
+
+    .ring-#{$numRing} > *:nth-of-type(#{$s}) {
+      transform: rotate($s * $deg) translate(20em - ($numRing * 2.5)) rotate(-$s * $deg);
+    }
+  }
+}
+
+@for $i from 0 through $lastRing {
+  .ring-#{$i} {
+    width: 40em + ($i * 5);
+    height: 40em + ($i * 5);
+    animation: clockwiseRotate 35s - ($i * 5) linear infinite;
+
+    i {
+      animation: counterClockwiseRotate 35s - ($i * 5) linear infinite;
+    }
+  }
+
+  @include orbit-item(map-get($map, ring-#{$i}), $i);
+}
+
+%orbiting-object {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: $orbitItemSize;
+  height: $orbitItemSize;
+  margin: -$orbitItemSize / 2;
+}
+
+.orbit-center {
+  z-index: 5;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes clockwiseRotate {
+    from {
+        transform: rotate(0deg)
+    }
+    to {
+        transform: rotate(360deg)
+    }
+}
+
+@keyframes counterClockwiseRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
