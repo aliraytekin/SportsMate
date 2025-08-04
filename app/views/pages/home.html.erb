@@ -1,20 +1,80 @@
-<div class="hero text-center py-5">
-  <div class="container">
-    <h1 class="display-4 fw-bold mb-3">Train together.<br>Stay motivated.</h1>
-    <p class="lead text-muted mb-4">
-      Find your workout buddy or join a nearby event — it’s simple and fun!
-    </p>
-    <div class="d-flex justify-content-center gap-3 mb-5 flex-wrap">
-      <%= link_to "Discover events", events_path, class: "shining-button px-4 py-2" %>
+<div class="banner">
+  <video autoplay muted loop playsinline class="banner-video">
+    <source src="/videos/banner.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+  <div class="banner-content">
+    <h1 data-controller="typed" class="mb-3">
+      <span data-typed-target="output"></span></h1>
+    <%= link_to "Discover events", events_path, class: "shining-button" %>
+  </div>
+</div>
+
+<div class="orbit">
+  <ul class="orbit-wrap">
+    <div class="orbit-center">
+      <li class="card fade-in" data-controller="fade-in" data-fade-in-target="card">
+        <h1 class="text-blue">Meet teammates</h1>
+        <p>Sportsmates makes it easy to connect
+            with people who share your passion
+            for sports. Whether you’re new in
+            town or missing players for your weekly
+            match, our website helps you find
+            and join a team instantly. With user
+            profiles and skill levels, you can
+            quickly discover teammates who match your
+            interests. No more struggling
+            to meet people — just join an event
+            or create one, and start building
+            your team within minutes.</p>
+          <% if user_signed_in? %>
+            <%= link_to "Create an event", new_event_path, class: "shining-button" %>
+          <% else %>
+            <%= link_to "Sign up", new_user_registration_path, class: "shining-button" %>
+          <% end %>
+      </li>
     </div>
+      <li>
+        <ul class="ring-0" data-controller="fade-in">
+          <li><img src="images/football.png" class="orbit-icon" alt="football-icon" data-fade-in-target="icon"></li>
+          <li><img src="images/baseball.png" class="orbit-icon" alt="baseball-icon" data-fade-in-target="icon"></li>
+          <li><img src="images/boxing.png" class="orbit-icon" alt="boxing-icon" data-fade-in-target="icon"></li>
+          <li><img src="images/climbing.png" class="orbit-icon" alt="climbing-icon" data-fade-in-target="icon"></li>
+        </ul>
+      </li>
+
+      <li>
+        <ul class="ring-1" data-controller="fade-in">
+          <li><img src="images/cycling.png" class="orbit-icon" alt="cycling-icon" data-fade-in-target="icon"></li>
+          <li><img src="images/golf.png" class="orbit-icon" alt="golf-icon" data-fade-in-target="icon"></li>
+          <li><img src="images/judo.png" class="orbit-icon" alt="judo-icon" data-fade-in-target="icon"></li>
+        </ul>
+      </li>
+      <li>
+        <ul class="ring-2" data-controller="fade-in">
+          <li><img src="images/rugby.png" class="orbit-icon" alt="rugby-icon" data-fade-in-target="icon"></li>
+          <li><img src="images/running.png" class="orbit-icon" alt="running-icon" data-fade-in-target="icon"></li>
+          <li><img src="images/surfing.png" class="orbit-icon" alt="surfing-icon" data-fade-in-target="icon"></li>
+          <li><img src="images/swimming.png" class="orbit-icon" alt="swimming-icon" data-fade-in-target="icon"></li>
+          <li><img src="images/table-tennis.png" class="orbit-icon" alt="table-tennis-icon" data-fade-in-target="icon"></li>
+          <li><img src="images/tennis.png" class="orbit-icon" alt="tennis-icon" data-fade-in-target="icon"></li>
+        </ul>
+      </li>
+      <li>
+        <ul class="ring-3">
+          <li><img src="images/volleyball.png" class="orbit-icon" alt="volleyball-icon"></li>
+          <li><img src="images/yoga.png" class="orbit-icon" alt="yoga-icon"></li>
+        </ul>
+      </li>
+    </ul>
   </div>
 </div>
 
 
-<div id="features" class="container py-5">
+<div id="features" class="container py-5" data-controller="gsap">
   <div class="row text-center">
     <div class="col-md-4 mb-4">
-      <div class="card h-100 shadow-sm border-0">
+      <div class="card h-100 shadow-sm border-0" data-gsap-target="card1">
         <div class="card-body">
           <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" class="mb-3" width="48" alt="Map">
           <h5 class="card-title fw-semibold">Find Nearby Events</h5>
@@ -23,7 +83,7 @@
       </div>
     </div>
     <div class="col-md-4 mb-4">
-      <div class="card h-100 shadow-sm border-0">
+      <div class="card h-100 shadow-sm border-0" data-gsap-target="card2">
         <div class="card-body">
           <img src="https://cdn-icons-png.flaticon.com/512/1077/1077012.png" class="mb-3" width="48" alt="Group">
           <h5 class="card-title fw-semibold">Follow and share events</h5>
@@ -32,44 +92,11 @@
       </div>
     </div>
     <div class="col-md-4 mb-4">
-      <div class="card h-100 shadow-sm border-0">
+      <div class="card h-100 shadow-sm border-0" data-gsap-target="card3">
         <div class="card-body">
           <img src="https://cdn-icons-png.flaticon.com/512/747/747310.png" class="mb-3" width="48" alt="Calendar">
-          <h5 class="card-title fw-semibold">Plan & Track Activities</h5>
-          <p class="card-text text-muted">Register for events and stay consistent with your schedule.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="py-5">
-  <div class="container text-center">
-    <h2 class="fw-bold mb-5">How it works</h2>
-    <div class="row justify-content-center gx-4 gy-4">
-      <div class="col-sm-6 col-md-3">
-        <div class="p-4 h-100 border rounded shadow-sm bg-white">
-          <div class="text-primary fs-3 mb-2">①</div>
-          <p class="mb-0">Create your free SportsMate account</p>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-3">
-        <div class="p-4 h-100 border rounded shadow-sm bg-white">
-          <div class="text-primary fs-3 mb-2">②</div>
-          <p class="mb-0">Select your sport and location</p>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-3">
-        <div class="p-4 h-100 border rounded shadow-sm bg-white">
-          <div class="text-primary fs-3 mb-2">③</div>
-          <p class="mb-0">Discover local events</p>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-3">
-        <div class="p-4 h-100 border rounded shadow-sm bg-white">
-          <div class="text-primary fs-3 mb-2">④</div>
-          <p class="mb-0">Join and train together 💪</p>
+          <h5 class="card-title fw-semibold">Track Activities</h5>
+          <p class="card-text text-muted">Track upcoming matches and stay connected with teammates through every game.</p>
         </div>
       </div>
     </div>
