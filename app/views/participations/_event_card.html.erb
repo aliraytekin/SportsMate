@@ -27,13 +27,13 @@
         </ul>
       </div>
 
-      <div class="mb-2 d-flex align-items-center gap-2">
-          <span><strong>Status</strong></span>
-          <% if event.status == "cancelled" %>
-            <span class="badge3 me-1">Event Cancelled</span>
-          <% else %>
-            <span class="badge4 me-1">You organize this event</span>
-          <% end %>
+      <div id="event-status-<%= event.id %>" class="mb-2 d-flex align-items-center gap-2">
+        <span><strong>Status</strong></span>
+        <% if event.status == "cancelled" %>
+          <span class="badge3 me-1">Event Cancelled</span>
+        <% else %>
+          <span class="badge4 me-1">You organize this event</span>
+        <% end %>
       </div>
 
       <div>
@@ -43,13 +43,17 @@
         </p>
       </div>
 
-      <div class="d-flex flex-wrap align-items-center gap-3 mt-3">
+      <div id="event-actions-<%= event.id %>" class="d-flex flex-wrap align-items-center gap-3 mt-3">
         <%= link_to "More Details", event_path(event), class: "shining-button1" %>
-        <%= link_to "Update", edit_event_path(event), data: { turbo_frame: "modal", action: "click->modal#open" }, class: "shining-button1" %>
+
         <% unless event.cancelled? %>
+          <%= link_to "Update", edit_event_path(event),
+            data: { turbo_frame: "modal", action: "click->modal#open" },
+            class: "shining-button1" %>
+
           <%= button_to "Cancel", cancel_event_event_path(event),
             method: :patch,
-            data: { turbo: false, confirm: "Are you sure you want to cancel this event?" },
+            data: { turbo: true, confirm: "Are you sure you want to cancel this event?" },
             class: "shining-button-red" %>
         <% end %>
       </div>

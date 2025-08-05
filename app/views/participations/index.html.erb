@@ -4,9 +4,9 @@
       <div class="d-flex align-items-center justify-content-between">
         <div class="d-flex align-items-center">
           <% if current_user.avatar.attached? %>
-            <%= image_tag current_user.avatar, class: "rounded-circle me-4", style: "width: 60px; height: 60px;" %>
+            <%= image_tag current_user.avatar, class: "rounded-circle-event me-4", style: "width: 60px; height: 60px;" %>
           <% else %>
-            <%= image_tag "default_avatar.png", class: "rounded-circle me-4", style: "width: 60px; height: 60px;" %>
+            <%= image_tag "default_avatar.png", class: "rounded-circle-event me-4", style: "width: 60px; height: 60px;" %>
           <% end %>
           <h3 class="card-banner mb-0 align-self-center">
             Hi <%= current_user.first_name %>, Welcome To Sportsmate Events Dashboard. The Home For All Sport Lovers.<br>
@@ -22,7 +22,7 @@
   <%# ---- 1. Participating in Other Users' Events ---- %>
 
   <% if @other_participations.any? %>
-  <h3 class="card-heading-event mt-5 mb-5 ms-6" >EVENTS PARTICIPATION &raquo;</h3>
+  <h3 class="card-heading-event mt-5 mb-5 ms-6" >&raquo; EVENTS PARTICIPATION &raquo;</h3>
     <div class="row">
       <% @other_participations.each do |participation| %>
         <%= render partial: "participation_card", locals: { participation: participation } %>
@@ -33,7 +33,7 @@
   <%# ---- 2. Events You Organize ---- %>
 
   <% if @owned_events.any? %>
-  <h3 class="card-heading-event mt-5 mb-5 ms-6">ORGANIZED EVENTS &raquo;</h3>
+  <h3 class="card-heading-event mt-5 mb-5 ms-6">&raquo; ORGANIZED EVENTS &raquo;</h3>
     <div class="row">
       <% @owned_events.each do |event| %>
         <%= render partial: "event_card", locals: { event: event } %>
@@ -44,7 +44,7 @@
   <%# ---- 3. Cancelled Participations ---- %>
 
   <% if @cancelled_participations.any? %>
-  <h3 class="card-heading-event mt-5 mb-5 ms-6">CANCELLED EVENTS </h3>
+  <h3 class="card-heading-event mt-5 mb-5 ms-6">&raquo; CANCELLED EVENTS </h3>
     <div class="row">
       <% @cancelled_participations.each do |participation| %>
         <%= render partial: "participation_card", locals: { participation: participation } %>

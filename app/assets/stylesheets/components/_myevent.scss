@@ -1,36 +1,44 @@
 .banner-event{
   width: 100%;
   background-color:white; /* grey with opacity */
-  padding: 2rem;
+  height: 100px;
+  padding: 0px 35px;
   border-radius:25px;
-  margin-top: 20px;
+  margin-top: 25px;
   border: 2px solid #3b82f6;
   box-shadow: #3b82f6 0px 30px 30px -20px;
 }
 
+.rounded-circle-event{
+  margin-top: 20px;
+  border-radius: 50%;
+}
 .card-banner{
   font-weight: 800;
   font-size: 20px;
   color: #3b82f6;
+  margin-top: 20px;
 }
 .btn-outline-light{
   border-radius: 8px;
   color:#3b82f6;
   border: 2px solid #3b82f6;
   box-shadow: 0 4px 10px #3b83f6b1;
+  margin-top: 20px;
 }
+
 
 
 .card-heading-event {
   font-weight: 800;
   font-size: 30px;
   color: #3b82f6;
-  margin-left: 100px;
+  margin-left: 70px;
 }
 
 
 .card1{
-  margin-left: 100px;
+  margin-left: 80px;
   margin-bottom: 50px;
 }
 

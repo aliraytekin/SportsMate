@@ -110,7 +110,10 @@ class EventsController < ApplicationController
 
     @event.cancelled!
     notify_cancel_event
-    redirect_to @event, notice: "Event cancelled."
+    respond_to do |format|
+      format.turbo_stream # Renders cancel_event.turbo_stream.erb
+      format.html { redirect_to @event, notice: "Event cancelled." }
+    end
   end
 
   def notify_cancel_event
