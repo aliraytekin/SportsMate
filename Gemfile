@@ -89,3 +89,4 @@ gem "omniauth-rails_csrf_protection"
 gem "solid_cable"
 gem "icalendar"
 gem 'actionmailer'
+gem 'kaminari'
