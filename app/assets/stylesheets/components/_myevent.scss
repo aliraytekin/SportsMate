@@ -1,62 +1,197 @@
 .banner-event{
   width: 100%;
-  background-color: rgba(128, 128, 128, 0.8); /* grey with opacity */
-  padding: 2rem;
-  border-radius: 8px;
-  margin-top: 20px;
-  border: 1px solid #1E293B;
+  background-color:white; /* grey with opacity */
+  height: 100px;
+  padding: 0px 35px;
+  border-radius:25px;
+  margin-top: 25px;
+  border: 2px solid #3b82f6;
+  box-shadow: #3b82f6 0px 30px 30px -20px;
 }
 
+.rounded-circle-event{
+  margin-top: 20px;
+  border-radius: 50%;
+}
+.card-banner{
+  font-weight: 800;
+  font-size: 20px;
+  color: #3b82f6;
+  margin-top: 20px;
+}
 .btn-outline-light{
   border-radius: 8px;
-  color:#1E293B;
-  border: 1px solid #1E293B;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3)
-}
-
-.h2 {
-  text-align: center;
-  color:#1E293B;
-  margin-bottom: 65px;
+  color:#3b82f6;
+  border: 2px solid #3b82f6;
+  box-shadow: 0 4px 10px #3b83f6b1;
+  margin-top: 20px;
 }
 
 
 
-
-.shift-div{
-  margin-left: 100px;
-}
-.card-title-event{
-
-  text-align: center;
+.card-heading-event {
+  font-weight: 800;
+  font-size: 30px;
+  color: #3b82f6;
+  margin-left: 70px;
 }
 
-.card-event {
-  position:relative;
-  width: 110%;
-  height: auto;
-  background-color:rgba(128, 128, 128, 0.537);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
-  justify-content: space-between;
-  border-radius:8px;
-  border: 2px solid black;
+
+.card1{
+  margin-left: 80px;
+  margin-bottom: 50px;
+}
+
+
+.card-image-event{
+
+border-top-left-radius: 25px;
+border-top-right-radius: 25px;
+}
+
+.card1 {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 390px;
+  height: max-content;
+  padding-bottom: 25px;
+  border-radius: 25px;
+  background-color: #e5e7eb;
+  box-shadow: #3b82f6 0px 30px 30px -20px;
   overflow-wrap: break-word;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  backface-visibility: hidden;
 }
 
-.card-body-event{
-  padding: 7px;
-  margin: 7px;
+.card1:hover {
+  transform: scale(1.05); /* Grows by 5% */
+ box-shadow: #3b82f6 0px 30px 30px -20px;
+  z-index: 2;
 }
+
+.card1-heading {
+  font-weight: 800;
+  font-size: 20px;
+  color: #3b82f6;
+  margin-top: 10px;
+}
+
+
+.card1-content {
+  font-weight: 400;
+  font-size: 16px;
+  color:black;
+  margin-left: 10px;
+}
+
 
 
 .list-event {
-  background-color: rgb(255, 255, 255);
+  background-color:white;
   border-radius:5px;
   height:auto;
-  font-size:14px;
+  font-size:16px;
 }
 
 .list-unstyled{
-
+  margin-left: 10px;
   padding: 4px;
+}
+
+
+.modal-dialog.modal-right {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin-right:50px;
+  margin-top: 40px;
+  border-radius: 25px;
+  height: 100vh;      /* Full viewport height */
+  max-width: 600px;   /* Or whatever width you want */
+  transform: none !important; /* Disable Bootstrap centering transform */
+  box-shadow: -2px 0 8px rgba(0,0,0,0.2);
+  overflow-y: auto;
+  z-index: 1050; /* Ensure it's above other content */
+}
+
+.shining-button1 {
+  background: linear-gradient(to right, #3B82F6, #6a00ff);
+  color: white;
+  font-weight: 300;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  text-decoration: none;
+}
+.shining-button-red {
+  background: linear-gradient(to right, rgba(255, 0, 0, 0.741), red);
+  color: white;
+  font-weight: 300;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  text-decoration: none;
+}
+
+.badge1 {
+  background: linear-gradient(to right, rgba(0, 128, 64, 0.407),green);
+  color: white;
+  font-weight: 300;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  text-decoration: none;
+}
+
+.badge2 {
+  background: linear-gradient(to right, rgba(128, 128, 128, 0.407),grey);
+  color: white;
+  font-weight: 300;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  text-decoration: none;
+}
+
+
+.badge3 {
+  background: linear-gradient(to right, rgba(255, 0, 0, 0.66),red);
+  color: white;
+  font-weight: 300;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  text-decoration: none;
+}
+
+
+.badge4 {
+  background: linear-gradient(to right, rgba(0, 0, 255, 0.456), blue);
+  color: white;
+  font-weight: 300;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  text-decoration: none;
 }

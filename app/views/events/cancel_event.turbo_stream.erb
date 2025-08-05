@@ -1,0 +1,12 @@
+<%= turbo_stream.replace "event-actions-#{@event.id}" do %>
+  <div class="d-flex flex-wrap align-items-center gap-3 mt-3">
+    <%= link_to "More Details", event_path(@event), class: "shining-button1" %>
+  </div>
+<% end %>
+
+<%= turbo_stream.replace "event-status-#{@event.id}" do %>
+  <div class="mb-2 d-flex align-items-center gap-2">
+    <span><strong>Status</strong></span>
+    <span class="badge3 me-1">Event Cancelled</span>
+  </div>
+<% end %>

@@ -12,6 +12,7 @@ class ParticipationsController < ApplicationController
     @cancelled_participations = @participations.select do |p|
       p.status == "cancelled"
     end
+    @participations = current_user.participations.includes(event: :sport)
   end
 
   def new
