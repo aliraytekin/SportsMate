@@ -1,0 +1,85 @@
+.chat {
+  background: white;
+  margin-top: 9px;
+  height: calc(100vh - 75px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+  border-radius: 12px;
+  padding: 8px;
+
+  h1 {
+    border-bottom: 1px solid $background-color;
+    margin-bottom: 0;
+    padding: 1rem;
+  }
+
+  .messages {
+    height: 100%;
+    overflow: scroll;
+    padding: 1rem;
+  }
+
+  .message-input {
+    border-radius: 12px;
+  }
+}
+
+
+.message {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.message-info {
+  position: relative;
+  display: flex;
+}
+
+.message-time {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  opacity: 0.7;
+}
+
+.message-avatar {
+  height: 30px;
+  width: 30px;
+  margin-bottom: 4px;
+}
+
+.message.sent .message-info {
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.message.received .message-info {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.message-content {
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  max-width: 70%;
+  width: fit-content;
+  word-wrap: break-word;
+}
+
+.message.sent .message-content {
+  align-self: flex-end;
+  background: linear-gradient(to right, #3B82F6, #6a00ff);;
+  color: white;
+}
+
+.message.received .message-content {
+  align-self: flex-start;
+  background: $card-background;
+}
