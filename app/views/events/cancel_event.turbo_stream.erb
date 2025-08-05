@@ -6,7 +6,7 @@
 
 <%= turbo_stream.replace "event-status-#{@event.id}" do %>
   <div class="mb-2 d-flex align-items-center gap-2">
-    <span><strong>Status</strong></span>
-    <span class="badge3 me-1">Event Cancelled</span>
+    <span class="mb-0"><strong>Status:</strong></span>
+    <span class="badg"><i class="fa-solid fa-circle-minus me-2 mt-1" style="color: red;"></i>Event Cancelled</span>
   </div>
 <% end %>

@@ -28,11 +28,11 @@
       </div>
 
       <div id="event-status-<%= event.id %>" class="mb-2 d-flex align-items-center gap-2">
-        <span><strong>Status</strong></span>
+        <span class="mb-0"><strong>Status:</strong></span>
         <% if event.status == "cancelled" %>
-          <span class="badge3 me-1">Event Cancelled</span>
+          <span class="badg"><i class="fa-solid fa-circle-minus me-2 mt-1" style="color: red;"></i>Event Cancelled</span>
         <% else %>
-          <span class="badge4 me-1">You organize this event</span>
+          <span class="badg"><i class="fa-solid fa-circle-plus me-2 mt-1" style="color: blue;"></i>You organize this event</span>
         <% end %>
       </div>
 
