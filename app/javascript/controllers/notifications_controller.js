@@ -2,6 +2,8 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="notifications"
 export default class extends Controller {
+  static targets = ["bell"]
+
   static values = { url: String }
 
   markAsRead() {
@@ -12,5 +14,9 @@ export default class extends Controller {
         "Accept": "text/vnd.turbo-stream.html"
       }
     })
+    this.bellTarget.classList.add("clicked")
+    setTimeout(() => {
+      this.bellTarget.classList.remove("clicked")
+    }, 500)
   }
 }
