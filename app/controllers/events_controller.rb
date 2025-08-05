@@ -46,6 +46,8 @@ class EventsController < ApplicationController
       )
     end
 
+    @events = @events.page(params[:page]).per(10)
+
     @markers = @events.geocoded.map do |event|
       {
         lat: event.latitude,

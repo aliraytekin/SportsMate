@@ -1,84 +1,89 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-2">
-      <%= turbo_frame_tag "event_results" do %>
+<div class="container-fluid py-4 events-page">
+  <div class="row g-4">
+    <div class="col-lg-3 col-md-4">
+      <div class="filters-card p-3 shadow-sm rounded bg-white">
+        <%= turbo_frame_tag "event_results" do %>
+          <%= form_with url: events_path, method: :get, data: { turbo: false } do |f| %>
+            <%= f.hidden_field :query, value: params[:query], class: "form-control" %>
+            <%= f.hidden_field :location, value: params[:location], class: "form-control" %>
 
-        <%= form_with url: events_path, method: :get, data: { turbo: false } do |f| %>
+            <div class="mb-3">
+              <%= f.label :date_range, "Select a date range", class: "form-label fw-bold" %>
+              <%= f.text_field :date_range, value: params[:date_range],
+                  class: "form-control rounded-input",
+                  data: { controller: "flatpickr" } %>
+            </div>
 
-          <div>
-            <%= f.hidden_field :query,
-            value: params[:query],
-            class: "form-control" %>
-          </div>
+            <div class="mb-3">
+              <%= f.label :difficulty, "Filter by difficulty:", class: "form-label fw-bold" %>
+              <% Event::DIFFICULTY.each do |level| %>
+                <div class="form-check">
+                  <%= f.radio_button :difficulty, level, checked: params[:difficulty] == level, class: "form-check-input" %>
+                  <%= label_tag "difficulty_#{level}", level, class: "form-check-label" %>
+                </div>
+              <% end %>
+            </div>
 
-          <div>
-            <%= f.hidden_field :location,
-            value: params[:location],
-            class: "form-control" %>
-          </div>
+            <div class="mb-3">
+              <%= f.label :radius, "Filter by distance:", class: "form-label fw-bold" %>
+              <% [10, 20, 100].each do |distance| %>
+                <div class="form-check">
+                  <%= f.radio_button :radius, distance, checked: params[:radius] == distance.to_s, class: "form-check-input" %>
+                  <%= label_tag "radius_#{distance}", "#{distance} km", class: "form-check-label" %>
+                </div>
+              <% end %>
+            </div>
 
-          <div class="mb-2">
-            <%= f.label :date_range, "Select a date range", class: "mb-1" %>
-            <%= f.text_field :date_range,
-                value: params[:date_range],
-                class: "form-control",
-                data: { controller: "flatpickr" } %>
-          </div>
-
-          <div class="difficulty-filter mb-4">
-            <%= f.label :difficulty, "Filter by difficulty:" %><br>
-            <%= f.radio_button :difficulty, "Beginner", checked: params[:difficulty] == "Beginner" %> Beginner<br>
-            <%= f.radio_button :difficulty, "Intermediate", checked: params[:difficulty] == "Intermediate" %> Intermediate<br>
-            <%= f.radio_button :difficulty, "Advanced", checked: params[:difficulty] == "Advanced" %> Advanced<br>
-          </div>
-
-          <div class="radius-filter mb-2">
-            <%= f.label :radius, "Filter by distance:" %><br>
-            <%= f.radio_button :radius, 10, checked: params[:radius] == "10" %> 10 km<br>
-            <%= f.radio_button :radius, 20, checked: params[:radius] == "20" %> 20 km<br>
-            <%= f.radio_button :radius, 100, checked: params[:radius] == "100" %> 100 km<br>
-          </div>
-
-          <% if user_signed_in? && current_user.sports.present? %>
-            <div class="dropdown mb-2 d-flex justify-content-center">
-              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                Favorite sports
-              </button>
-              <ul class="dropdown-menu p-3" style="min-width: 100px;">
+            <% if user_signed_in? && current_user.sports.present? %>
+              <div class="mb-3">
+                <label class="form-label fw-bold">Favorite sports</label>
                 <% current_user.sports.each do |sport| %>
-                  <li>
-                    <div class="form-check">
-                      <%= check_box_tag "favorite_sports[]", sport.id,
-                            params[:favorite_sports]&.include?(sport.id.to_s),
-                            class: "form-check-input",
-                            id: "sport_#{sport.id}" %>
-                      <%= label_tag "sport_#{sport.id}", sport.name, class: "form-check-label" %>
-                    </div>
-                  </li>
+                  <div class="form-check d-flex align-items-center mb-2">
+                    <%= check_box_tag "favorite_sports[]", sport.id,
+                        params[:favorite_sports]&.include?(sport.id.to_s),
+                        class: "form-check-input me-2",
+                        id: "sport_#{sport.id}" %>
+                    <%= label_tag "sport_#{sport.id}", class: "form-check-label d-flex align-items-center" do %>
+                      <%= image_tag(sport.icon, class: "sport-icon me-2") rescue image_tag("default_avatar.png", class: "sport-icon me-2") %>
+                      <%= sport.name %>
+                    <% end %>
+                  </div>
                 <% end %>
-              </ul>
+              </div>
+            <% end %>
+
+            <div class="text-center">
+              <%= f.submit "Apply filters", class: "simple-primary-button me-2 w-100" %>
             </div>
           <% end %>
-          <div class="d-flex justify-content-center">
-            <%= f.submit "Apply filters", class: "simple-primary-button search mt-2 me-2" %>
-          </div>
         <% end %>
       </div>
+    </div>
 
-      <div class="col-md-5">
-        <%= render "event", events: @events %>
-      </div>
+    <div class="col-lg-5 col-md-8 col-events">
+      <% if @events.any? %>
+        <% @events.each do |event| %>
+          <%= render "event", event: event %>
+        <% end %>
+        <%= paginate @events,
+             theme: 'bootstrap4',
+             pagination_class: "pagination pagination-sm justify-content-center",
+             page_class: "page-item",
+             link_class: "page-link" %>
+      <% else %>
+        <p>No events found.</p>
+      <% end %>
+    </div>
 
-      <div class="col-md-5">
-        <div id="map"
-          class="sticky-map col-md-5 d-none d-md-block"
-          data-controller="map"
-          data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
-          data-map-markers-value="<%= @markers.to_json %>"
-          data-map-latitude-value="<%= params[:latitude] %>"
-          data-map-longitude-value="<%= params[:longitude] %>">
-        </div>
+    <div class="col-lg-4">
+      <div id="map"
+        class="sticky-map"
+        data-controller="map"
+        data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
+        data-map-markers-value="<%= @markers.to_json %>"
+        data-map-latitude-value="<%= params[:latitude] %>"
+        data-map-longitude-value="<%= params[:longitude] %>">
       </div>
-    <% end %>
+    </div>
   </div>
 </div>

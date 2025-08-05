@@ -1,25 +1,33 @@
-<% if events.any? %>
-  <% events.each do |event| %>
-    <%= link_to event_path(event), class: "event-card card mb-3 shadow-sm border-0 text-decoration-none text-dark", data: { event_latitude: event.latitude, event_longitude: event.longitude } do %>
-      <div class="card-body">
-        <h5 class="card-title mb-2"><%= event.title %></h5>
-
-        <p class="card-text mb-2">
-          <%= truncate(event.description, length: 100, separator: ' ', omission: '...') %>
-        </p>
-
-        <p class="card-text text-muted small mb-0">
-          <i class="fa-regular fa-calendar"></i>
-          <%= event.start_time.strftime('%B %d, %Y %H:%M') %>
-          &nbsp;&nbsp;
-          <% if event.venue.present? || event.city.present? %>
-            <i class="fa-solid fa-location-dot"></i>
-            <%= [event.venue, event.city].compact.join(', ') %>
-          <% end %>
-        </p>
-      </div>
-    <% end %>
-  <% end %>
+<% if event.photos.attached? %>
+  <% background_url = url_for(event.photos.first) %>
 <% else %>
-  <p>No events found.</p>
+  <% background_url = nil %>
+<% end %>
+
+<%= link_to event_path(event), class: "event-card-background" do %>
+  <% if background_url.present? %>
+    <div class="event-bg" style="background-image: url('<%= background_url %>');"></div>
+  <% else %>
+    <div class="event-bg" style="background-color: #222;"></div>
+  <% end %>
+  <div class="event-overlay"></div>
+
+  <div class="event-content text-white">
+    <h5 class="mb-2 d-flex align-items-center">
+      <%= image_tag(event.sport.icon, class: "sport-icon me-2 bg-white rounded-circle p-1") rescue image_tag("default_avatar.png", class: "sport-icon me-2") %>
+      <%= event.title %>
+    </h5>
+    <p class="mb-2">
+      <%= truncate(event.description, length: 160, separator: ' ', omission: '...') %>
+    </p>
+    <p class="small mb-0">
+      <i class="fa-regular fa-calendar"></i>
+      <%= event.start_time.strftime('%B %d, %Y %H:%M') %>
+      &nbsp;&nbsp;
+      <% if event.venue.present? || event.city.present? %>
+        <i class="fa-solid fa-location-dot"></i>
+        <%= [event.venue, event.city].compact.join(', ') %>
+      <% end %>
+    </p>
+  </div>
 <% end %>

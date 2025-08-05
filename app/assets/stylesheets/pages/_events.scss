@@ -1,19 +1,140 @@
-.event-card {
-  transition: transform 0.2s, box-shadow 0.2s;
+body {
+  background-color: #f5f7fa;
+  padding: 0 15px;
+}
 
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
-    background-color: #f8f9fa;
-  }
+.filters-card {
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  padding: 15px;
+  margin-bottom: 20px;
+  position: sticky;
+  top: 75px;
+  height: fit-content;
+}
+
+.filters-card .form-control,
+.filters-card .btn,
+.filters-card .form-check-input {
+  border-radius: 12px;
+}
+
+.filters-card .form-control {
+  border: 1px solid #ddd;
+  padding: 10px 14px;
+}
+
+.simple-primary-button {
+  border-radius: 12px;
+}
+
+.col-events {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.event-card-background {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 240px;
+  width: 100%;
+  max-width: 650px;
+  text-decoration: none;
+  color: white;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.event-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.65);
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.event-card-background:hover .event-bg {
+  transform: scale(1.08);
+  filter: brightness(0.8);
+}
+
+.event-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.event-content {
+  position: absolute;
+  top: 0;
+  padding: 20px;
+  z-index: 2;
+}
+
+.event-content h5 {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-shadow: 0px 2px 6px rgba(0,0,0,0.6);
+}
+
+.event-content p {
+  font-size: 1rem;
+  line-height: 1.5;
+  text-shadow: 0px 1px 4px rgba(0,0,0,0.5);
+}
+
+.sport-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
 }
 
 .sticky-map {
   position: sticky;
   top: 75px;
-  height: calc(100vh - 75px);
-  width: 100%;
+  height: calc(100vh - 120px);
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  margin-bottom: 40px;
+}
+
+.col-lg-3,
+.col-lg-4 {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 20px;
+}
+
+.pagination .page-item .page-link {
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  padding: 6px 12px;
+  color: #333;
+  background: white;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.pagination .page-item .page-link:hover {
+  background: #f0f0f0;
+  color: #0d6efd;
+}
+
+.pagination .active .page-link {
+  background-color: #0d6efd;
+  color: white;
+  border-color: #0d6efd;
 }

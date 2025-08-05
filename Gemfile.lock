@@ -192,6 +192,18 @@ GEM
     json (2.12.2)
     jwt (3.1.2)
       base64
+    kaminari (1.2.2)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.2.2)
+      kaminari-activerecord (= 1.2.2)
+      kaminari-core (= 1.2.2)
+    kaminari-actionview (1.2.2)
+      actionview
+      kaminari-core (= 1.2.2)
+    kaminari-activerecord (1.2.2)
+      activerecord
+      kaminari-core (= 1.2.2)
+    kaminari-core (1.2.2)
     logger (1.7.0)
     loofah (2.24.1)
       crass (~> 1.0.2)
@@ -424,6 +436,7 @@ DEPENDENCIES
   icalendar
   importmap-rails (~> 1.2.3)
   jbuilder
+  kaminari
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
   pexels
