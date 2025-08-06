@@ -1,15 +1,19 @@
 class NotificationsController < ApplicationController
   def mark_as_read
-    current_user.received_notifications.where(read: false).update_all(read: true)
+    current_user.received_notifications.where(read: false).find_each do |notification|
+      notification.update!(read: true)
+    end
+
+    unread_count = current_user.received_notifications.where(read: false).count
 
     respond_to do |format|
-      format.turbo_stream do
+      format.turbo_stream {
         render turbo_stream: turbo_stream.replace(
-          "notification_badge",
+          "notifications_badge",
           partial: "notifications/badge",
-          locals: { unread_count: 0 }
+          locals: { unread_count: unread_count }
         )
-      end
+      }
       format.html { head :ok }
     end
   end
