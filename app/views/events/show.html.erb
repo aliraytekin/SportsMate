@@ -1,134 +1,188 @@
-<div class="container-fluid py-5 px-0">
-  <div class="d-flex justify-content-between align-items-center mb-4 px-3">
-    <%= link_to "← Back to Events", events_path, class: "simple-primary-button outline" %>
-    <h1 class="display-5 fw-bold mb-0 text-center flex-grow-1"><%= @event.title %></h1>
-    <div style="width: 160px;"></div>
+<div class="container-fluid py-4 event-show">
+  <% info_items = [
+    { icon: 'geo-alt-fill',   label: 'Location',        value: @event.address.presence || [@event.street, @event.city, @event.country].compact.join(', ') },
+    { icon: 'calendar-event', label: 'Date & Time',     value: "#{@event.start_time.strftime('%B %d, %Y at %H:%M')} – #{@event.end_time.strftime('%H:%M')}" },
+    { icon: 'person-badge',   label: 'Organized by', value: link_to(([@event.user.first_name, @event.user.last_name].compact.join(' ').presence || @event.user.email), user_path(@event.user), class: "text-decoration-none") },
+    { icon: 'building',       label: 'Venue',           value: @event.venue },
+    { icon: 'people-fill',    label: 'Participants limit', value: @event.max_participants }
+  ] %>
+
+  <!-- Header -->
+  <div class="row align-items-center mb-4">
+    <div class="col text-center">
+      <h1 class="fw-bold mb-0"><%= @event.title %></h1>
+    </div>
   </div>
-  <div class="row">
-    <div class="col-md-4 ps-3 pe-3">
-      <div class="card shadow-sm p-3 mb-4 bg-light">
-        <div class="row text-start mb-4">
-          <div class="col-12 mb-3">
-            <p class="mb-1"><i class="bi bi-geo-alt-fill me-2"></i><strong>Location:</strong></p>
-            <p class="ms-4"><%= @event.address.presence || [@event.street, @event.city, @event.country].compact.join(', ') %></p>
-            <hr>
-          </div>
-          <div class="col-12 mb-3">
-            <p class="mb-1"><i class="bi bi-calendar-event-fill me-2"></i><strong>Date & Time:</strong></p>
-            <p class="ms-4"><%= @event.start_time.strftime("%B %d, %Y at %H:%M") %> – <%= @event.end_time.strftime("%H:%M") %></p>
-            <hr>
-          </div>
-          <div class="col-12 mb-3">
-            <p class="mb-1"><i class="bi bi-person-fill me-2"></i><strong>Organized by:</strong></p>
-            <% full_name = [@event.user.first_name, @event.user.last_name].compact.join(' ') %>
-            <p class="ms-4"><%= full_name.presence || @event.user.email %></p>
-            <hr>
-          </div>
-          <div class="col-12 mb-3">
-            <p class="mb-1"><strong>Venue:</strong></p>
-            <p class="ms-4"><%= @event.venue %></p>
-            <hr>
-          </div>
-          <div class="col-12">
-            <p class="mb-1"><strong>Participants limit:</strong></p>
-            <p class="ms-4"><%= @event.max_participants %></p>
-          </div>
+
+  <div class="row g-4 align-items-stretch">
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card h-100 p-3">
+        <div class="row g-2 align-items-center text-center justify-content-center">
+          <% info_items.each do |item| %>
+            <div class="col-5 fw-semibold d-flex align-items-center justify-content-center text-center">
+              <i class="bi bi-<%= item[:icon] %> me-2"></i>
+              <span><%= item[:label] %>:</span>
+            </div>
+            <div class="col-7 text-center"><%= item[:value] %></div>
+            <div class="col-12"><hr></div>
+          <% end %>
+        </div>
+        <div class="mt-3">
+          <h6 class="mb-2">Participants (<%= @participants.count %>)</h6>
+
+          <% if @participants.any? %>
+            <div class="d-flex flex-wrap gap-2">
+              <% @participants.each do |p| %>
+                <% u = p.user %>
+                <%= link_to user_path(u), class: "text-decoration-none" do %>
+                  <div class="d-flex align-items-center gap-2 border rounded-pill px-2 py-1">
+                    <% if u.respond_to?(:avatar) && u.avatar.attached? %>
+                      <%= image_tag u.avatar.variant(resize_to_fill: [32, 32]),
+                            class: "rounded-circle",
+                            alt: [u.first_name, u.last_name].compact.join(' ') %>
+                    <% else %>
+                      <div class="rounded-circle bg-secondary text-white d-flex justify-content-center align-items-center"
+                           style="width: 32px; height: 32px;">
+                        <%= (u.first_name&.first || u.email&.first || "?").upcase %>
+                      </div>
+                    <% end %>
+                    <span class="small"><%= [u.first_name, u.last_name].compact.join(' ').presence || u.email %></span>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          <% else %>
+            <p class="text-muted mb-0">No participants yet.</p>
+          <% end %>
         </div>
       </div>
     </div>
 
-    <div class="col-md-4 ps-3 pe-3">
-      <div class="card shadow-sm p-3 mb-4 bg-light">
-        <h4><strong>Description</strong></h4>
-        <p class="lead text-muted"><%= @event.description %></p>
-      </div>
-    </div>
+    <div class="col-12 col-md-8">
+      <div class="row g-4 align-items-stretch">
+        <!-- Images -->
+        <div class="col-12 col-md-6">
+          <div class="card h-100 p-3 d-flex flex-column">
+            <h5 class="mb-2 text-center">Venue Photo</h5>
 
-    <div class="col-md-4 ps-3 pe-3">
-      <div class="card shadow-sm p-3 mb-4 bg-light">
-        <h4><strong>Location Map</strong></h4>
-        <div id="map" style="width: 100%; height: 300px;" class="mb-3"></div>
-        <h5 class="mt-3"><strong>Participants (<%= @participants.count %>)</strong></h5>
-        <% if @participants.any? %>
-          <div class="d-flex flex-wrap gap-2">
-            <% @participants.each do |p| %>
-              <div class="rounded-circle bg-secondary text-white d-flex justify-content-center align-items-center" style="width: 40px; height: 40px;">
-                <%= p.user.first_name&.first&.upcase || "?" %>
-              </div>
-            <% end %>
+            <div class="ratio ratio-16x9 rounded overflow-hidden border flex-grow-1 position-relative">
+              <% if @pexels_image_url.present? %>
+                <%= image_tag @pexels_image_url,
+                      class: "position-absolute top-0 start-0 w-100 h-100 object-fit-cover" %>
+              <% elsif defined?(rails_blob_url) && @event.respond_to?(:photos) && @event.photos.attached? %>
+                <%= image_tag @event.photos.first.variant(resize_to_limit: [1600, 900]),
+                      class: "position-absolute top-0 start-0 w-100 h-100 object-fit-cover" %>
+              <% elsif @event.respond_to?(:image_url) && @event.image_url.present? %>
+                <%= image_tag @event.image_url,
+                      class: "position-absolute top-0 start-0 w-100 h-100 object-fit-cover" %>
+              <% else %>
+                <%= image_tag "https://via.placeholder.com/800x400?text=No+Image+Found",
+                      class: "position-absolute top-0 start-0 w-100 h-100 object-fit-cover",
+                      alt: "No image available" %>
+              <% end %>
+            </div>
           </div>
-        <% else %>
-          <p class="text-muted">No participants yet.</p>
-        <% end %>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div class="card h-100 p-3 d-flex flex-column">
+            <h5 class="mb-2 text-center">Location Map</h5>
+
+            <div class="ratio ratio-16x9 rounded border flex-grow-1 position-relative">
+              <!-- #map remplit la zone via utilitaires Bootstrap, pas de CSS custom -->
+              <div id="map" class="position-absolute top-0 bottom-0 start-0 end-0"></div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-12 mt-4">
+          <div class="card p-4 w-100 mw-100 mx-0" style="max-width:none;">
+            <h5 class="fw-bold mb-3 text-center">Description</h5>
+            <div style="white-space: pre-wrap; line-height: 1.6;">
+              <%= @event.description %>
+            </div>
+          </div>
+        </div>
+        <div class="mb-4"></div>
       </div>
     </div>
   </div>
 
-  <div class="row justify-content-center mt-4">
-    <div class="col-md-8 text-center">
+  <div class="text-center">
+    <div class="d-inline-flex flex-wrap gap-2 justify-content-center">
       <% if user_signed_in? %>
         <% user_participation = @event.participations.find_by(user_id: current_user.id) %>
 
         <% if user_participation&.attending? %>
-          <p class="text-success mt-3">You're already participating in this event.</p>
-
+          <p class="text-success mt-2 mb-0">You're already participating in this event.</p>
         <% elsif user_participation&.cancelled? %>
           <% if @participants.count < @event.max_participants %>
             <%= form_with url: participation_path(user_participation), method: :patch, class: "d-inline" do %>
               <%= hidden_field_tag "participation[status]", "attending" %>
-              <%= submit_tag "Re-join Event", class: "btn btn-primary btn-lg px-5 py-3 mt-3 shining-button" %>
+              <%= submit_tag "Re-join Event", class: "btn btn-primary btn-lg px-5 py-3 shining-button" %>
             <% end %>
           <% else %>
-            <p class="text-danger mt-3">This event is full. No more spots available.</p>
+            <p class="text-danger mt-2 mb-0">This event is full. No more spots available.</p>
           <% end %>
-
         <% elsif @participants.count >= @event.max_participants %>
-          <p class="text-danger mt-3">This event is full. No more spots available.</p>
-
+          <p class="text-danger mt-2 mb-0">This event is full. No more spots available.</p>
         <% else %>
           <% if @event.free? %>
-            <%= button_to "Join Event", event_participations_path(@event), method: :post, class: "btn btn-primary btn-lg px-5 py-3 mt-3 shining-button" %>
+            <%= button_to "Join Event", event_participations_path(@event), method: :post, class: "btn btn-primary btn-lg px-5 py-3 shining-button" %>
           <% else %>
-            <%= button_to "Pay to join event", event_participations_path(@event), method: :post, class: "btn btn-primary btn-lg px-5 py-3 mt-3 shining-button" %>
+            <%= button_to "Pay to join event", event_participations_path(@event), method: :post, class: "btn btn-primary btn-lg px-5 py-3 shining-button" %>
           <% end %>
         <% end %>
-
       <% else %>
-        <%= link_to "Log in to join", new_user_session_path, class: "shining-button px-5 mt-3" %>
+        <%= link_to "Log in to join", new_user_session_path, class: "shining-button px-5" %>
       <% end %>
 
-      <hr class="my-4">
-
-      <div class="mb-4">
-        <%= turbo_stream_from "event_#{@event.id}_comments" %>
-
-        <%= turbo_frame_tag "comments" do %>
-          <%= render @event.comments.last(5) %>
-        <% end %>
-
-        <% if user_signed_in? %>
-          <%= turbo_frame_tag "new_comment" do %>
-            <div class="d-flex gap-2">
-              <%= form_with model: [@event, Comment.new], local: true, html: { class: "flex-grow-1 d-flex" } do |f| %>
-                <%= f.text_area :content, class: "form-control flex-grow-1 px-4 py-3 rounded-3", placeholder: "Write a comment...", rows: 2 %>
-                <%= f.submit "Commenter", class: "shining-button ms-2" %>
-              <% end %>
-            </div>
-          <% end %>
-        <% else %>
-          <h5 class="text-muted">You must be signed in to write a comment</h5>
-        <% end %>
-      </div>
+      <%= link_to "Back to Events", events_path, class: "simple-primary-button outline btn btn-lg px-4 py-3" %>
     </div>
   </div>
+
+  <hr class="my-4">
+
+  <div>
+    <h5 class="mb-3">Comments</h5>
+    <%= turbo_stream_from "event_#{@event.id}_comments" %>
+
+    <%= turbo_frame_tag "comments" do %>
+      <%= render @event.comments.last(5) %>
+    <% end %>
+
+    <% if user_signed_in? %>
+      <%= turbo_frame_tag "new_comment" do %>
+        <div class="d-flex gap-2">
+          <%= form_with model: [@event, Comment.new], local: true, html: { class: "flex-grow-1 d-flex" } do |f| %>
+            <%= f.text_area :content, class: "form-control flex-grow-1 px-3 py-2 rounded-3", placeholder: "Write a comment...", rows: 2 %>
+            <%= f.submit "Commenter", class: "shining-button ms-2" %>
+          <% end %>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="text-muted">You must be signed in to write a comment.</p>
+    <% end %>
+  </div>
+
+  <!-- Map Script -->
   <%= javascript_tag do %>
-    mapboxgl.accessToken = 'pk.eyJ1IjoiYWxpbmhvIiwiYSI6ImNtY3AzdHJuazAyZHgya3Iza2R1bmg0dHQifQ.WoMUZ33Ag2fFEsei6gnOFQ';
-    const map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: [<%= @event.longitude %>, <%= @event.latitude %>],
-      zoom: 13
+    document.addEventListener("turbo:load", () => {
+      const el = document.getElementById('map');
+      if (!el || typeof mapboxgl === "undefined") return;
+      const lng = <%= @event.longitude || 'null' %>;
+      const lat = <%= @event.latitude  || 'null' %>;
+      if (lng === null || lat === null) return;
+
+      mapboxgl.accessToken = '<%= ENV.fetch("MAPBOX_API_KEY") %>';
+      const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [lng, lat],
+        zoom: 13
+      });
+      new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map);
     });
-    new mapboxgl.Marker().setLngLat([<%= @event.longitude %>, <%= @event.latitude %>]).addTo(map);
   <% end %>
 </div>

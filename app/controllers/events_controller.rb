@@ -57,10 +57,19 @@ class EventsController < ApplicationController
 
   end
 
-  def show
-    @event = Event.find(params[:id])
-    @participants = @event.participations.includes(:user).where(status: :attending)
-  end
+def show
+  @participants = @event.participations.includes(:user).where(status: :attending)
+
+  return if (@event.respond_to?(:photos) && @event.photos.attached?) || @event.try(:image_url).present?
+
+  query = @event.title.to_s.strip.presence || "sport"
+  results = Pexels::Client.new.photos.search(query, per_page: 1)
+
+  @pexels_image_url = results.first&.src&.large.presence || "https://via.placeholder.com/800x400?text=No+Image+Found"
+rescue => e
+  Rails.logger.error "[PEXELS] #{e.class}: #{e.message}"
+  @pexels_image_url = "https://via.placeholder.com/800x400?text=Error+Loading+Image"
+end
 
   def new
     @event = Event.new
