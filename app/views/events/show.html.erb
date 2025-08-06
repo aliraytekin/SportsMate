@@ -169,7 +169,7 @@
         <div class="d-flex gap-2">
           <%= form_with model: [@event, Comment.new], local: true, html: { class: "flex-grow-1 d-flex" } do |f| %>
             <%= f.text_area :content, class: "form-control flex-grow-1 px-3 py-2 rounded-3", placeholder: "Write a comment...", rows: 2 %>
-            <%= f.submit "Comment", class: "shining-button ms-2" %>
+            <%= f.submit "Comments", class: "shining-button ms-2" %>
           <% end %>
         </div>
       <% end %>
