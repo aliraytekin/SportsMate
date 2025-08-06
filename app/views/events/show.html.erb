@@ -66,21 +66,36 @@
             <h5 class="mb-2 text-center">Venue Photo</h5>
 
             <div class="ratio ratio-16x9 rounded overflow-hidden border flex-grow-1 position-relative">
-              <% if @pexels_image_url.present? %>
-                <%= image_tag @pexels_image_url,
-                      class: "position-absolute top-0 start-0 w-100 h-100 object-fit-cover" %>
-              <% elsif defined?(rails_blob_url) && @event.respond_to?(:photos) && @event.photos.attached? %>
-                <%= image_tag @event.photos.first.variant(resize_to_limit: [1600, 900]),
-                      class: "position-absolute top-0 start-0 w-100 h-100 object-fit-cover" %>
-              <% elsif @event.respond_to?(:image_url) && @event.image_url.present? %>
-                <%= image_tag @event.image_url,
-                      class: "position-absolute top-0 start-0 w-100 h-100 object-fit-cover" %>
-              <% else %>
-                <%= image_tag "https://via.placeholder.com/800x400?text=No+Image+Found",
-                      class: "position-absolute top-0 start-0 w-100 h-100 object-fit-cover",
-                      alt: "No image available" %>
-              <% end %>
-            </div>
+  <% if @event.respond_to?(:photos) && @event.photos.attached? %>
+    <% photo = @event.photos.first %>
+
+    <% if defined?(cl_image_tag) && photo&.blob&.service&.name.to_s == "cloudinary" %>
+      <%= cl_image_tag photo.key,
+            width: 1600, height: 900, crop: :fill, gravity: :auto,
+            class: "position-absolute top-0 start-0 w-100 h-100 object-fit-cover",
+            alt: @event.title %>
+    <% else %>
+      <%= image_tag url_for(photo),
+            class: "position-absolute top-0 start-0 w-100 h-100 object-fit-cover",
+            alt: @event.title %>
+    <% end %>
+
+  <% elsif @event.respond_to?(:image_url) && @event.image_url.present? %>
+    <%= image_tag @event.image_url,
+          class: "position-absolute top-0 start-0 w-100 h-100 object-fit-cover",
+          alt: @event.title %>
+
+  <% elsif @pexels_image_url.present? %>
+    <%= image_tag @pexels_image_url,
+          class: "position-absolute top-0 start-0 w-100 h-100 object-fit-cover",
+          alt: @event.title %>
+
+  <% else %>
+    <%= image_tag "https://via.placeholder.com/800x400?text=No+Image+Found",
+          class: "position-absolute top-0 start-0 w-100 h-100 object-fit-cover",
+          alt: "No image available" %>
+  <% end %>
+</div>
           </div>
         </div>
 
@@ -89,7 +104,6 @@
             <h5 class="mb-2 text-center">Location Map</h5>
 
             <div class="ratio ratio-16x9 rounded border flex-grow-1 position-relative">
-              <!-- #map remplit la zone via utilitaires Bootstrap, pas de CSS custom -->
               <div id="map" class="position-absolute top-0 bottom-0 start-0 end-0"></div>
             </div>
 
@@ -104,13 +118,12 @@
             </div>
           </div>
         </div>
-        <div class="mb-4"></div>
       </div>
     </div>
   </div>
 
   <div class="text-center">
-    <div class="d-inline-flex flex-wrap gap-2 justify-content-center">
+    <div class="d-inline-flex flex-wrap gap-2 justify-content-center mt-3">
       <% if user_signed_in? %>
         <% user_participation = @event.participations.find_by(user_id: current_user.id) %>
 
