@@ -24,7 +24,9 @@
       <div class="alert alert-danger"><%= alert %></div>
     <% end %>
     <turbo-frame id="modal"></turbo-frame>
-    <%= yield %>
+    <main>
+      <%= yield %>
+    </main>
     <%= render "shared/footer", event: @event %>
   </body>
 </html>
