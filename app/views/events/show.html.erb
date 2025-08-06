@@ -68,13 +68,13 @@
             <div class="ratio ratio-16x9 rounded overflow-hidden border flex-grow-1 position-relative">
   <% if @event.respond_to?(:photos) && @event.photos.attached? %>
     <% photo = @event.photos.first %>
-    <% if defined?(cl_image_tag) && photo&.blob&.service&.name.to_s == "cloudinary" %>
-      <%= cl_image_tag photo.key,
-            width: 1600, height: 900, crop: :fill, gravity: :auto,
+    <% if photo.key.nil? %>
+      <%= image_tag url_for(photo),
             class: "position-absolute top-0 start-0 w-100 h-100 object-fit-cover",
             alt: @event.title %>
     <% else %>
-      <%= image_tag url_for(photo),
+      <%= cl_image_tag photo.key,
+            width: 1600, height: 900, crop: :fill, gravity: :auto,
             class: "position-absolute top-0 start-0 w-100 h-100 object-fit-cover",
             alt: @event.title %>
     <% end %>
