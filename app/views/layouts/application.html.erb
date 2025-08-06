@@ -17,6 +17,7 @@
   </head>
 
   <body>
+    <body data-current-user-id="<%= current_user ? current_user.id : "" %>">
     <%= render "shared/navbar", event: @event %>
     <% if notice %>
       <div class="alert alert-success"><%= notice %></div>
