@@ -28,11 +28,11 @@
     </div>
     <div class="mb-2 d-flex align-items-center gap-2">
       <% if participation.status == "attending" %>
-        <span><strong>Status</strong></span>
-        <span class="badge1 me-1">Attending</span>
+        <span class="mb-0"><strong>Status:</strong></span>
+        <span class="badg"><i class="fa-solid fa-circle-check me-2 mt-1" style="color: green;"></i>Attending</span>
       <% elsif participation.status == "cancelled" %>
-        <span><strong>Status</strong></span>
-        <span class="badge2 me-1">Left the event</span>
+        <span class="mb-0"><strong>Status:</strong></span>
+        <span class="badg"><i class="fa-solid fa-circle-left me-2 mt-1" style="color: black;"></i>Left the event</span>
       <% end %>
     </div>
 
@@ -43,7 +43,7 @@
               cancel_participation_participation_path(participation),
               method: :patch,
               data: { turbo: false, confirm: "Are you sure you want to leave this event?" },
-              class: "shining-button1" %>
+              class: "shining-button-red" %>
       <% end %>
     </div>
   </div>

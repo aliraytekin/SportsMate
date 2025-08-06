@@ -66,10 +66,10 @@
           <%= render "event", event: event %>
         <% end %>
         <%= paginate @events,
-             theme: 'bootstrap4',
-             pagination_class: "pagination pagination-sm justify-content-center",
-             page_class: "page-item",
-             link_class: "page-link" %>
+            theme: 'bootstrap4',
+            pagination_class: "pagination pagination-sm justify-content-center",
+            page_class: "page-item",
+            link_class: "page-link" %>
       <% else %>
         <p>No events found.</p>
       <% end %>
