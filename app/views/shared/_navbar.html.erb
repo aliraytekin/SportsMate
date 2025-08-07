@@ -2,7 +2,7 @@
   <div class="container-fluid d-flex align-items-center justify-content-between">
 
     <%= link_to root_path, class: "navbar-brand me-3" do %>
-      <%= image_tag("logo.png", class: "img-responsive", alt: "Logo") %>
+      <%= image_tag("logo.png", class: "img-responsive background-grey", alt: "Logo") %>
     <% end %>
 
     <% unless controller_name == "sessions" || controller_name == "registrations" || action_name == "new" || action_name == "create" || action_name == "edit" || action_name == "update" %>
