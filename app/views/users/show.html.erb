@@ -1,5 +1,4 @@
 <div class="container mt-4">
-  <h1 class="section-title">My Profile</h1>
   <h2 class="user-name"><%= "#{@user.first_name} #{@user.last_name}" %></h2>
   <p class="user-bio"><%= @user.bio %></p>
 
@@ -74,15 +73,15 @@
     <div class="p-3 mb-3">
         <% unless current_user.following.include?(@user) %>
         <div class="container">
-          <%= button_to "Follow him", user_follows_path(@user) , method: :post, class: "simple-primary-button" %>
+          <%= button_to "Follow", user_follows_path(@user) , method: :post, class: "simple-primary-button" %>
         </div>
         <% else %>
         <div class="container mb-3">
-          <%= button_to "Unfollow him", follow_path(current_user.active_follows.find_by(followed_id: @user.id)), method: :delete, class: "simple-primary-button" %>
+          <%= button_to "Unfollow", follow_path(current_user.active_follows.find_by(followed_id: @user.id)), method: :delete, class: "shining-button simple-primary-button" %>
         </div>
         <% end %>
         <div class="container mt-3">
-          <%= link_to "Chat with #{@user.first_name} #{@user.last_name}", chat_user_path(@user), class: "simple-primary-button" %>
+          <%= link_to "Chat with #{@user.first_name} #{@user.last_name}", chat_user_path(@user), class: "shining-button simple-primary-button" %>
         </div>
       </div>
 
