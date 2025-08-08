@@ -1,4 +1,7 @@
-<div id="message_<%= message.id %>" class="message <%= message.sender_id == current_user_id ? 'sent' : 'received' %>">
+<div id="message_<%= message.id %>"
+  class="message <%= message.sender_id == current_user_id ? 'sent' : 'received' %>"
+  data-controller="message"
+  data-message-user-id-value="<%= message.sender_id %>">
   <small class="message-info">
     <span>
       <%= link_to message.sender do %>

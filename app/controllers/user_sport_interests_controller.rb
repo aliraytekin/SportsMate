@@ -24,10 +24,11 @@ before_action :set_user_sport_interest, only: %i[edit update destroy]
   end
 
   def update
+    @user_sport_interest = UserSportInterest.find(params[:id])
     if @user_sport_interest.update(user_sport_interests_params)
       redirect_to user_path(current_user), notice: "Your interests have been updated."
     else
-     render "users/show", status: :unprocessable_entity
+      redirect_to user_path(current_user), alert: "Failed to update"
     end
   end
 

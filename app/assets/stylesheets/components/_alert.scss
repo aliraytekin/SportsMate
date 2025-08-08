@@ -3,4 +3,13 @@
   bottom: 16px;
   right: 16px;
   z-index: 1000;
+  width: 350px;
+  padding: 7px;
+  animation: fadeOut 6s ease-in-out forwards;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; display: none; }
 }

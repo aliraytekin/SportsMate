@@ -56,10 +56,12 @@ class Event < ApplicationRecord
   private
 
   def capitalize_title
-    self.title = title.titleize
+    self.title = title.titleize if title.present?
   end
 
   def end_time_after_start_time
+    return if end_time.blank? || start_time.blank?
+
     if end_time <= start_time && start_time.present?
       errors.add(:end_time, "must be after the start time")
     end

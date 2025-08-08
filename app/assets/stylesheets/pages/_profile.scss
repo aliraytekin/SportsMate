@@ -1,0 +1,94 @@
+.interest-card-background {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  border-radius: 12px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 750px;
+  height: auto;
+  background-color: #000;
+}
+
+.interest-card-background:hover .interest-overlay {
+  background: rgba(0, 0, 0, 0.0); // Менше затемнення
+  transition: background 0.3s ease;
+}
+
+
+.interest-bg {
+  flex: 1;
+  min-height: 200px;
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 4 / 3;
+}
+
+.card-background-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(0.9);
+}
+
+.interest-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.interest-content {
+  width: 60%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.interest-content h5,
+.interest-content p {
+  margin: 0;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.simple_form input,
+.simple_form select {
+  border-radius: 12px;
+}
+
+.fixed-sidebar-form {
+  position: sticky;
+  top: 100px;
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+
+
+@media (max-width: 768px) {
+  .interest-card-background {
+    flex-direction: column;
+  }
+
+  .interest-bg,
+  .interest-content {
+    max-width: 100%;
+  }
+
+  .fixed-sidebar-form {
+    position: static;
+    margin-top: 20px;
+  }
+}

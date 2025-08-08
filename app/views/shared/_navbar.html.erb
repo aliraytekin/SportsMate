@@ -2,7 +2,7 @@
   <div class="container-fluid d-flex align-items-center justify-content-between">
 
     <%= link_to root_path, class: "navbar-brand me-3" do %>
-      <%= image_tag("logo.png", class: "img-responsive", alt: "Logo") %>
+      <%= image_tag("logo.png", class: "img-responsive background-grey", alt: "Logo") %>
     <% end %>
 
     <% unless controller_name == "sessions" || controller_name == "registrations" || action_name == "new" || action_name == "create" || action_name == "edit" || action_name == "update" %>
@@ -42,21 +42,20 @@
           <div data-controller="notifications"
             data-notifications-url-value="<%= mark_as_read_notifications_path %>">
 
+            <%= turbo_stream_from "notifications_user_#{current_user.id}" %>
+
             <button class="notification-bell mx-3 mt-1"
               data-action="click->notifications#markAsRead"
               data-bs-toggle="dropdown"
               data-notifications-target="bell"
               aria-expanded="false">
               🛎️
-              <%= turbo_frame_tag "notifications_badge" do %>
-                <% unread_count = current_user.received_notifications.where(read: false).count %>
-                <%= render "notifications/badge", unread_count: unread_count %>
-              <% end %>
+            <% unread_count = current_user.received_notifications.where(read: false).count %>
+            <%= render "notifications/badge", unread_count: unread_count %>
             </button>
 
             <% if current_user.received_notifications.exists? %>
               <div class="dropdown-menu dropdown-menu-end notifications-dropdown" style="min-width: 300px;">
-                <%= turbo_stream_from "notifications_user_#{current_user.id}" %>
 
                 <% current_user.received_notifications.order(created_at: :desc).limit(10).each do |notification| %>
                   <div class="notification-item">

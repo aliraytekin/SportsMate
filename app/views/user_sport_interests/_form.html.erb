@@ -1,8 +1,8 @@
 <div class="form-wrapper">
   <div class="form">
     <h2 class="form-heading text-center">How good are you ? 🏅</h2>
-    <div class="container mt-2" data-controller="toggle-price">
-      <%= simple_form_for user_sport_interest do |f| %>
+    <div class="container mt-2" >
+      <%= simple_form_for user_sport_interest, url: user_sport_interests_path do |f| %>
         <div class="form-inputs row justify-content-center">
           <%= f.association :sport, collection: Sport.all, prompt: "Select a sport" %>
           <%= f.input :skill_level, collection: UserSportInterest::SKILL_LEVELS, prompt: "Select your skill level" %>

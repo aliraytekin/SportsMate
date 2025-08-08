@@ -9,6 +9,7 @@
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.13.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.13.0/mapbox-gl.js"></script>
 
+
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" %>
@@ -17,6 +18,7 @@
   </head>
 
   <body>
+    <body data-current-user-id="<%= current_user ? current_user.id : "" %>">
     <%= render "shared/navbar", event: @event %>
     <% if notice %>
       <div class="alert alert-success"><%= notice %></div>

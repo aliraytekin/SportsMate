@@ -4,3 +4,4 @@
 //= link_tree ../../../vendor/javascript .js
 //= link popper.js
 //= link bootstrap.min.js
+//= link_directory ../videos/sports .mp4
