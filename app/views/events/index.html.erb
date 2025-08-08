@@ -1,7 +1,7 @@
 <div class="container-fluid py-4 events-page">
   <div class="row g-4">
     <div class="col-lg-3 col-md-4">
-      <div class="filters-card p-3 shadow-sm rounded bg-white">
+      <div class="filters-card p-3 shadow-sm bg-white">
         <%= turbo_frame_tag "event_results" do %>
           <%= form_with url: events_path, method: :get, data: { turbo: false } do |f| %>
             <%= f.hidden_field :query, value: params[:query], class: "form-control" %>
