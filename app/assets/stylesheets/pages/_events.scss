@@ -34,7 +34,8 @@ body {
   gap: 20px;
 }
 
-.event-card-background {
+/* --- INTEREST CARD --- */
+.interest-card-background {
   position: relative;
   display: flex;
   align-items: flex-start;
@@ -49,7 +50,7 @@ body {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.event-bg {
+.interest-bg {
   position: absolute;
   inset: 0;
   background-size: cover;
@@ -58,18 +59,18 @@ body {
   transition: transform 0.4s ease, filter 0.4s ease;
 }
 
-.event-card-background:hover .event-bg {
+.interest-card-background:hover .interest-bg {
   transform: scale(1.08);
   filter: brightness(0.8);
 }
 
-.event-overlay {
+.interest-overlay {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
 }
 
-.event-content {
+.interest-content {
   position: absolute;
   margin-top: 12px;
   top: 0;
@@ -77,18 +78,19 @@ body {
   z-index: 2;
 }
 
-.event-content h5 {
+.interest-content h5 {
   font-size: 1.4rem;
   font-weight: bold;
   margin-bottom: 10px;
   text-shadow: 0px 2px 6px rgba(0,0,0,0.6);
 }
 
-.event-content p {
+.interest-content p {
   font-size: 1rem;
   line-height: 1.5;
   text-shadow: 0px 1px 4px rgba(0,0,0,0.5);
 }
+/* --- END INTEREST --- */
 
 .sport-icon {
   width: 28px;
@@ -102,7 +104,7 @@ body {
   height: calc(100vh - 120px);
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   margin-bottom: 40px;
 }
 
