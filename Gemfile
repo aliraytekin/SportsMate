@@ -97,3 +97,4 @@ gem 'kaminari'
 gem "image_processing", "~> 1.2"
 
 gem "factory_bot", "~> 6.5"
+gem 'selenium-webdriver'

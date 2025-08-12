@@ -49,7 +49,7 @@
                             alt: [u.first_name, u.last_name].compact.join(' ') %>
                     <% else %>
                       <div class="rounded-circle bg-secondary text-white d-flex justify-content-center align-items-center"
-                           style="width: 32px; height: 32px;">
+                          style="width: 32px; height: 32px;">
                         <%= (u.first_name&.first || u.email&.first || "?").upcase %>
                       </div>
                     <% end %>

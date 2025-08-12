@@ -1,6 +1,9 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 require_relative 'simplecov_helper'
+require 'capybara/rspec'
+require 'devise'
+
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
@@ -33,6 +36,7 @@ begin
 rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_paths = [
@@ -43,6 +47,11 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
+
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include Warden::Test::Helpers, type: :system
+  config.after(type: :system) { Warden.test_reset! }
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
@@ -78,5 +87,13 @@ RSpec.configure do |config|
 
   RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
+  end
+
+  Capybara.default_driver = :selenium_chrome
+
+  RSpec.configure do |config|
+    config.before(:each, type: :system) do
+      driven_by :selenium_chrome_headless
+    end
   end
 end

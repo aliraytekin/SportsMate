@@ -84,6 +84,6 @@ class Event < ApplicationRecord
   end
 
   def free_then_price_is_zero
-      self.price_per_participant = 0 if free
+    self.price_per_participant = 0 if free
   end
 end

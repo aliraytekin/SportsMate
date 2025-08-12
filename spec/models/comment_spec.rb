@@ -7,7 +7,7 @@ RSpec.describe Comment, type: :model do
   end
 
   describe "callback" do
-    it "broadcast comment after comment creation" do
+    it "broadcast comment after creation" do
       comment = build(:comment)
 
       allow(comment).to receive(:broadcast_append_to)

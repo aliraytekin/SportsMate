@@ -64,7 +64,9 @@
           1,
           null,
           1,
+          null,
           1,
+          2,
           null,
           null,
           null,
@@ -122,7 +124,7 @@
           1,
           null,
           1,
-          3,
+          10,
           2,
           null,
           null,
@@ -135,62 +137,62 @@
           1,
           null,
           1,
-          49,
+          51,
           null,
           null,
           1,
-          49,
+          51,
           null,
-          45,
+          47,
           1,
           null,
           null,
           null,
           1,
-          96,
+          100,
           null,
           null,
           1,
-          49,
+          51,
           null,
           null,
           1,
-          49,
+          51,
           0,
-          49,
+          51,
           1,
           null,
           null,
           null,
           1,
-          49,
+          51,
           null,
           null
         ],
         "branches": {
           "[:if, 0, 59, 4, 59, 49]": {
-            "[:then, 1, 59, 4, 59, 31]": 45,
+            "[:then, 1, 59, 4, 59, 31]": 47,
             "[:else, 2, 59, 4, 59, 49]": 4
           },
           "[:if, 3, 63, 4, 63, 50]": {
             "[:then, 4, 63, 4, 63, 10]": 4,
-            "[:else, 5, 63, 4, 63, 50]": 45
+            "[:else, 5, 63, 4, 63, 50]": 47
           },
           "[:if, 6, 65, 4, 67, 7]": {
             "[:then, 7, 66, 6, 66, 59]": 1,
-            "[:else, 8, 65, 4, 67, 7]": 44
+            "[:else, 8, 65, 4, 67, 7]": 46
           },
           "[:if, 9, 79, 4, 83, 7]": {
             "[:then, 10, 80, 6, 80, 73]": 0,
-            "[:else, 11, 81, 4, 82, 75]": 49
+            "[:else, 11, 81, 4, 82, 75]": 51
           },
           "[:if, 12, 81, 4, 82, 75]": {
             "[:then, 13, 82, 6, 82, 75]": 1,
-            "[:else, 14, 81, 4, 82, 75]": 48
+            "[:else, 14, 81, 4, 82, 75]": 50
           },
-          "[:if, 15, 87, 6, 87, 44]": {
-            "[:then, 16, 87, 6, 87, 36]": 48,
-            "[:else, 17, 87, 6, 87, 44]": 1
+          "[:if, 15, 87, 4, 87, 42]": {
+            "[:then, 16, 87, 4, 87, 34]": 50,
+            "[:else, 17, 87, 4, 87, 42]": 1
           }
         }
       },
@@ -206,24 +208,24 @@
           1,
           null,
           1,
-          2,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          1,
-          null,
-          1,
           7,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          1,
+          12,
           null,
           null
         ],
         "branches": {
           "[:if, 0, 21, 4, 21, 81]": {
             "[:then, 1, 21, 4, 21, 51]": 4,
-            "[:else, 2, 21, 4, 21, 81]": 3
+            "[:else, 2, 21, 4, 21, 81]": 8
           }
         }
       },
@@ -240,18 +242,18 @@
           1,
           null,
           1,
-          1,
+          4,
           null,
           null,
           null,
           null,
-          1,
+          4,
           null,
           null,
           null,
           null,
           null,
-          1,
+          4,
           null,
           null,
           null,
@@ -337,6 +339,38 @@
         ],
         "branches": {}
       },
+      "/home/aliraytekin/code/alkif45/sportsmate/app/controllers/comments_controller.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          1,
+          null,
+          0,
+          null,
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null
+        ],
+        "branches": {
+          "[:if, 0, 10, 4, 14, 7]": {
+            "[:then, 1, 11, 6, 11, 24]": 1,
+            "[:else, 2, 13, 6, 13, 57]": 0
+          }
+        }
+      },
       "/home/aliraytekin/code/alkif45/sportsmate/app/controllers/application_controller.rb": {
         "lines": [
           1,
@@ -361,6 +395,139 @@
         ],
         "branches": {}
       },
+      "/home/aliraytekin/code/alkif45/sportsmate/app/controllers/users_controller.rb": {
+        "lines": [
+          1,
+          1,
+          2,
+          2,
+          null,
+          null,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null
+        ],
+        "branches": {}
+      },
+      "/home/aliraytekin/code/alkif45/sportsmate/app/policies/comment_policy.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null
+        ],
+        "branches": {}
+      },
+      "/home/aliraytekin/code/alkif45/sportsmate/app/policies/application_policy.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          1,
+          0,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          null,
+          1,
+          null,
+          null
+        ],
+        "branches": {}
+      },
+      "/home/aliraytekin/code/alkif45/sportsmate/app/controllers/follows_controller.rb": {
+        "lines": [
+          1,
+          1,
+          4,
+          4,
+          1,
+          1,
+          null,
+          null,
+          3,
+          3,
+          null,
+          null,
+          1,
+          2,
+          2,
+          2,
+          null,
+          null
+        ],
+        "branches": {
+          "[:if, 0, 4, 4, 7, 7]": {
+            "[:then, 1, 5, 6, 6, 12]": 1,
+            "[:else, 2, 4, 4, 7, 7]": 3
+          },
+          "[:unless, 3, 9, 4, 9, 97]": {
+            "[:else, 4, 9, 4, 9, 97]": 1,
+            "[:then, 5, 9, 4, 9, 43]": 2
+          },
+          "[:if, 6, 15, 4, 15, 53]": {
+            "[:then, 7, 15, 4, 15, 18]": 1,
+            "[:else, 8, 15, 4, 15, 53]": 1
+          }
+        }
+      },
       "/home/aliraytekin/code/alkif45/sportsmate/app/channels/application_cable/channel.rb": {
         "lines": [
           0,
@@ -372,33 +539,6 @@
       },
       "/home/aliraytekin/code/alkif45/sportsmate/app/channels/application_cable/connection.rb": {
         "lines": [
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {}
-      },
-      "/home/aliraytekin/code/alkif45/sportsmate/app/controllers/comments_controller.rb": {
-        "lines": [
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          null,
           0,
           0,
           0,
@@ -480,8 +620,6 @@
           0,
           0,
           0,
-          0,
-          0,
           null,
           0,
           0,
@@ -508,7 +646,6 @@
           0,
           0,
           null,
-          null,
           0,
           0,
           0,
@@ -585,7 +722,6 @@
           null,
           0,
           0,
-          null,
           null,
           0,
           0,
@@ -619,29 +755,6 @@
           0,
           0,
           null,
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {}
-      },
-      "/home/aliraytekin/code/alkif45/sportsmate/app/controllers/follows_controller.rb": {
-        "lines": [
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          null,
-          0,
           0,
           0,
           0,
@@ -851,6 +964,7 @@
           0,
           0,
           0,
+          0,
           null,
           0,
           0,
@@ -913,29 +1027,6 @@
         ],
         "branches": {}
       },
-      "/home/aliraytekin/code/alkif45/sportsmate/app/controllers/users_controller.rb": {
-        "lines": [
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0
-        ],
-        "branches": {}
-      },
       "/home/aliraytekin/code/alkif45/sportsmate/app/jobs/application_job.rb": {
         "lines": [
           0,
@@ -991,80 +1082,6 @@
           0,
           0,
           null,
-          0,
-          0,
-          0
-        ],
-        "branches": {}
-      },
-      "/home/aliraytekin/code/alkif45/sportsmate/app/policies/application_policy.rb": {
-        "lines": [
-          null,
-          null,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          null,
-          0,
-          null,
-          0,
-          0,
-          0
-        ],
-        "branches": {}
-      },
-      "/home/aliraytekin/code/alkif45/sportsmate/app/policies/comment_policy.rb": {
-        "lines": [
-          0,
-          0,
-          null,
-          null,
-          null,
-          0,
-          null,
-          0,
           0,
           0,
           0
@@ -1178,6 +1195,6 @@
         "branches": {}
       }
     },
-    "timestamp": 1754658234
+    "timestamp": 1754981434
   }
 }

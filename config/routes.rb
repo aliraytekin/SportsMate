@@ -25,7 +25,6 @@ Rails.application.routes.draw do
       post :success
       get :confirmation
       get :calendar
-
     end
 
     resources :comments, only: %i[create]

@@ -68,8 +68,6 @@ def show
   results = Pexels::Client.new.photos.search(query, per_page: 1)
 
   @pexels_image_url = results.first&.src&.large.presence || "https://via.placeholder.com/800x400?text=No+Image+Found"
-rescue => e
-  Rails.logger.error "[PEXELS] #{e.class}: #{e.message}"
   @pexels_image_url = "https://via.placeholder.com/800x400?text=Error+Loading+Image"
 end
 
@@ -97,7 +95,6 @@ end
       render :new, status: :unprocessable_entity
     end
   end
-
 
   def edit
     @event = Event.find(params[:id])
@@ -175,7 +172,6 @@ end
 
     redirect_to confirmation_event_path(@event), notice: "You have successfully joined this event!"
   end
-
 
   def confirmation
     @event = Event.find(params[:id])

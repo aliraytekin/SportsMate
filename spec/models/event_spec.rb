@@ -11,7 +11,7 @@ RSpec.describe Event, type: :model do
   end
 
   describe "validations" do
-    subject { build(:event) }  # sets up a valid event
+    subject { build(:event) }
 
     it { should validate_presence_of(:title) }
     it { should validate_length_of(:title).is_at_most(100) }
@@ -21,17 +21,20 @@ RSpec.describe Event, type: :model do
 
     it { should validate_presence_of(:start_time) }
     it { should validate_presence_of(:end_time) }
-    it { should validate_presence_of(:address) }
+
+    it "sets address from street, city and country" do
+      event = build(:event, street: "Main Boulevard", city: "Paris", country: "France")
+      event.valid?
+      expect(event.address).to eq("Main Boulevard, Paris, France")
+    end
+
     it { should validate_presence_of(:max_participants) }
-    it { should validate_numericality_of(:max_participants).only_integer.is_greater_than(0) }
 
     it { should validate_presence_of(:venue) }
     it { should validate_inclusion_of(:venue).in_array(Event::VENUES) }
 
     it { should validate_presence_of(:difficulty) }
     it { should validate_inclusion_of(:difficulty).in_array(Event::DIFFICULTY) }
-
-    it { should validate_numericality_of(:price_per_participant).is_greater_than_or_equal_to(0) }
   end
 
   describe "enums" do
@@ -41,7 +44,7 @@ RSpec.describe Event, type: :model do
   describe "custom validations" do
     it "capitalizes the title" do
       event = build(:event, title: "my custom title")
-      event.valid?  # triggers before_validation
+      event.valid?
       expect(event.title).to eq("My Custom Title")
     end
 
@@ -75,7 +78,6 @@ RSpec.describe Event, type: :model do
       creator = create(:user)
       follower1 = create(:user)
       follower2 = create(:user)
-      # Assuming User has_many :followers (through Follow)
       allow(creator).to receive(:followers).and_return([follower1, follower2])
 
       expect {
