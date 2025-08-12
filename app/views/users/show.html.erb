@@ -1,53 +1,69 @@
 <div class="container mt-4">
-    <h1><%= "#{@user.first_name} #{@user.last_name}" %></h1>
-    <p><%= @user.bio %></p>
+  <h2 class="user-name"><%= "#{@user.first_name} #{@user.last_name}" %></h2>
+  <p class="user-bio"><%= @user.bio %></p>
+
+  <h3 class="section-title mt-5">My Interests</h3>
 
   <div class="row">
-    <div class="col-8">
-  <% if @user.user_sport_interests.any? %>
-    <% @user.user_sport_interests.each do |interest| %>
-      <div class="p-3 mb-3">
-        <div class="d-flex justify-content-between align-items-center mb-1">
-        </div>
-        <%# <%= image_tag  %>
-        <% sport = interest.sport %>
-        <div class="form">
-          <%= image_tag "#{sport.icon}" , style: "width: 50px; height: 50px;" %>
-          <%= simple_form_for interest do |f| %>
-            <div class="form-inputs row justify-content-center">
-              <%= f.input :skill_level, collection: UserSportInterest::SKILL_LEVELS, prompt: "Select your skill level" %>
-            </div>
-            <%= f.submit "Save changes", class: "shining-button px-4 py-2 mb-3" %>
-            <%= link_to "Delete", user_sport_interest_path(interest), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"},
-                class: "shining-button alert-color-background px-4 py-2" %>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-  <% else %>
-    <h5 class="mt-4">There are no interests yet.</h5>
-  <% end %>
-    </div>
-    <div class="col-4">
+    <div class="col-md-7">
+      <div class="row">
+        <% if @user.user_sport_interests.any? %>
+          <% @user.user_sport_interests.each do |interest| %>
+            <% sport = interest.sport %>
+            <div class="col-md-6 mb-4">
+              <div class="interest-card-background">
+                <div class="interest-bg" data-controller="interest-video" data-action="mouseenter->interest-video#play mouseleave->interest-video#pause">
+                  <video
+                    data-interest-video-target="video"
+                    class="card-background-video"
+                    muted
+                    loop
+                    playsinline
+                    style="width: 100%; height: 100%; object-fit: cover;">
+                    <source src="<%= asset_path("sports/#{sport.name.downcase}.mp4") %>" type="video/mp4">
+                    <img src="<%= asset_path("#{sport.icon}") %>" alt="<%= sport.name %>" class="fallback-icon" />
+                  </video>
+                  <div class="interest-overlay"></div>
 
-    <div class="container">
-    <% if @user == current_user %>
-      <div class="user_sport_interests-form">
-        <div class="mt-2">
+                  <div class="interest-content text-white">
+                    <h5><%= sport.name %></h5>
+                    <p><strong>Skill:</strong> <%= interest.skill_level %></p>
+
+                    <% if current_user == @user %>
+                      <div class="mt-2">
+                        <%= simple_form_for interest, html: { class: "text-white" } do |f| %>
+                          <div class="mb-2">
+                            <%= f.input :skill_level, collection: UserSportInterest::SKILL_LEVELS, label: false, input_html: { class: "form-control" } %>
+                          </div>
+                          <div class="d-flex gap-2 mt-2">
+                            <button type="submit" class="shining-button">Save</button>
+                            <%= link_to "Delete", user_sport_interest_path(interest), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "shining-button alert-color-background" %>
+                          </div>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <p>There are no interests yet.</p>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="col-md-5">
+      <% if current_user == @user %>
+        <!-- Add new sport form -->
+        <div class="fixed-sidebar-form sport-card p-4 mb-4 shadow-sm">
+          <h4 class="text-center mb-3">Add New Sport</h4>
           <%= render "user_sport_interests/form", user_sport_interest: @user_sport_interest %>
         </div>
-      </div>
-    </div>
-
-    </div>
-    </div>
-
-  </div>
-
-
-
-    <% else %>
-    <div class="container">
+      <% else %>
+        <!-- Follow/Chat -->
+      <div class="container">
     <div class="row">
     <div class="col-6">
 
@@ -57,22 +73,22 @@
     <div class="p-3 mb-3">
         <% unless current_user.following.include?(@user) %>
         <div class="container">
-          <%= button_to "Follow him", user_follows_path(@user) , method: :post, class: "simple-primary-button" %>
+          <%= button_to "Follow", user_follows_path(@user) , method: :post, class: "simple-primary-button" %>
         </div>
         <% else %>
         <div class="container mb-3">
-          <%= button_to "Unfollow him", follow_path(current_user.active_follows.find_by(followed_id: @user.id)), method: :delete, class: "simple-primary-button" %>
+          <%= button_to "Unfollow", follow_path(current_user.active_follows.find_by(followed_id: @user.id)), method: :delete, class: "shining-button simple-primary-button" %>
         </div>
         <% end %>
         <div class="container mt-3">
-          <%= link_to "Chat with #{@user.first_name} #{@user.last_name}", chat_user_path(@user), class: "simple-primary-button" %>
+          <%= link_to "Chat with #{@user.first_name} #{@user.last_name}", chat_user_path(@user), class: "shining-button simple-primary-button" %>
         </div>
       </div>
 
       </div>
     </div>
   </div>
-    <% end %>
-
+      <% end %>
+    </div>
   </div>
 </div>

@@ -3,30 +3,26 @@
   flex-direction: row;
   align-items: stretch;
   border-radius: 12px;
+  position: relative;
   overflow: hidden;
   width: 100%;
   max-width: 750px;
   height: auto;
-  background-color: #000;
+  background-color: transparent;
 }
-
-.interest-card-background:hover .interest-overlay {
-  background: rgba(0, 0, 0, 0.0); // Менше затемнення
-  transition: background 0.3s ease;
-}
-
 
 .interest-bg {
-  flex: 1;
-  min-height: 200px;
-  width: 40%;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  width: 100%;
+  min-height: 220px;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
-  position: relative;
-  aspect-ratio: 4 / 3;
+  cursor: pointer;
 }
+
 
 .card-background-video {
   width: 100%;
@@ -34,6 +30,7 @@
   object-fit: cover;
   object-position: center;
   transform: scale(0.9);
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .interest-overlay {
@@ -46,19 +43,42 @@
 }
 
 .interest-content {
-  width: 60%;
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.4); /* напівпрозорий фон */
+  color: white;
+  text-align: center;
 }
+
 
 .interest-content h5,
 .interest-content p {
   margin: 0;
   color: white;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.interest-bg:hover .card-background-video {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+  cursor: pointer;
+}
+
+.interest-content .d-flex {
+  justify-content: center;
+}
+
+.simple_form select {
+  max-width: 220px;
+  margin: 0 auto;
 }
 
 .simple_form input,
@@ -74,6 +94,7 @@
   padding: 30px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
+
 
 
 
