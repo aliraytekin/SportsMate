@@ -56,20 +56,19 @@ class EventsController < ApplicationController
         marker_html: render_to_string(partial: "marker")
       }
     end
-
   end
 
-def show
-  @participants = @event.participations.includes(:user).where(status: :attending)
+  def show
+    @participants = @event.participations.includes(:user).where(status: :attending)
 
-  return if (@event.respond_to?(:photos) && @event.photos.attached?) || @event.try(:image_url).present?
+    return if (@event.respond_to?(:photos) && @event.photos.attached?) || @event.try(:image_url).present?
 
-  query = @event.title.to_s.strip.presence || "sport"
-  results = Pexels::Client.new.photos.search(query, per_page: 1)
+    query = @event.title.to_s.strip.presence || "sport"
+    results = Pexels::Client.new.photos.search(query, per_page: 1)
 
-  @pexels_image_url = results.first&.src&.large.presence || "https://via.placeholder.com/800x400?text=No+Image+Found"
-  @pexels_image_url = "https://via.placeholder.com/800x400?text=Error+Loading+Image"
-end
+    @pexels_image_url = results.first&.src&.large.presence || "https://via.placeholder.com/800x400?text=No+Image+Found"
+    @pexels_image_url = "https://via.placeholder.com/800x400?text=Error+Loading+Image"
+  end
 
   def new
     @event = Event.new

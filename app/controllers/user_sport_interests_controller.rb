@@ -1,7 +1,6 @@
 class UserSportInterestsController < ApplicationController
-before_action :set_user, only: %i[new edit]
-before_action :set_user_sport_interest, only: %i[edit update destroy]
-
+  before_action :set_user, only: %i[new edit]
+  before_action :set_user_sport_interest, only: %i[edit update destroy]
 
   def new
     @user_sport_interest = UserSportInterest.new
@@ -10,7 +9,6 @@ before_action :set_user_sport_interest, only: %i[edit update destroy]
   def create
     @user_sport_interest = UserSportInterest.new(user_sport_interests_params)
     @user_sport_interest.user = current_user
-
 
     if @user_sport_interest.save
       redirect_to user_path(current_user), notice: "Thanks for updating your interests!"
@@ -50,5 +48,4 @@ before_action :set_user_sport_interest, only: %i[edit update destroy]
   def set_user_sport_interest
     @user_sport_interest = UserSportInterest.find(params[:id])
   end
-
 end

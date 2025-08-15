@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Sport, type: :model do
   describe "associations" do
     it { should have_many(:events) }
-    it { should have_many(:user_sport_interest) }
+    it { should have_many(:user_sport_interests) }
   end
 
   describe "validations" do

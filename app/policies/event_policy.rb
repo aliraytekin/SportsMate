@@ -37,7 +37,6 @@ class EventPolicy < ApplicationPolicy
     record.participations.exists?(user: user, payment_status: :paid) || user == record.user
   end
 
-
   def calendar?
     user != record.user && record.participations.exists?(user: user)
   end

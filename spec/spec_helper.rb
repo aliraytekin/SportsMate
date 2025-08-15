@@ -11,7 +11,19 @@
 # a separate helper file that requires the additional dependencies and performs
 # the additional setup, and require it from the spec files that actually need
 # it.
-#
+require 'simplecov'
+
+SimpleCov.root File.expand_path('..', __dir__)
+SimpleCov.coverage_dir File.join(SimpleCov.root, 'coverage')
+
+SimpleCov.start 'rails' do
+  enable_coverage :branch
+  add_filter %w[/spec/ /config/ /vendor/]
+  coverage_dir 'coverage'
+end
+
+SimpleCov.formatters = [SimpleCov::Formatter::HTMLFormatter]
+
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate

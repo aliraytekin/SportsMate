@@ -1,0 +1,45 @@
+require "rails_helper"
+
+RSpec.describe ApplicationPolicy do
+  let(:user)   { instance_double("User") }
+  let(:record) { instance_double("Record") }
+
+  describe "#initialize" do
+    it "stores user and record" do
+      policy = described_class.new(user, record)
+      expect(policy.instance_variable_get(:@user)).to eq(user)
+      expect(policy.instance_variable_get(:@record)).to eq(record)
+    end
+  end
+
+  describe "default permissions" do
+    subject(:policy) { described_class.new(user, record) }
+
+    it { expect(policy.index?).to be false }
+    it { expect(policy.show?).to be false }
+    it { expect(policy.create?).to be false }
+    it { expect(policy.update?).to be false }
+    it { expect(policy.destroy?).to be false }
+
+    it "aliases new? to create?" do
+      expect(policy.new?).to eq(policy.create?)
+      expect(policy.new?).to be false
+    end
+
+    it "aliases edit? to update?" do
+      expect(policy.edit?).to eq(policy.update?)
+      expect(policy.edit?).to be false
+    end
+  end
+
+  describe "Scope" do
+    let(:scope_klass) { described_class::Scope }
+    let(:scope_obj)   { instance_double("ScopeObject") }
+
+    it "raises NoMethodError by default for #resolve" do
+      scope = scope_klass.new(user, scope_obj)
+      expect { scope.resolve }
+        .to raise_error(NoMethodError, /You must define #resolve/)
+    end
+  end
+end

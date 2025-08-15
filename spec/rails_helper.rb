@@ -1,9 +1,5 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
-require_relative 'simplecov_helper'
-require 'capybara/rspec'
-require 'devise'
-
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
@@ -11,6 +7,9 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 # Uncomment the line below in case you have `--require rails_helper` in the `.rspec` file
 # that will avoid rails generators crashing because migrations haven't been run yet
 # return unless Rails.env.test?
+require 'capybara/rspec'
+require 'devise'
+require 'pundit/matchers'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -95,5 +94,11 @@ RSpec.configure do |config|
     config.before(:each, type: :system) do
       driven_by :selenium_chrome_headless
     end
+  end
+
+  Pundit::Matchers.configure do |config|
+    config.default_user_alias = :account
+
+    config.user_aliases = { 'Post' => :account }
   end
 end

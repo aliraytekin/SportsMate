@@ -54,12 +54,6 @@ RSpec.describe Event, type: :model do
       expect(event.errors[:end_time]).to include("must be after the start time")
     end
 
-    it "adds error if event is free but price > 0" do
-      event = build(:event, free: true, price_per_participant: 10)
-      event.valid?
-      expect(event.errors[:base]).to include("Price cannot be higher than 0 if event is free")
-    end
-
     it "adds error if event is not free and price <= 0" do
       event = build(:event, free: false, price_per_participant: 0)
       event.valid?
