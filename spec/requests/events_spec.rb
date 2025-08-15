@@ -19,6 +19,22 @@ RSpec.describe "Events", type: :request do
       get events_path, params: { query: "tennis", location: "Paris", difficulty: "Beginner", date_range: "#{Date.today} to #{Date.today + 2}" }
       expect(response.body).to include("Morning Tennis")
     end
+
+    it "filters by favorite sports when signed in" do
+      sign_in user
+      create(:user_sport_interest, user: user, sport: sport)
+      create(:event, sport: sport, title: "Fav Sport Event")
+      get events_path, params: { favorite_sports: [sport.id] }
+      expect(response.body).to include("Fav Sport Event")
+    end
+
+    it "filters by location radius" do
+      event_nearby = create(:event, latitude: 40.7128, longitude: -74.0060, title: "Nearby Event")
+      allow(Event).to receive(:near).and_return(Event.where(id: event_nearby.id))
+
+      get events_path, params: { latitude: 40.7128, longitude: -74.0060, radius: 10 }
+      expect(response.body).to include("Nearby Event")
+    end
   end
 
   describe "GET /events/:id" do
