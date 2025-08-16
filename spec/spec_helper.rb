@@ -18,6 +18,7 @@ SimpleCov.coverage_dir File.join(SimpleCov.root, 'coverage')
 
 SimpleCov.start 'rails' do
   enable_coverage :branch
+  minimum_coverage 80
   add_filter %w[/spec/ /config/ /vendor/]
   coverage_dir 'coverage'
 end
