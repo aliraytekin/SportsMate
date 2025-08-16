@@ -1,4 +1,4 @@
-[![View detailed test coverage on Codecov](https://codecov.io/gh/aliraytekin/SportsMate/branch/master/graph/badge.svg?token=JSSO7HNNXT)](https://codecov.io/gh/aliraytekin/SportsMate)
+[View detailed test coverage on Codecov](https://codecov.io/gh/aliraytekin/SportsMate)
 
 # 🏀 Sportsmate
 
