@@ -9,6 +9,8 @@ on:
 env:
   MAPBOX_API_KEY: ${{ secrets.MAPBOX_API_KEY }}
   PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+  STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+  STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
 
 jobs:
   test:
