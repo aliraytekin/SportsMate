@@ -39,6 +39,3 @@
 **CI/CD**
 - [GitHub Actions](https://docs.github.com/en/actions) for continuous integration
 - [Codecov](https://about.codecov.io/) for test coverage reporting
-
-# Run server
-bin/dev
