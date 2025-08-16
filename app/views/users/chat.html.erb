@@ -1,7 +1,7 @@
 <%= turbo_stream_from "chat_#{[current_user.id, @user.id].sort.join("_")}" %>
 
 <div class="container chat">
-  <%= link_to user_path do %>
+  <%= link_to user_path(@user) do %>
     <i class="fa-solid fa-arrow-left"></i>
   <% end %>
   <h2 class="text-center">Chat with <%= @user.first_name %></h2>

@@ -66,7 +66,7 @@ class EventsController < ApplicationController
     query = @event.title.to_s.strip.presence || "sport"
     results = Pexels::Client.new.photos.search(query, per_page: 1)
 
-    @pexels_image_url = results.first&.src&.large.presence || "https://via.placeholder.com/800x400?text=No+Image+Found"
+    @pexels_image_url = results.first&.dig("src", "large").presence || "https://via.placeholder.com/800x400?text=No+Image+Found"
     @pexels_image_url = "https://via.placeholder.com/800x400?text=Error+Loading+Image"
   end
 
@@ -179,7 +179,7 @@ class EventsController < ApplicationController
 
   def calendar
     @event = Event.find(params[:id])
-    authorize @event
+    authorize @event, :calendar?
 
     calendar = Icalendar::Calendar.new
     calendar.event do |e|
