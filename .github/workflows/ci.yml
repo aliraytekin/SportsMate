@@ -69,6 +69,5 @@ jobs:
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          slug: USERNAME/REPO
-          flags: rspec
+          files: coverage/.resultset.json
           fail_ci_if_error: true
