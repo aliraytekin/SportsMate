@@ -1,6 +1,6 @@
-# 🏀 Sportsmate
-
 [![codecov](https://codecov.io/gh/aliraytekin/SportsMate/branch/master/graph/badge.svg?token=JSSO7HNNXT)](https://codecov.io/gh/aliraytekin/SportsMate)
+
+# 🏀 Sportsmate
 
 **Sportsmate** is a social platform built with Ruby on Rails where people can **create, join, and manage sports events** in their area. It’s designed to make it easier for athletes and hobbyists to connect, organize games, and stay engaged with their sports communities.
 
