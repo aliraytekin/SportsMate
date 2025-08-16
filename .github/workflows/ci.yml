@@ -5,7 +5,6 @@ on:
     branches: [ master ]
   pull_request:
 
-
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -32,17 +31,8 @@ jobs:
 
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.2'
+          ruby-version: '3.3.5'
           bundler-cache: true
-
-      - name: Install system deps
-        run: |
-          sudo apt-get update
-          # build tools + PostgreSQL headers for the pg gem
-          sudo apt-get install -y build-essential libpq-dev pkg-config
-          # optional but common in Rails stacks:
-          # sudo apt-get install -y libvips
-          # sudo apt-get install -y shared-mime-info
 
       - name: Set up Node (if Rails asset pipeline / JS)
         uses: actions/setup-node@v4
