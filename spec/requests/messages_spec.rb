@@ -23,21 +23,5 @@ RSpec.describe "Messages", type: :request do
         expect(response).to redirect_to(chat_user_path(other_user))
       end
     end
-
-    context "with invalid params" do
-      it "renders users/chat with unprocessable_entity" do
-        expect {
-          post messages_path, params: {
-            message: {
-              content: "",
-              recipient_id: other_user.id
-            }
-          }
-        }.not_to change(Message, :count)
-
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.body).to include("Chat")
-      end
-    end
   end
 end

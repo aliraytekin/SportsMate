@@ -5,6 +5,11 @@ on:
     branches: [ master ]
   pull_request:
 
+
+env:
+  MAPBOX_API_KEY: ${{ secrets.MAPBOX_API_KEY }}
+  PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+
 jobs:
   test:
     runs-on: ubuntu-latest

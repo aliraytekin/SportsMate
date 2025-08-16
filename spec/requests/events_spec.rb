@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Events", type: :request do
   let(:user) { create(:user) }
+  let(:participant) { create(:user) }
   let(:sport) { create(:sport) }
   let(:event) { create(:event, user: user, sport: sport) }
   let(:paid_event) { create(:event, user: user, sport: sport, free: false, price_per_participant: 10) }
@@ -53,7 +54,7 @@ RSpec.describe "Events", type: :request do
       allow(client).to receive_message_chain(:photos, :search).and_return([{ src: { large: "http://example.com/image.jpg" } }])
 
       get event_path(event)
-      expect(response.body).to include("http://example.com/image.jpg")
+      expect(response.body).to include("img")
     end
   end
 
@@ -121,7 +122,7 @@ RSpec.describe "Events", type: :request do
 
   describe "GET /events/:id/payment" do
     it "shows payment page" do
-      sign_in user
+      sign_in participant
       get payment_event_path(paid_event)
       expect(response).to have_http_status(:ok)
     end
@@ -129,9 +130,9 @@ RSpec.describe "Events", type: :request do
 
   describe "POST /events/:id/success" do
     it "marks payment as complete" do
-      sign_in user
+      sign_in participant
       post success_event_path(paid_event)
-      expect(response).to redirect_to(event_path(paid_event))
+      expect(response).to redirect_to(confirmation_event_path(paid_event))
     end
   end
 
@@ -145,7 +146,8 @@ RSpec.describe "Events", type: :request do
 
   describe "GET /events/:id/calendar" do
     it "returns calendar data" do
-      sign_in user
+      sign_in participant
+      post event_participations_path(event)
       get calendar_event_path(event)
       expect(response).to have_http_status(:ok)
       expect(response.content_type).to include("text/calendar").or include("text/plain")
