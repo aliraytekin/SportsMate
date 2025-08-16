@@ -1,1 +1,1 @@
-Rails app generated with [lewagon/rails-templates](https://github.com/lewagon/rails-templates), created by the [Le Wagon coding bootcamp](https://www.lewagon.com) team.
+[![codecov](https://codecov.io/gh/aliraytekin/SportsMate/graph/badge.svg?token=JSSO7HNNXT)](https://codecov.io/gh/aliraytekin/SportsMate)
