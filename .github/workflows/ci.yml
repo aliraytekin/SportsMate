@@ -48,7 +48,7 @@ jobs:
 
       - name: Run tests (will fail if coverage < 80%)
         run: |
-          rspec --format progress
+          bin/rspec --format progress
 
       - name: Upload coverage HTML
         if: always()
