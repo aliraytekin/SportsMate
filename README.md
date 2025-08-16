@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/github/aliraytekin/sportsmate/graph/badge.svg?token=JSSO7HNNXT)](https://codecov.io/github/aliraytekin/sportsmate)
+
 [View detailed test coverage on Codecov](https://codecov.io/gh/aliraytekin/SportsMate)
 
 # 🏀 Sportsmate
