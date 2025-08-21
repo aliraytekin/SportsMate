@@ -1,0 +1,9 @@
+FROM ruby:3.2-slim
+
+RUN ruby -v
+
+WORKDIR /app
+
+COPY hello.txt .
+
+CMD [ "bash", "-lc", "echo 'Container says:' && cat hello.txt"]
