@@ -1,0 +1,19 @@
+FROM ruby:3.3.2
+
+RUN apt-get update -qq && \
+    apt-get install -y --no-install-recommends \
+    build-essential git curl tzdata libpq-dev libvips && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY Gemfile Gemfile.lock ./
+RUN gem install bundler && bundle install
+
+COPY . .
+
+ENV RAILS_ENV=development \
+    BUNDLE_JOBS=4 \
+    BUNDLE_RETRY=3
+
+CMD ["bash"]
